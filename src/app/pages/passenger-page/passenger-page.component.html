@@ -1,0 +1,36 @@
+<h3>Buy ticket</h3>
+
+<form class="form" (ngSubmit)="buyTicket()">
+  <div class="form-group">
+    <label for="id_transport_type">Transport type:</label>
+    <select id="id_transport_type" class="form-control custom-select" >
+      <option>Bus</option>
+      <option>Tram</option>
+      <option>Metro</option>
+    </select>
+  </div>
+
+  <!--
+  <label class="bs-switch">
+    <input type="checkbox">
+    <span class="slider round"></span>
+  </label>
+  -->
+
+  <div class="form-group">
+    <label for="id_line">line:</label>
+    <select id="id_line" class="form-control custom-select" data-style="btn-primary">
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+    </select>
+  </div>
+
+  <!--
+  <div class="form-group">
+    <label for="entry">entry:</label>
+    <textarea class="form-control" id="entry" name="entry" [(ngModel)]="newBlogEntry.entry"></textarea>
+  </div>-->
+
+  <input class="btn btn-primary pull-right" type="submit" value="save"/>
+</form>

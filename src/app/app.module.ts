@@ -7,10 +7,11 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
 import { HomePageComponent } from './pages/home-page/home-page.component';
 
 import { RouterModule, Routes } from '@angular/router';
+import { PassengerPageComponent } from './pages/passenger-page/passenger-page.component';
 
 const appRoutes: Routes = [
-  { path: 'home-page', component: HomePageComponent },
-  //{ path: 'entry/:index',      component: BlogEntryPageComponent },
+  { path: 'home-page', component: PassengerPageComponent },
+  // { path: 'entry/:index',      component: BlogEntryPageComponent },
   { path: '', // localhost:4200 redirect to localhost:4200/home-page
     redirectTo: '/home-page',
     pathMatch: 'full'
@@ -23,7 +24,8 @@ const appRoutes: Routes = [
     AppComponent,
     NavBarComponent,
     NotFoundPageComponent,
-    HomePageComponent
+    HomePageComponent,
+    PassengerPageComponent
   ],
   imports: [
     BrowserModule,
