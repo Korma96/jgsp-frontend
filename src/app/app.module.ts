@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
@@ -13,6 +14,9 @@ import { ZonePageComponent } from './pages/transport-admin-page/zone-page/zone-p
 import { LinePageComponent } from './pages/transport-admin-page/line-page/line-page.component';
 import { StopPageComponent } from './pages/transport-admin-page/stop-page/stop-page.component';
 import {SchedulePageComponent} from './pages/transport-admin-page/schedule-page/schedule-page.component';
+import {ZoneService} from './services/transport-admin-services/zone-service/zone.service';
+import { ZoneComponent } from './pages/transport-admin-page/zone-page/zone/zone.component';
+import {InterceptorService} from './services/shared-services/interceptor.service';
 
 const appRoutes: Routes = [
   { path: 'home-page', component: HomePageComponent },
@@ -40,16 +44,24 @@ const appRoutes: Routes = [
     ZonePageComponent,
     LinePageComponent,
     StopPageComponent,
-    SchedulePageComponent
+    SchedulePageComponent,
+    ZoneComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
     )
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true
+    },
+    ZoneService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
