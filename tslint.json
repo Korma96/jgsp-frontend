@@ -72,7 +72,7 @@
     "no-switch-case-fall-through": true,
     "no-trailing-whitespace": false,
     "no-unnecessary-initializer": true,
-    "no-unused-expression": true,
+    "no-unused-expression": [true, "allow-new"],
     "no-use-before-declare": true,
     "no-var-keyword": true,
     "object-literal-sort-keys": false,
@@ -80,7 +80,7 @@
       true,
       "check-open-brace",
       "check-catch",
-      "check-else",
+      //"check-else",
       "check-whitespace"
     ],
     "prefer-const": true,

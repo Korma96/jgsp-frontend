@@ -9,7 +9,7 @@ export class NavBarComponent implements OnInit {
   imageLogoPath: string = '/assets/images/jgsp_logo.png';
   
   constructor() { }
-
+  
   ngOnInit() {
   }
 
