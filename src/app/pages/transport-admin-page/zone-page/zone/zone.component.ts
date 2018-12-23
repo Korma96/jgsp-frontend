@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Zone} from '../../../../models/zone';
+import {Zone} from '../../../../model/zone';
 
 @Component({
   selector: 'app-zone',
