@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AgmCoreModule } from '@agm/core';
 
@@ -21,6 +22,9 @@ import { MyGoogleMapComponent } from './my-google-map/my-google-map.component';
 import { DirectionsMapComponent } from './directions-map/directions-map.component';
 import { CheckSliderComponent } from './check-slider/check-slider.component';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { AuthenticationService } from './services/authentication.service';
+import { JwtUtilsService } from './services/jwt-utils.service';
 
 
 const appRoutes: Routes = [
@@ -33,6 +37,8 @@ const appRoutes: Routes = [
       { path: 'schedule', component: SchedulePageComponent}
     ]
   },
+  { path: 'login', component: LoginPageComponent},
+  { path: 'passenger', component: PassengerPageComponent},
   // { path: 'entry/:index',      component: BlogEntryPageComponent },
   { path: '', // localhost:4200 redirect to localhost:4200/home-page
     redirectTo: '/home-page',
@@ -56,10 +62,12 @@ const appRoutes: Routes = [
     SchedulePageComponent,
     MyGoogleMapComponent,
     DirectionsMapComponent,
-    CheckSliderComponent
+    CheckSliderComponent,
+    LoginPageComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
@@ -71,6 +79,8 @@ const appRoutes: Routes = [
   ],
   providers: [
     GenericService,
+    AuthenticationService,
+    JwtUtilsService,
     { provide: 'BASE_API_URL', useValue: 'http://localhost:8080/api' }  // environment.apiUrl
     
   ],

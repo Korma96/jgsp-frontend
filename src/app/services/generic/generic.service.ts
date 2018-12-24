@@ -1,6 +1,6 @@
 import { Injectable, Injector, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UrlSegment } from '@angular/router';
 
 
@@ -18,6 +18,11 @@ export class GenericService<T> {
   get(relativeUrl: string, id: number): Observable<T> {
     // const params: HttpParams = new HttpParams().set('_id',id);
     return this.http.get<T>(this.baseUrl + relativeUrl + `/${id}`);
+  }
+
+  put(relativeUrl: string, t: T): Observable<T> {
+    let headers: HttpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.put<T>(this.baseUrl + relativeUrl,t,{headers});
   }
 
   save(relativeUrl: string, t: T) {
