@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { FormsModule } from '@angular/forms';
 
 import { AgmCoreModule } from '@agm/core';
 
@@ -26,6 +27,9 @@ import { CheckDirective } from './directives/check.directive';
 import { CheckSliderService } from './services/check-slider/check-slider.service';
 import { ShowLinesComponent } from './show-lines/show-lines.component';
 import { ShowScheduleComponent } from './show-schedule/show-schedule.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { AuthenticationService } from './services/authentication.service';
+import { JwtUtilsService } from './services/jwt-utils.service';
 
 
 const appRoutes: Routes = [
@@ -38,6 +42,8 @@ const appRoutes: Routes = [
       { path: 'schedule', component: SchedulePageComponent}
     ]
   },
+  { path: 'login', component: LoginPageComponent},
+  { path: 'passenger', component: PassengerPageComponent},
   // { path: 'entry/:index',      component: BlogEntryPageComponent },
   { path: '', // localhost:4200 redirect to localhost:4200/home-page
     redirectTo: '/home-page',
@@ -63,10 +69,12 @@ const appRoutes: Routes = [
     CheckSliderComponent,
     CheckDirective,
     ShowLinesComponent,
-    ShowScheduleComponent
+    ShowScheduleComponent,
+    LoginPageComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
@@ -81,7 +89,11 @@ const appRoutes: Routes = [
   providers: [
     GenericService,
     { provide: 'BASE_API_URL', useValue: 'http://localhost:8080/api' },  // environment.apiUrl
-    CheckSliderService
+    CheckSliderService,
+    AuthenticationService,
+    JwtUtilsService,
+    { provide: 'BASE_API_URL', useValue: 'http://localhost:8080/api' }  // environment.apiUrl
+    
   ],
   bootstrap: [AppComponent]
 })
