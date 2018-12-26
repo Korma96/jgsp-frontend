@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AgmCoreModule } from '@agm/core';
 
@@ -17,10 +19,13 @@ import {SchedulePageComponent} from './pages/transport-admin-page/schedule-page/
 
 import { RouterModule, Routes } from '@angular/router';
 import { GenericService } from './services/generic/generic.service';
-import { MyGoogleMapComponent } from './my-google-map/my-google-map.component';
 import { DirectionsMapComponent } from './directions-map/directions-map.component';
 import { CheckSliderComponent } from './check-slider/check-slider.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CheckDirective } from './directives/check.directive';
+import { CheckSliderService } from './services/check-slider/check-slider.service';
+import { ShowLinesComponent } from './show-lines/show-lines.component';
+import { ShowScheduleComponent } from './show-schedule/show-schedule.component';
 
 
 const appRoutes: Routes = [
@@ -54,9 +59,11 @@ const appRoutes: Routes = [
     LinePageComponent,
     StopPageComponent,
     SchedulePageComponent,
-    MyGoogleMapComponent,
     DirectionsMapComponent,
-    CheckSliderComponent
+    CheckSliderComponent,
+    CheckDirective,
+    ShowLinesComponent,
+    ShowScheduleComponent
   ],
   imports: [
     BrowserModule,
@@ -67,12 +74,14 @@ const appRoutes: Routes = [
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCncyqJ42IAu6XewfdwvXyVmCOUyr30gWI'
     }),
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot() // ToastrModule added
   ],
   providers: [
     GenericService,
-    { provide: 'BASE_API_URL', useValue: 'http://localhost:8080/api' }  // environment.apiUrl
-    
+    { provide: 'BASE_API_URL', useValue: 'http://localhost:8080/api' },  // environment.apiUrl
+    CheckSliderService
   ],
   bootstrap: [AppComponent]
 })

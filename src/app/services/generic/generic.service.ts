@@ -15,7 +15,12 @@ export class GenericService<T> {
     return this.http.get<T[]>(this.baseUrl + relativeUrl);
   }
 
-  get(relativeUrl: string, id: number): Observable<T> {
+  get(relativeUrl: string): Observable<T> {
+    // const params: HttpParams = new HttpParams().set('_id',id);
+    return this.http.get<T>(this.baseUrl + relativeUrl);
+  }
+
+  getUsingId(relativeUrl: string, id: number): Observable<T> {
     // const params: HttpParams = new HttpParams().set('_id',id);
     return this.http.get<T>(this.baseUrl + relativeUrl + `/${id}`);
   }

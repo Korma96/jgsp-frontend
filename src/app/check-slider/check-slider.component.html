@@ -1,5 +1,23 @@
-<div class="material-switch pull-right">
-    <input id="someSwitchOptionDefault" [checked]="isChecked" 
-        (change)="changedState()" type="checkbox"/>
+<!--<div class="material-switch pull-right">
+    <input id="someSwitchOptionDefault" [checked]="lineAndChecked.checked" 
+        (click)="changedState()" type="checkbox"/>
     <label for="someSwitchOptionDefault" class="label-default"></label>
+</div>
+-->
+
+<div class="base_div" title="{{line.name}}">
+        {{line.name.substring(0,5)}}
+        <ng-template [ngIf]="5 - line.name.length + 1 > 0">
+            <ng-template ngFor let-num [ngForOf]="[1,2,3,4,5].slice(0, 5 - line.name.substring(0,5).length)">
+                &nbsp;
+            </ng-template>            
+        </ng-template>
+
+    <span>
+        <label class="switch">
+            <input type="checkbox" [checked]="isChecked" (click)="changedState()">
+            <span class="slider"></span>
+        </label>
+    </span>
+    
 </div>
