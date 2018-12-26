@@ -1,0 +1,12 @@
+.wrapper {
+  overflow: hidden; /* will contain if #first is longer than #second */
+}
+.first {
+  width: 150px;
+  float:left;
+}
+.second {
+  overflow: hidden; /* if you don't want #second to wrap below #first */
+  width: 50px;
+  margin-right: 10px;
+}

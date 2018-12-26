@@ -1,3 +1,8 @@
-<p>
-  zone works!
-</p>
+<div class="wrapper">
+  <button class="first">
+    {{zone.name}}
+  </button>
+  <button class="second" (click)="deleteZone(zone.id)">
+    x
+  </button>
+</div>

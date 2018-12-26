@@ -1,3 +1,9 @@
-<div *ngFor="let zone of zones">
-  <div>{{zone.name}}</div>
+<div *ngIf="zones.length != 0">
+  <table>
+    <tr *ngFor="let zonesInRow of zonesView">
+      <td *ngFor="let zone of zonesInRow">
+        <app-zone [zone] = "zone" (deleteZoneEventHandler)="delete($event)"></app-zone>
+      </td>
+    </tr>
+  </table>
 </div>

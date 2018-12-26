@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Zone} from '../../../../model/zone';
 
 @Component({
@@ -7,10 +7,17 @@ import {Zone} from '../../../../model/zone';
   styleUrls: ['./zone.component.css']
 })
 export class ZoneComponent implements OnInit {
-  zone: Zone;
+  @Input() zone: Zone;
+  @Input() index: number;
+  @Output() deleteZoneEventHandler: EventEmitter<number> = new EventEmitter<number>();
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  deleteZone(zoneId: number) {
+    this.deleteZoneEventHandler.next(zoneId);
   }
 
 }

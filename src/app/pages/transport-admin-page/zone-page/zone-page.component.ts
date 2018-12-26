@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ZoneService} from '../../../services/transport-admin-services/zone-service/zone.service';
 import {Zone} from '../../../model/zone';
+import {GenericService} from '../../../services/generic/generic.service';
+import {HelperMethodsService} from '../../../services/generic/helper-methods.service';
 
 @Component({
   selector: 'app-zone-page',
@@ -8,14 +10,29 @@ import {Zone} from '../../../model/zone';
   styleUrls: ['./zone-page.component.css']
 })
 export class ZonePageComponent implements OnInit {
-  zones: Object[];
-  constructor(private zoneService: ZoneService) { }
+  zones: Zone[];
+  zonesView: Zone[][];
+
+  constructor(private zoneService: ZoneService, private genericService: GenericService<Zone>,
+              private helperMethodService: HelperMethodsService) { }
 
   ngOnInit() {
-    this.zoneService.getAll().subscribe((zones: Object[]) => {
+    this.genericService.getAll('/zone/all').subscribe(zones => {
       this.zones = zones;
+      console.log(zones);
+      this.updateZonesView();
     });
-    console.log(this.zones);
+  }
+
+  delete(zoneId: number) {
+    const index: number = this.zones.findIndex(x => x.id === zoneId);
+    this.zones.splice(index, 1);
+    // delete on server
+    this.updateZonesView();
+  }
+
+  updateZonesView() {
+    this.zonesView = this.helperMethodService.getListOfLists<Zone>(4, this.zones);
   }
 
 }

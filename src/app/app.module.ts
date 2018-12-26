@@ -24,6 +24,7 @@ import { GenericService } from './services/generic/generic.service';
 import { MyGoogleMapComponent } from './my-google-map/my-google-map.component';
 import { DirectionsMapComponent } from './directions-map/directions-map.component';
 import { CheckSliderComponent } from './check-slider/check-slider.component';
+import { AddZoneComponent } from './pages/transport-admin-page/zone-page/add-zone/add-zone.component';
 
 
 const appRoutes: Routes = [
@@ -61,7 +62,8 @@ const appRoutes: Routes = [
     DirectionsMapComponent,
     CheckSliderComponent,
     SchedulePageComponent,
-    ZoneComponent
+    ZoneComponent,
+    AddZoneComponent,
   ],
   imports: [
     BrowserModule,
