@@ -1,5 +1,31 @@
-<h1>
-  home-page works!
-</h1>
 
-<app-my-google-map [lines]="lines"> </app-my-google-map>
+<div *ngIf="!lines" class="alert alert-info box-msg" role="alert">
+    <h4 align="center">Loading lines ...</h4>
+</div>
+
+<!--
+<div *ngIf="lines && lines.length == 0" class="alert alert-warning box-msg" role="alert">
+    There are no lines at the moment!
+</div>
+-->
+<section id="tabs">
+    <div class="row">
+        <div class="col-xl-12 ">
+            <nav>
+                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-show-lines-tab" data-toggle="tab" href="#nav-show-lines" role="tab" aria-controls="nav-show-lines" aria-selected="true">SHOW LINES</a>
+                    <a class="nav-item nav-link" id="nav-show-schedule-tab" data-toggle="tab" href="#nav-show-schedule" role="tab" aria-controls="nav-show-schedule" aria-selected="false">SHOW SCHEDULE</a>
+                </div>
+            </nav>
+            <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-show-lines" role="tabpanel" aria-labelledby="nav-show-lines-tab">
+                    <app-show-lines [lines]="lines"> </app-show-lines>
+                </div>
+                <div class="tab-pane fade" id="nav-show-schedule" role="tabpanel" aria-labelledby="nav-show-schedule-tab">
+                    <app-show-schedule></app-show-schedule>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+</section>

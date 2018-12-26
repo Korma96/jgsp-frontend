@@ -1,8 +1,13 @@
 import {GoogleMapsAPIWrapper} from '@agm/core/services/google-maps-api-wrapper';
 import { Component, OnInit, Input} from '@angular/core';
-import { Stop } from '../model/stop';
 import { Line } from '../model/line';
 import { GenericService } from 'src/app/services/generic/generic.service';
+import { colors } from '../resources/colors';
+import { PointsAndStops } from '../model/points-and-stops';
+import { ToastrService } from 'ngx-toastr';
+import { LineForShowing } from '../model/line-for-showing';
+import { CheckSliderService } from '../services/check-slider/check-slider.service';
+import { LineAndChecked } from '../model/line-and-checked';
 
 declare var google: any;
 
@@ -14,26 +19,31 @@ declare var google: any;
   styleUrls: ['./directions-map.component.css']
 })
 export class DirectionsMapComponent implements OnInit {
-  @Input() lineForShowing: Line;
+  @Input() 
+  lines: Line[];
 
-  stops: Stop[];
+  colors: string[];
 
-  parts: any[];
+  linesForShowing: LineForShowing[];
 
-  directionsService: any;
-  directionsDisplay: any;
+  map: any;
+  // directionsService: any;
+  // directionsDisplay: any;
 
-  private relativeUrl: string;
 
-  constructor (private gmapsApi: GoogleMapsAPIWrapper, private stopService: GenericService<Stop>) {
-    this.relativeUrl = `/line/${this.lineForShowing.id}/stop`;
+  constructor (private gmapsApi: GoogleMapsAPIWrapper, 
+              private stopService: GenericService<PointsAndStops>,
+              private toastr: ToastrService,
+              private checkSliderService: CheckSliderService) {
+    // this.relativeUrl = '/line/20/stop';
+    this.linesForShowing = [];
+    this.colors = colors; // importovani colors
   }
 
   ngOnInit() {
-      this.getStops();
-
       this.gmapsApi.getNativeMap().then(map => {
-          this.directionsService = new google.maps.DirectionsService;
+          /*this.directionsService = new google.maps.DirectionsService;
+
           this.directionsDisplay = new google.maps.DirectionsRenderer({
               suppressMarkers: true,  // potisni ugradjene markere (markere koji pripadaju directionsService-u),
                                       // jer cemo postaviti svoje markere za stops
@@ -41,25 +51,98 @@ export class DirectionsMapComponent implements OnInit {
               draggable: true,
               map: map // ,
               // markerOptions: {icon: 'file:///E:/STUDIRANJE/CETVRTA%20GODINA/NAPREDNE%20WEB%20TEHNOLOGIJE/Projekat/bus_station.png'}
-          });
+          });*/
 
-          this.show(map);
-
+          this.map = map;
+          
+          // this.getPointsAndStops();
       });
+
+      this.checkSliderService.change.subscribe(
+        (lineAndChecked: LineAndChecked) => {
+          if (lineAndChecked.checked) {
+              if (this.linesForShowing[lineAndChecked.line.id]) { 
+                this.show(this.linesForShowing[lineAndChecked.line.id]);
+              }
+              else {
+                this.linesForShowing[lineAndChecked.line.id] = {
+                  name: lineAndChecked.line.name,
+                  points: [],
+                  stops: [],
+                  polyline: null,
+                  markers: null,
+                  relativeUrl: `/line/${lineAndChecked.line.id}/points-and-stops`,
+                  color: this.colors[lineAndChecked.line.id % this.colors.length]
+                };
+                
+                this.getPointsAndStops(this.linesForShowing[lineAndChecked.line.id]);
+              }
+          } 
+          else {
+              if (this.linesForShowing[lineAndChecked.line.id]) {
+                  this.hide(this.linesForShowing[lineAndChecked.line.id]);
+              }
+              else {
+                  this.toastr.warning('The line you need to remove can not be found in Google Maps');
+              }
+          }
+        }
+      );
   }
 
-  getStops() {
-    this.stopService.getAll(this.relativeUrl) .subscribe(
-      stops => this.stops = stops,
+  getPointsAndStops(lineForShowing: LineForShowing) {
+    this.stopService.get(lineForShowing.relativeUrl) .subscribe(
+      pointsAndStops => {
+        lineForShowing.points = pointsAndStops.points;
+        lineForShowing.stops = pointsAndStops.stops;
+    
+        if (lineForShowing.points) {
+          if (lineForShowing.points.length > 0) {
+            this.toastr.success('Points, for checked line, are successfully loaded!');
+          }
+          else {
+            this.toastr.warning('There are no points, for checked line, at the moment!');
+          }
+        }
+        else {
+          this.toastr.error('Problem with loading points, for checked line!');
+          return;
+        }
+
+        if (lineForShowing.stops) {
+          if (lineForShowing.stops.length > 0) {
+            this.toastr.success('Stops, for checked line, are successfully loaded!');
+          }
+          else {
+            this.toastr.warning('There are no stops, for checked line, at the moment!');
+          }
+        }
+        else {
+          this.toastr.error('Problem with loading stops, for checked line!');
+          return;
+        }
+
+        this.show(lineForShowing);
+      },
       error => alert('Error: ' + JSON.stringify(error))
     );
   }
 
-  show(map: any) {
+  show(lineForShowing: LineForShowing) {
     // Zoom and center map automatically by stations (each station will be in visible map area)
-    const lngs = this.stops.map(stop => stop.longitude);
-    const lats = this.stops.map(stop => stop.latitude);
-    map.fitBounds({
+    let lngs: any;
+    let lats: any;
+    
+    if (lineForShowing.stops.length > 0) {
+      lngs = lineForShowing.stops.map(stop => stop.longitude);
+      lats = lineForShowing.stops.map(stop => stop.latitude);  
+    }
+    else {
+      lngs = lineForShowing.points.map(point => point.lng);
+      lats = lineForShowing.points.map(point => point.lat);
+    }
+    
+    this.map.fitBounds({
       west: Math.min.apply(null, lngs),
       east: Math.max.apply(null, lngs),
       north: Math.min.apply(null, lats),
@@ -67,50 +150,54 @@ export class DirectionsMapComponent implements OnInit {
     });
   
     // Divide route to several parts because max stations limit is 25 (23 waypoints + 1 origin + 1 destination)
-    this.parts = [];
+    /*this.parts = [];
     const max = 25 - 1;
     for (let i = 0; i < this.stops.length; i = i + max) {
       this.parts.push(this.stops.slice(i, i + max + 1));
+    }*/
+    
+    this.drawLine(lineForShowing);
+    this.drawStops(lineForShowing);
+  }
+
+  hide(lineForShowing: LineForShowing) {
+    this.removeLine(lineForShowing);
+    this.removeStops(lineForShowing);
+  }
+
+  drawLine(lineForShowing: LineForShowing): void {
+    if (!lineForShowing.polyline) {
+      const polylineOptions = new google.maps.Polyline({
+          path: lineForShowing.points,
+          strokeColor: lineForShowing.color,
+          strokeWeight: 5,
+          strokeOpacity: 1.0
+      });
+
+      lineForShowing.polyline = new google.maps.Polyline(polylineOptions);
     }
     
-    this.drawLine();
-    this.drawStops(map);
+    lineForShowing.polyline.setMap(this.map);
   }
 
-  drawLine(): void {
-    for (let i = 0; i < this.parts.length; i++) {
-      // Waypoints does not include first station (origin) and last station (destination)
-      const waypoints = [];
-      for (let j = 1; j < this.parts[i].length - 1; j++) {
-        waypoints.push({location: this.parts[i][j], stopover: true});
-      }
-
-      // Service options
-      const service_options = {
-        origin: this.parts[i][0],
-        destination: this.parts[i][this.parts[i].length - 1],
-        waypoints: waypoints,
-        travelMode: 'DRIVING',
-        provideRouteAlternatives: false
-      };
-      // Send request
-      this.directionsService.route(service_options, this.service_callback);
+  // ukloni liniju ako postoji		
+  removeLine(lineForShowing: LineForShowing) {
+    if (lineForShowing.polyline != null) {
+      lineForShowing.polyline.setMap(null);
     }
-            
-  }
-
-  service_callback(response: any, status: string): void {
-    if (status !== 'OK') {
-      alert('Directions request failed due to ' + status);
-      return;
-    }
-    /*var directionsDisplay = new google.maps.DirectionsRenderer;
-    directionsDisplay.setMap(map);
-    directionsDisplay.setOptions({ suppressMarkers: true, preserveViewport: true });*/
-    this.directionsDisplay.setDirections(response);
   }
   
-  drawStops(map: any) {
+  drawStops(lineForShowing: LineForShowing) {
+    if (!lineForShowing.markers) {
+      this.createMarkers(lineForShowing);
+    }
+
+    for (const marker of lineForShowing.markers) {
+      marker.setMap(this.map);
+    }
+  }
+
+  createMarkers(lineForShowing: LineForShowing) {
     let firstStopImage: any = {
       url: '/assets/icons/a.svg',
       size: new google.maps.Size(71, 71),
@@ -126,42 +213,75 @@ export class DirectionsMapComponent implements OnInit {
       scaledSize: new google.maps.Size(25, 25)
     };
     
-    if (this.lineForShowing.name.includes('B')) {
+
+    let relativeUrlPicture: string = '/assets/icons/bus_station_blue.png';
+
+    if (lineForShowing.name.includes('B')) {
       const tmp = firstStopImage;
       firstStopImage = lastStopImage;
       lastStopImage = tmp;
-      
+
+      relativeUrlPicture = '/assets/icons/bus_station_red.png';
     }
     
     const otherImage: any = {
-      url: '/assets/icons/bus_station.png',
+      url: relativeUrlPicture,
       size: new google.maps.Size(71, 71),
       origin: new google.maps.Point(0, 0),
       anchor: new google.maps.Point(17, 34),
       scaledSize: new google.maps.Size(25, 25)
     };
     
+    lineForShowing.markers = [];
     // Show stations on the map as markers
-    for (let i = 0; i < this.stops.length; i++) {
+    for (let i = 0; i < lineForShowing.stops.length; i++) {
       let image;
       if (i === 0) {
         image = firstStopImage;
       } 
-      else if (i === this.stops.length - 1) {
+      else if (i === lineForShowing.stops.length - 1) {
         image = lastStopImage;
       }
       else {
         image = otherImage;
       }
 
-      new google.maps.Marker({
-        position: {lat: this.stops[i].latitude, lng: this.stops[i].longitude},
-        icon: image,
-        map: map,
-        title: this.stops[i].name
-      });
+      const marker = this.addMarker(image, {lat: lineForShowing.stops[i].latitude, lng: lineForShowing.stops[i].longitude},
+                               lineForShowing.stops[i].name);
+      lineForShowing.markers.push(marker);
     }
+  } 
 
+  addMarker(image, latlng, title): any {
+    const infowindow = new google.maps.InfoWindow({
+        content: title
+    });
+    
+    const marker = new google.maps.Marker({
+        position: latlng, 
+        // map: this.map, 
+        icon: image,
+        infowindow: title
+    });  
+    
+    google.maps.event.addListener(marker, 'mouseover', function() {
+        infowindow.open(this.map, marker);
+    }); 
+
+    google.maps.event.addListener(marker, 'mouseout', function() {
+        infowindow.close();
+    });
+
+    return marker;
+  }
+
+  removeStops(lineForShowing: LineForShowing) {
+    if (lineForShowing.markers) {
+      for (const marker of lineForShowing.markers) {
+        marker.setMap(null);
+      }
+    }
+  
   }
 
 }

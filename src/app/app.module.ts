@@ -1,5 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { FormsModule } from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import { AgmCoreModule } from '@agm/core';
@@ -21,9 +24,16 @@ import {InterceptorService} from './services/shared-services/interceptor.service
 
 import { RouterModule, Routes } from '@angular/router';
 import { GenericService } from './services/generic/generic.service';
-import { MyGoogleMapComponent } from './my-google-map/my-google-map.component';
 import { DirectionsMapComponent } from './directions-map/directions-map.component';
 import { CheckSliderComponent } from './check-slider/check-slider.component';
+import { HttpClientModule } from '@angular/common/http';
+import { CheckDirective } from './directives/check.directive';
+import { CheckSliderService } from './services/check-slider/check-slider.service';
+import { ShowLinesComponent } from './show-lines/show-lines.component';
+import { ShowScheduleComponent } from './show-schedule/show-schedule.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { AuthenticationService } from './services/authentication.service';
+import { JwtUtilsService } from './services/jwt-utils.service';
 import { AddZoneComponent } from './pages/transport-admin-page/zone-page/add-zone/add-zone.component';
 
 
@@ -37,6 +47,8 @@ const appRoutes: Routes = [
       { path: 'schedule', component: SchedulePageComponent}
     ]
   },
+  { path: 'login', component: LoginPageComponent},
+  { path: 'passenger', component: PassengerPageComponent},
   // { path: 'entry/:index',      component: BlogEntryPageComponent },
   { path: '', // localhost:4200 redirect to localhost:4200/home-page
     redirectTo: '/home-page',
@@ -57,9 +69,11 @@ const appRoutes: Routes = [
     ZonePageComponent,
     LinePageComponent,
     StopPageComponent,
-    SchedulePageComponent,
-    MyGoogleMapComponent,
     DirectionsMapComponent,
+    CheckDirective,
+    ShowLinesComponent,
+    ShowScheduleComponent,
+    LoginPageComponent,
     CheckSliderComponent,
     SchedulePageComponent,
     ZoneComponent,
@@ -67,6 +81,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     HttpClientModule,
     RouterModule.forRoot(
       appRoutes,
@@ -75,11 +90,16 @@ const appRoutes: Routes = [
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCncyqJ42IAu6XewfdwvXyVmCOUyr30gWI'
     }),
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot() // ToastrModule added
   ],
   providers: [
     GenericService,
     { provide: 'BASE_API_URL', useValue: 'http://localhost:8080/api' },  // environment.apiUrl
+    CheckSliderService,
+    AuthenticationService,
+    JwtUtilsService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,

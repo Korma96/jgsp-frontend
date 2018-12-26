@@ -1,0 +1,38 @@
+
+
+<div class="row">
+  <div class="col-sm-3 col-md-6 col-lg-4 col-xl-4">
+      <div class="row">
+          <div class="col-xs-12 col-sm-2 col-md-4 col-lg-4 col-xl-12">
+              <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading border border-secondary rounded div-backgorund"><h3 align="center">Lines</h3></div>
+            
+                <div class="row table-bordered">
+                    <div class="col-xl-4" *ngIf="lines">
+                        <div class="row table-bordered line-row" *ngFor="let line of lines.slice(0, lines.length/3); let i = index;">
+                            <app-check-slider [appCheck]="selectors" [color]="colors[line.id % colors.length]" [line]="line"> </app-check-slider>
+                        </div>
+                    </div>
+                    <div class="col-xl-4" *ngIf="lines">
+                        <div class="row table-bordered line-row" *ngFor="let line of lines.slice(lines.length/3, 2*lines.length/3); let i = index;">
+                            <app-check-slider [appCheck]="selectors" [color]="colors[line.id % colors.length]" [line]="line"> </app-check-slider>
+                        </div>
+                    </div>
+                    <div class="col-xl-4" *ngIf="lines">
+                        <div class="row table-bordered line-row" title="{{line.name}}" *ngFor="let line of lines.slice(2*lines.length/3, lines.length); let i = index;">
+                            <app-check-slider [appCheck]="selectors" [color]="colors[line.id % colors.length]" [line]="line"> </app-check-slider>
+                        </div>
+                    </div>
+                </div>
+              </div>            
+          </div> 
+      </div>
+  </div>
+
+  <div class="col-sm-9 col-md-6 col-lg-8 col-xl-8">
+    <agm-map [latitude]="center.lat" [longitude]="center.lng">
+            <app-directions-map [lines]="lines"></app-directions-map>
+    </agm-map>
+  </div>
+</div>
