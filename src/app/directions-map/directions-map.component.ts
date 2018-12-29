@@ -19,8 +19,6 @@ declare var google: any;
   styleUrls: ['./directions-map.component.css']
 })
 export class DirectionsMapComponent implements OnInit {
-  @Input() 
-  lines: Line[];
 
   colors: string[];
 
@@ -42,20 +40,7 @@ export class DirectionsMapComponent implements OnInit {
 
   ngOnInit() {
       this.gmapsApi.getNativeMap().then(map => {
-          /*this.directionsService = new google.maps.DirectionsService;
-
-          this.directionsDisplay = new google.maps.DirectionsRenderer({
-              suppressMarkers: true,  // potisni ugradjene markere (markere koji pripadaju directionsService-u),
-                                      // jer cemo postaviti svoje markere za stops
-              preserveViewport: true,
-              draggable: true,
-              map: map // ,
-              // markerOptions: {icon: 'file:///E:/STUDIRANJE/CETVRTA%20GODINA/NAPREDNE%20WEB%20TEHNOLOGIJE/Projekat/bus_station.png'}
-          });*/
-
           this.map = map;
-          
-          // this.getPointsAndStops();
       });
 
       this.checkSliderService.change.subscribe(
@@ -217,9 +202,9 @@ export class DirectionsMapComponent implements OnInit {
     let relativeUrlPicture: string = '/assets/icons/bus_station_blue.png';
 
     if (lineForShowing.name.includes('B')) {
-      const tmp = firstStopImage;
+      /*const tmp = firstStopImage;
       firstStopImage = lastStopImage;
-      lastStopImage = tmp;
+      lastStopImage = tmp;*/
 
       relativeUrlPicture = '/assets/icons/bus_station_red.png';
     }

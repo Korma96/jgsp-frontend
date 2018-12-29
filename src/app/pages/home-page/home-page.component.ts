@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Line } from 'src/app/model/line';
 import { GenericService } from 'src/app/services/generic/generic.service';
 import { ToastrService } from 'ngx-toastr';
+import { Zone } from 'src/app/model/zone';
 
 @Component({
   selector: 'app-home-page',
@@ -10,33 +11,33 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class HomePageComponent implements OnInit {
 
-  lines: Line[];
+  zones: Zone[];
 
   private relativeUrl: string;
   
 
-  constructor(private lineService: GenericService<Line>, private toastr: ToastrService) {
-    this.relativeUrl = '/line/all';
+  constructor(private lineService: GenericService<Zone>, private toastr: ToastrService) {
+    this.relativeUrl = '/zone/all-with-line';
   }
 
   ngOnInit() {
-    this.getLines();
+    this.getZones();
   }
 
-  getLines() {
+  getZones() {
     this.lineService.getAll(this.relativeUrl) .subscribe(
-      lines => {
-        this.lines = lines;
-        if (this.lines) {
-          if (this.lines.length > 0) {
-            this.toastr.success('Lines are successfully loaded!');
+      zones => {
+        this.zones = zones;
+        if (this.zones) {
+          if (this.zones.length > 0) {
+            this.toastr.success('Zones are successfully loaded!');
           }
           else {
-            this.toastr.warning('There are no lines at the moment!');
+            this.toastr.warning('There are no zones at the moment!');
           }
         }
         else {
-          this.toastr.error('Problem with loading lines!');
+          this.toastr.error('Problem with loading zones!');
         }
       },
       error => console.log('Error: ' + JSON.stringify(error))
