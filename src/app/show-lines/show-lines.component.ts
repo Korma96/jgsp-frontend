@@ -36,7 +36,7 @@ export class ShowLinesComponent implements OnInit {
   /*insertOrDropLine(index: number) {
     if (this.arrayChecked[index]) {
       this.arrayChecked[index] = false;
-      // remove line
+      // remove completeLine
       this.linesForShowing.splice(index, 1);
     }
     else {

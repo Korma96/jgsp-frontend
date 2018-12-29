@@ -32,10 +32,10 @@ export class DirectionsMapComponent implements OnInit {
 
 
   constructor (private gmapsApi: GoogleMapsAPIWrapper, 
-              private stopService: GenericService<PointsAndStops>,
+              private stopService: GenericService,
               private toastr: ToastrService,
               private checkSliderService: CheckSliderService) {
-    // this.relativeUrl = '/line/20/stop';
+    // this.relativeUrl = '/completeLine/20/stop';
     this.linesForShowing = [];
     this.colors = colors; // importovani colors
   }
@@ -83,7 +83,7 @@ export class DirectionsMapComponent implements OnInit {
                   this.hide(this.linesForShowing[lineAndChecked.line.id]);
               }
               else {
-                  this.toastr.warning('The line you need to remove can not be found in Google Maps');
+                  this.toastr.warning('The completeLine you need to remove can not be found in Google Maps');
               }
           }
         }
@@ -91,34 +91,34 @@ export class DirectionsMapComponent implements OnInit {
   }
 
   getPointsAndStops(lineForShowing: LineForShowing) {
-    this.stopService.get(lineForShowing.relativeUrl) .subscribe(
+    this.stopService.get<PointsAndStops>(lineForShowing.relativeUrl) .subscribe(
       pointsAndStops => {
         lineForShowing.points = pointsAndStops.points;
         lineForShowing.stops = pointsAndStops.stops;
     
         if (lineForShowing.points) {
           if (lineForShowing.points.length > 0) {
-            this.toastr.success('Points, for checked line, are successfully loaded!');
+            this.toastr.success('Points, for checked completeLine, are successfully loaded!');
           }
           else {
-            this.toastr.warning('There are no points, for checked line, at the moment!');
+            this.toastr.warning('There are no points, for checked completeLine, at the moment!');
           }
         }
         else {
-          this.toastr.error('Problem with loading points, for checked line!');
+          this.toastr.error('Problem with loading points, for checked completeLine!');
           return;
         }
 
         if (lineForShowing.stops) {
           if (lineForShowing.stops.length > 0) {
-            this.toastr.success('Stops, for checked line, are successfully loaded!');
+            this.toastr.success('Stops, for checked completeLine, are successfully loaded!');
           }
           else {
-            this.toastr.warning('There are no stops, for checked line, at the moment!');
+            this.toastr.warning('There are no stops, for checked completeLine, at the moment!');
           }
         }
         else {
-          this.toastr.error('Problem with loading stops, for checked line!');
+          this.toastr.error('Problem with loading stops, for checked completeLine!');
           return;
         }
 

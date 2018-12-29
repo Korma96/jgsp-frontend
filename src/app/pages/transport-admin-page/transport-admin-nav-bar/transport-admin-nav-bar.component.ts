@@ -11,20 +11,4 @@ export class TransportAdminNavBarComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  navigateToAddZonePage() {
-    alert('add zone page!');
-  }
-
-  navigateToAddLinePage() {
-    alert('add line page!');
-  }
-
-  navigateToAddStopPage() {
-    alert('add stop page!');
-  }
-
-  navigateToAddSchedulePage() {
-    alert('add schedule page!');
-  }
 }

@@ -5,10 +5,10 @@ export class JwtUtilsService {
 
   constructor() { }
 
-  getRoles(token: string){
-    let jwtData = token.split('.')[1];
-    let decodedJwtJsonData = window.atob(jwtData);
-    let decodedJwtData = JSON.parse(decodedJwtJsonData);
-    return decodedJwtData.roles.map(x => x.authority)||[];
+  getRoles(token: string) {
+    const jwtData = token.split('.')[1];
+    const decodedJwtJsonData = window.atob(jwtData);
+    const decodedJwtData = JSON.parse(decodedJwtJsonData);
+    return decodedJwtData.roles.map(x => x.authority) || [];
   }
 }

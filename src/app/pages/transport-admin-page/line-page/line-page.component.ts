@@ -10,9 +10,9 @@ import { LineService } from '../../../services/transport-admin-services/line-ser
 })
 export class LinePageComponent implements OnInit {
   lines: Line[];
-  constructor(private lineService: LineService, private genericService: GenericService<Line>) { }
+  constructor(private lineService: LineService, private genericService: GenericService) { }
 
   ngOnInit() {
-    this.genericService.getAll('/line/all').subscribe(lines => this.lines = lines);
+    this.genericService.getAll<Line>('/line/all').subscribe(lines => this.lines = lines);
   }
 }

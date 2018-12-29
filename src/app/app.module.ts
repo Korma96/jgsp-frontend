@@ -26,7 +26,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { GenericService } from './services/generic/generic.service';
 import { DirectionsMapComponent } from './directions-map/directions-map.component';
 import { CheckSliderComponent } from './check-slider/check-slider.component';
-import { HttpClientModule } from '@angular/common/http';
 import { CheckDirective } from './directives/check.directive';
 import { CheckSliderService } from './services/check-slider/check-slider.service';
 import { ShowLinesComponent } from './show-lines/show-lines.component';
@@ -35,6 +34,9 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { AuthenticationService } from './services/authentication.service';
 import { JwtUtilsService } from './services/jwt-utils.service';
 import { AddZoneComponent } from './pages/transport-admin-page/zone-page/add-zone/add-zone.component';
+import { LineComponent } from './pages/transport-admin-page/line-page/line/line.component';
+import { CompleteLineComponent } from './pages/transport-admin-page/line-page/complete-line/complete-line.component';
+import { UpdateZoneComponent } from './pages/transport-admin-page/zone-page/update-zone/update-zone.component';
 
 
 const appRoutes: Routes = [
@@ -42,6 +44,8 @@ const appRoutes: Routes = [
   { path: 'transport', component: TransportAdminPageComponent, 
     children: [
       { path: 'zone', component: ZonePageComponent},
+      { path: 'add_zone', component: AddZoneComponent},
+      { path: 'update_zone/:id', component: UpdateZoneComponent},
       { path: 'line', component: LinePageComponent},
       { path: 'stop', component: StopPageComponent},
       { path: 'schedule', component: SchedulePageComponent}
@@ -78,6 +82,9 @@ const appRoutes: Routes = [
     SchedulePageComponent,
     ZoneComponent,
     AddZoneComponent,
+    LineComponent,
+    CompleteLineComponent,
+    UpdateZoneComponent
   ],
   imports: [
     BrowserModule,
@@ -90,7 +97,6 @@ const appRoutes: Routes = [
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCncyqJ42IAu6XewfdwvXyVmCOUyr30gWI'
     }),
-    HttpClientModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot() // ToastrModule added
   ],

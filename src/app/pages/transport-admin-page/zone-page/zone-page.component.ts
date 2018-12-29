@@ -10,16 +10,15 @@ import {HelperMethodsService} from '../../../services/generic/helper-methods.ser
   styleUrls: ['./zone-page.component.css']
 })
 export class ZonePageComponent implements OnInit {
-  zones: Zone[];
-  zonesView: Zone[][];
+  zones: Zone[] = [];
+  zonesView: Zone[][] = [];
 
-  constructor(private zoneService: ZoneService, private genericService: GenericService<Zone>,
+  constructor(private zoneService: ZoneService, private genericService: GenericService,
               private helperMethodService: HelperMethodsService) { }
 
   ngOnInit() {
-    this.genericService.getAll('/zone/all').subscribe(zones => {
+    this.genericService.getAll<Zone>('/zone/all').subscribe(zones => {
       this.zones = zones;
-      console.log(zones);
       this.updateZonesView();
     });
   }
@@ -27,7 +26,7 @@ export class ZonePageComponent implements OnInit {
   delete(zoneId: number) {
     const index: number = this.zones.findIndex(x => x.id === zoneId);
     this.zones.splice(index, 1);
-    // delete on server
+    // TO DO: delete on server
     this.updateZonesView();
   }
 

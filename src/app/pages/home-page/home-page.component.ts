@@ -15,8 +15,8 @@ export class HomePageComponent implements OnInit {
   private relativeUrl: string;
   
 
-  constructor(private lineService: GenericService<Line>, private toastr: ToastrService) {
-    this.relativeUrl = '/line/all';
+  constructor(private lineService: GenericService, private toastr: ToastrService) {
+    this.relativeUrl = '/completeLine/all';
   }
 
   ngOnInit() {
@@ -24,7 +24,7 @@ export class HomePageComponent implements OnInit {
   }
 
   getLines() {
-    this.lineService.getAll(this.relativeUrl) .subscribe(
+    this.lineService.getAll<Line>(this.relativeUrl) .subscribe(
       lines => {
         this.lines = lines;
         if (this.lines) {

@@ -10,10 +10,9 @@ import {StopService} from '../../../services/transport-admin-services/stop-servi
 })
 export class StopPageComponent implements OnInit {
   stops: Stop[];
-  constructor(private stopService: StopService, private genericService: GenericService<Stop>) { }
+  constructor(private stopService: StopService, private genericService: GenericService) { }
 
   ngOnInit() {
-    this.genericService.getAll('/stop/all').subscribe(stops => this.stops = stops );
-    console.log(this.stops);
+    this.genericService.getAll<Stop>('/stop/all').subscribe(stops => this.stops = stops );
   }
 }
