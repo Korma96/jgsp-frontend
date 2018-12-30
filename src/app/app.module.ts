@@ -37,6 +37,8 @@ import { AddZoneComponent } from './pages/transport-admin-page/zone-page/add-zon
 import { LineComponent } from './pages/transport-admin-page/line-page/line/line.component';
 import { CompleteLineComponent } from './pages/transport-admin-page/line-page/complete-line/complete-line.component';
 import { UpdateZoneComponent } from './pages/transport-admin-page/zone-page/update-zone/update-zone.component';
+import { TimesService } from './services/times.service';
+import { ShowTimesComponent } from './show-times/show-times.component';
 
 
 const appRoutes: Routes = [
@@ -84,7 +86,8 @@ const appRoutes: Routes = [
     AddZoneComponent,
     LineComponent,
     CompleteLineComponent,
-    UpdateZoneComponent
+    UpdateZoneComponent,
+    ShowTimesComponent
   ],
   imports: [
     BrowserModule,
@@ -111,7 +114,8 @@ const appRoutes: Routes = [
       useClass: InterceptorService,
       multi: true
     },
-    ZoneService
+    ZoneService,
+    TimesService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Line } from '../model/line';
 import { colors } from '../resources/colors';
+import { ZoneWithLines } from '../model/zone-with-lines';
 
 @Component({
   selector: 'app-show-lines',
@@ -8,15 +9,10 @@ import { colors } from '../resources/colors';
   styleUrls: ['./show-lines.component.css']
 })
 export class ShowLinesComponent implements OnInit {
-  title: string = 'My first AGM project';
   center: any = {lat: 45.3037048, lng: 19.8476332}; // centriranje mape otprilike na poziciju Srbije
 
   @Input()
-  lines: Line[];
-
-  linesForShowing: Line[];
-
-  // arrayChecked: boolean[];
+  zones: ZoneWithLines[];
 
   colors: string[];  
 
@@ -25,24 +21,10 @@ export class ShowLinesComponent implements OnInit {
 
   
   constructor() { 
-    this.linesForShowing = [];
-    // this.arrayChecked = [];
     this.colors = colors;
   }
 
   ngOnInit() {
   }
 
-  /*insertOrDropLine(index: number) {
-    if (this.arrayChecked[index]) {
-      this.arrayChecked[index] = false;
-      // remove completeLine
-      this.linesForShowing.splice(index, 1);
-    }
-    else {
-      this.arrayChecked[index] = true;
-      this.linesForShowing.push(this.lines[index]);
-    }
-
-  }*/
 }

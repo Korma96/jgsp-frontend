@@ -1,3 +1,45 @@
-<p>
-  show-schedule works!
-</p>
+<div class="row">
+  <div class="col-xl-12">
+      <form>
+          <div class="form-group">
+              <label for="id_schedule_valid_from">Schedule is valid from</label>
+              <select class="form-control" id="id_schedule_valid_from" [(ngModel)]="schedule.date" name="date">
+                <option *ngFor="let date of dates" [ngValue]="date">{{date}}</option>
+              </select>
+          </div>
+          
+          <div class="form-group">
+              <label for="id_zone">Zone</label>
+              <select class="form-control" id="id_zone" [(ngModel)]="selectedZone" name="zone">
+                  <option *ngFor="let zone of zones" [ngValue]="zone">{{zone.name}}</option>
+              </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="id_line">Line</label>
+            <select multiple class="form-control" *ngIf="selectedZone" id="id_line" [(ngModel)]="schedule.lines" name="lines">
+              <option *ngFor="let lineName of selectedZone.distinctLines" [ngValue]="lineName">{{lineName}}</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="id_day">Day</label>
+            <select class="form-control" id="id_day" [(ngModel)]="schedule.day" name="day">
+              <option [ngValue]="0">{{days[0]}}</option>
+              <option [ngValue]="1">{{days[1]}}</option>
+              <option [ngValue]="2">{{days[2]}}</option>
+            </select>
+          </div>
+          
+          <br/>
+          <br/>
+          <button type="button" class="btn btn-primary btn-lg" (click)="click(target)">Show</button>
+        </form>
+  </div>
+</div>
+
+<div #target class="row">
+    <div class="col-xl-12 d-flex justify-content-center">
+        <app-show-times [linesWithTimes]="linesWithTimes"></app-show-times> 
+    </div>
+</div>
