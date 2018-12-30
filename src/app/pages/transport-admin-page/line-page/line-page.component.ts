@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Line } from '../../../model/line';
+import { GenericService } from '../../../services/generic/generic.service';
+import { LineService } from '../../../services/transport-admin-services/line-service/line.service';
 
 @Component({
   selector: 'app-line-page',
@@ -6,10 +9,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./line-page.component.css']
 })
 export class LinePageComponent implements OnInit {
-
-  constructor() { }
+  lines: Line[];
+  constructor(private lineService: LineService, private genericService: GenericService) { }
 
   ngOnInit() {
+    this.genericService.getAll<Line>('/line/all').subscribe(lines => this.lines = lines);
   }
-
 }

@@ -1,9 +1,12 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
-import { Router } from '@angular/router';
 import { GenericService } from '../services/generic/generic.service';
 import { ToastrService } from 'ngx-toastr';
 import { Schedule } from '../model/schedule';
-import { Zone } from '../model/zone';
+import { ZoneWithLines } from '../model/zone-with-lines';
+import { TimesService } from '../services/times.service';
+import { LineAndTimes } from '../model/line-and-times';
+import { Line } from '../model/line';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-show-schedule',
@@ -13,21 +16,30 @@ import { Zone } from '../model/zone';
 export class ShowScheduleComponent implements OnInit, OnChanges {
 
   @Input()
-  zones: Zone[];
+  zones: ZoneWithLines[];
 
-  selectedZone: string;
+  selectedZone: ZoneWithLines;
 
   dates: string[];
 
+  linesWithTimes: LineAndTimes[];
+
+  days: string[] = [ 'Workday', 'Saturday', 'Sunday' ];
+
   schedule: Schedule;
 
-  relativeUrl: string;
+  relativeUrlForDates: string;
+  relativeUrlForTimes: string;
 
-  constructor(private scheduleService: GenericService<string>, private toastr: ToastrService, private router: Router) { 
+  constructor(private scheduleService: GenericService, private timesService: TimesService,
+             private toastr: ToastrService) { 
     this.schedule = { date: null, day: 0, lines: [] };
     this.selectedZone = null;
-    this.relativeUrl = '/schedule/dates';
+    this.linesWithTimes = [];
+    this.relativeUrlForDates = '/schedule/dates';
+    this.relativeUrlForTimes = '/line/departure-lists';
   }
+
 
   ngOnInit() {
     this.getDates();
@@ -44,8 +56,35 @@ export class ShowScheduleComponent implements OnInit, OnChanges {
     
   }
   
+  getTImes(): Observable<LineAndTimes[]> {
+    const retValue = this.timesService.get(this.schedule.date, this.days[this.schedule.day], this.schedule.lines);
+    retValue.subscribe(
+      receivedLinesWithTimes => {   
+        if (receivedLinesWithTimes) {
+          if (receivedLinesWithTimes.length > 0) {
+            for (let i = 0; i < receivedLinesWithTimes.length; i++) {
+               receivedLinesWithTimes[i].lineName = this.schedule.lines[i];
+            }
+            this.linesWithTimes = receivedLinesWithTimes;
+            this.toastr.success('Times, for checked line, are successfully loaded!');
+          }
+          else {
+            this.toastr.warning('There are no times, for checked line, at the moment!');
+          }
+        }
+        else {
+          this.toastr.error('Problem with loading times, for checked line!');
+        }
+
+      },
+      error => alert('Error: ' + JSON.stringify(error))
+    );
+
+    return retValue;
+  }
+
   getDates() {
-    this.scheduleService.getAll(this.relativeUrl) .subscribe(
+    this.scheduleService.getAll<string>(this.relativeUrlForDates) .subscribe(
       dates => {
         this.dates = dates;
     
@@ -67,8 +106,26 @@ export class ShowScheduleComponent implements OnInit, OnChanges {
     );
   }
 
-  click() {
-    
+
+  click(el) {
+    /*const linesForSending: number[] = [] 
+
+    this.schedule.lines.forEach(
+      lineId =>  {
+          if (!this.times[lineId]) {
+            linesForSending.push(lineId);
+          }
+      }
+    );*/
+      if (this.schedule.lines.length > 0) {
+          const observable = this.getTImes();
+          observable.subscribe(
+            res => el.scrollIntoView() // kad pristignu podaci skroluj na njih  
+          );
+      }
+      else {
+          this.toastr.error('You have not selected any line!');
+      }
   }
 
 }
