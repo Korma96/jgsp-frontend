@@ -44,7 +44,6 @@ export class UpdateZoneComponent implements OnInit {
           for (const zone of zones) {
             this.allZonesNames.push(zone.name);
             this.genericService.getListById<Line>('/zone/line', zone.id).subscribe(zoneLines => {
-              console.log(this.zoneLines.length);
               const completeZoneLines: CompleteLine[] = this.helperMethodService.getCompleteLinesFromLines(zoneLines);
               if (zone.id === this.zone.id) {
                 this.zoneLines = completeZoneLines;
@@ -70,6 +69,9 @@ export class UpdateZoneComponent implements OnInit {
     this.zoneLines.splice(index, 1);
     this.remainingLines.push(line);
 
+    this.genericService.post('/zone/line/remove', {'zoneId': this.zone.id, 'lineId': line.aLineId});
+    this.genericService.post('/zone/line/remove', {'zoneId': this.zone.id, 'lineId': line.bLineId});
+
     this.updateZoneLinesView();
     this.updateRemainingLinesView();
   }
@@ -80,6 +82,9 @@ export class UpdateZoneComponent implements OnInit {
 
     this.remainingLines.splice(index, 1);
     this.zoneLines.push(line);
+
+    this.genericService.post('/zone/line/add', {'zoneId': this.zone.id, 'lineId': line.aLineId});
+    this.genericService.post('/zone/line/add', {'zoneId': this.zone.id, 'lineId': line.bLineId});
 
     this.updateZoneLinesView();
     this.updateRemainingLinesView();
@@ -105,6 +110,6 @@ export class UpdateZoneComponent implements OnInit {
       }
     }
 
-
+    this.genericService.post('/zone/rename', this.zone);
   }
 }

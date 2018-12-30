@@ -52,6 +52,9 @@ export class AddZoneComponent implements OnInit {
     this.zoneLines.splice(index, 1);
     this.remainingLines.push(line);
 
+    this.genericService.post('/zone/line/remove', {'zoneId': this.zone.id, 'lineId': line.aLineId});
+    this.genericService.post('/zone/line/remove', {'zoneId': this.zone.id, 'lineId': line.bLineId});
+
     this.updateZoneLinesView();
     this.updateRemainingLinesView();
   }
@@ -62,6 +65,9 @@ export class AddZoneComponent implements OnInit {
 
     this.remainingLines.splice(index, 1);
     this.zoneLines.push(line);
+
+    this.genericService.post('/zone/line/add', {'zoneId': this.zone.id, 'lineId': line.aLineId});
+    this.genericService.post('/zone/line/add', {'zoneId': this.zone.id, 'lineId': line.bLineId});
 
     this.updateZoneLinesView();
     this.updateRemainingLinesView();
@@ -85,7 +91,7 @@ export class AddZoneComponent implements OnInit {
       return;
     }
 
-
+    this.genericService.post('/zone/add', { 'name': this.zone.name});
   }
 
 }

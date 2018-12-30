@@ -39,6 +39,10 @@ export class GenericService {
     return this.http.post(this.baseUrl + relativeUrl, t);
   }
 
+  post<T>(relativeUrl: string, t: T) {
+    return this.http.post(this.baseUrl + relativeUrl, t);
+  }
+
   delete<T>(relativeUrl: string, id: number) {
     return this.http.delete(this.baseUrl + relativeUrl + `/${id}`);
   }
