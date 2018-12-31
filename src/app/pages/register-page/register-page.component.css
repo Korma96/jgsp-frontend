@@ -1,4 +1,4 @@
-.form-signin {
+.form-register {
     max-width: 420px;
     padding: 30px 38px 66px;
     margin: 0 auto;
@@ -21,7 +21,7 @@ input[type="text"] {
   }
   
   input[type="password"] {
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }

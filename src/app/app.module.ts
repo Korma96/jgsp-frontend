@@ -39,6 +39,8 @@ import { CompleteLineComponent } from './pages/transport-admin-page/line-page/co
 import { UpdateZoneComponent } from './pages/transport-admin-page/zone-page/update-zone/update-zone.component';
 import { TimesService } from './services/times.service';
 import { ShowTimesComponent } from './show-times/show-times.component';
+import { RegisterPageComponent } from './pages/register-page/register-page.component';
+import { CheckTicketPageComponent } from './pages/check-ticket-page/check-ticket-page.component';
 
 
 const appRoutes: Routes = [
@@ -54,6 +56,8 @@ const appRoutes: Routes = [
     ]
   },
   { path: 'login', component: LoginPageComponent},
+  { path: 'register', component: RegisterPageComponent},
+  { path: 'checkticket', component: CheckTicketPageComponent},
   { path: 'passenger', component: PassengerPageComponent},
   // { path: 'entry/:index',      component: BlogEntryPageComponent },
   { path: '', // localhost:4200 redirect to localhost:4200/home-page
@@ -87,7 +91,9 @@ const appRoutes: Routes = [
     LineComponent,
     CompleteLineComponent,
     UpdateZoneComponent,
-    ShowTimesComponent
+    ShowTimesComponent,
+    RegisterPageComponent,
+    CheckTicketPageComponent
   ],
   imports: [
     BrowserModule,

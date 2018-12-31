@@ -1,0 +1,15 @@
+
+<form>
+  <div class="form-group" (ngSubmit)="checkTicket()">
+    <label for="username">Username of passenger:&nbsp; </label>
+    <input type="text" id="username" name="username"  [(ngModel)]="this.passenger.username">
+  </div>
+
+  <label for="line">Choose line:&nbsp;</label>
+  <select id="line" name="line" (change)="onSelect($event.target.value)">
+      <option *ngFor="let item of this.data; let i = index">{{item['name']}}</option>
+  </select>
+
+  <button class="btn btn-primary btn-block" type="submit">Check</button>
+
+</form>
