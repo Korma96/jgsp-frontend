@@ -36,7 +36,8 @@ export class GenericService {
   }
 
   save<T>(relativeUrl: string, t: T) {
-    return this.http.post(this.baseUrl + relativeUrl, t);
+    const headers: HttpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.post(this.baseUrl + relativeUrl, t,  { headers });
   }
 
   delete<T>(relativeUrl: string, id: number) {
