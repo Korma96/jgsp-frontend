@@ -183,14 +183,14 @@ export class DirectionsMapComponent implements OnInit {
   }
 
   createMarkers(lineForShowing: LineForShowing) {
-    let firstStopImage: any = {
+    const firstStopImage: any = {
       url: '/assets/icons/a.svg',
       size: new google.maps.Size(71, 71),
       origin: new google.maps.Point(0, 0),
       anchor: new google.maps.Point(17, 34),
       scaledSize: new google.maps.Size(25, 25)
     };
-    let lastStopImage: any = {
+    const lastStopImage: any = {
       url: '/assets/icons/b.svg',
       size: new google.maps.Size(71, 71),
       origin: new google.maps.Point(0, 0),
