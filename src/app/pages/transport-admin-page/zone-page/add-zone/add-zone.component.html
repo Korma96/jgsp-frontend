@@ -6,28 +6,7 @@
       </td>
       <td colspan="2">
         <input id="zone_name_input" type="text" [(ngModel)]="zone.name" />
-        <button (click)="save()" >Save</button>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="5">
-        <label>Zone lines:</label>
-      </td>
-    </tr>
-    <tr *ngFor="let linesInRow of zoneLinesView">
-      <td *ngFor="let line of linesInRow">
-        <app-complete-line [buttonSign] = "removeButtonSign" [completeLine]="line"
-                           (completeLineNameEventHandler)="removeLineFromZone($event)"></app-complete-line>
-      </td>
-    </tr>
-  </table>
-  <hr>
-  <label>Remaining lines:</label>
-  <table>
-    <tr *ngFor="let linesInRow of remainingLinesView">
-      <td *ngFor="let line of linesInRow">
-        <app-complete-line [buttonSign] = "addButtonSign" [completeLine]="line"
-                           (completeLineNameEventHandler)="addLineToZone($event)"></app-complete-line>
+        <button (click)="save()" >Add</button>
       </td>
     </tr>
   </table>

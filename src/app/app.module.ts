@@ -111,6 +111,7 @@ const appRoutes: Routes = [
   ],
   providers: [
     GenericService,
+    InterceptorService,
     { provide: 'BASE_API_URL', useValue: 'http://localhost:8080/api' },  // environment.apiUrl
     CheckSliderService,
     AuthenticationService,

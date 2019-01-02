@@ -40,12 +40,13 @@ export class GenericService {
     return this.http.post(this.baseUrl + relativeUrl, t,  { headers });
   }
 
-  post<T>(relativeUrl: string, t: T) {
-    return this.http.post(this.baseUrl + relativeUrl, t);
+  post(relativeUrl: string, t: any) {
+    const headers: HttpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.post(this.baseUrl + relativeUrl, t, { headers });
   }
 
-  delete<T>(relativeUrl: string, id: number) {
-    return this.http.delete(this.baseUrl + relativeUrl + `/${id}`);
+  delete(relativeUrl: string, id: number) {
+    return this.http.delete(this.baseUrl + relativeUrl + `/${id}` + '/delete');
   }
 
 }

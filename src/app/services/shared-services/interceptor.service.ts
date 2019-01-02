@@ -7,12 +7,10 @@ import {Observable} from 'rxjs';
 })
 export class InterceptorService implements HttpInterceptor {
   constructor() { }
+
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    /*
     return next.handle(request.clone({
       setHeaders: { 'Access-Control-Allow-Origin': '*' }
     }));
-    */
-    return next.handle(request);
   }
 }
