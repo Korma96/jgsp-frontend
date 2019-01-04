@@ -15,7 +15,9 @@ export class BuyTicketComponent implements OnInit, OnChanges {
   ticketTypes: string[] = ['onetime', 'daily', 'monthly', 'yearly'];
   months: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'Septembr',
                       'October', 'November', 'December'];
-  currentMonth: number = new Date().getMonth();
+  
+  currentDate: Date = new Date();
+  currentMonth: number = this.currentDate.getMonth();
 
   selectedMonth: number;
 
@@ -35,7 +37,7 @@ export class BuyTicketComponent implements OnInit, OnChanges {
   @Input()
   zones: ZoneWithLines[]; 
 
-  constructor(private genericService: GenericService, private toastr: ToastrService) { 
+  constructor(private genericService: GenericService, private toastr: ToastrService) {
     this.transport = 0;
     this.selectedMonth = this.currentMonth + 1; // +1 posto indeksi za currentMonth krecu od nule
     this.ticket = { hasZoneNotLine: true, name: null, dayInMonthOrMonthInYear: -1, 
