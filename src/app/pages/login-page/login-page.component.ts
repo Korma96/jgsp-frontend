@@ -40,7 +40,7 @@ export class LoginPageComponent implements OnInit {
       } else {
         Observable.throw(err);
       }
-      this.toastr.error(err.message);
+      this.toastr.error(JSON.stringify(err));
     });
   }
 }

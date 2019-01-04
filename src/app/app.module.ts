@@ -5,6 +5,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+
 import { AgmCoreModule } from '@agm/core';
 
 import { AppComponent } from './app.component';
@@ -20,7 +23,6 @@ import { StopPageComponent } from './pages/transport-admin-page/stop-page/stop-p
 import {SchedulePageComponent} from './pages/transport-admin-page/schedule-page/schedule-page.component';
 import {ZoneService} from './services/transport-admin-services/zone-service/zone.service';
 import { ZoneComponent } from './pages/transport-admin-page/zone-page/zone/zone.component';
-import {InterceptorService} from './services/shared-services/interceptor.service';
 
 import { RouterModule, Routes } from '@angular/router';
 import { GenericService } from './services/generic/generic.service';
@@ -41,6 +43,10 @@ import { TimesService } from './services/times.service';
 import { ShowTimesComponent } from './show-times/show-times.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { CheckTicketPageComponent } from './pages/check-ticket-page/check-ticket-page.component';
+import { BuyTicketComponent } from './buy-ticket/buy-ticket.component';
+import { TokenInterceptorService } from './services/token-interceptor-service/token-interceptor.service';
+import { ShowTicketsComponent } from './show-tickets/show-tickets.component';
+import { DownloadFileService } from './services/download-file/download-file.service';
 
 
 const appRoutes: Routes = [
@@ -93,7 +99,9 @@ const appRoutes: Routes = [
     UpdateZoneComponent,
     ShowTimesComponent,
     RegisterPageComponent,
-    CheckTicketPageComponent
+    CheckTicketPageComponent,
+    BuyTicketComponent,
+    ShowTicketsComponent
   ],
   imports: [
     BrowserModule,
@@ -107,7 +115,9 @@ const appRoutes: Routes = [
       apiKey: 'AIzaSyCncyqJ42IAu6XewfdwvXyVmCOUyr30gWI'
     }),
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot() // ToastrModule added
+    ToastrModule.forRoot(), // ToastrModule added
+    NgbModule,
+    NgxDatatableModule
   ],
   providers: [
     GenericService,
@@ -115,13 +125,10 @@ const appRoutes: Routes = [
     CheckSliderService,
     AuthenticationService,
     JwtUtilsService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: InterceptorService,
-      multi: true
-    },
     ZoneService,
-    TimesService
+    TimesService,
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
+    DownloadFileService
   ],
   bootstrap: [AppComponent]
 })

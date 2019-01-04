@@ -1,0 +1,77 @@
+
+<form class="form" (ngSubmit)="buyTicket()">
+  <div class="form-group">
+    <label for="id_transport_type">&nbsp;&nbsp;Transport</label>
+    <select id="id_transport_type" class="form-control custom-select" [(ngModel)]="transport" name="transport" (change)="transportChanged()">
+      <option [ngValue]="0">{{transports[0]}}</option>
+      <option [ngValue]="1">{{transports[1]}}</option>
+      <option [ngValue]="2">{{transports[2]}}</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="id_zone">&nbsp;&nbsp;Zone</label>
+    <select class="form-control" id="id_zone" [(ngModel)]="selectedZone" name="zone" (change)="selectedZoneChanged()">
+        <ng-template ngFor let-zone [ngForOf]="zones">
+            <option *ngIf="zone.transport == transports[transport]" [ngValue]="zone">{{zone.name}}</option>
+        </ng-template>
+    </select>
+  </div>
+
+  <div class="custom-radios">
+    <div>
+      <span>&nbsp;&nbsp;Ticket for zone&nbsp;&nbsp;</span>
+      <input type="radio" id="color-zone" [checked]="ticket.hasZoneNotLine" (change)="hasZoneNotLineChanged()" >
+      <label for="color-zone">
+        <span>
+        </span>
+      </label>
+    </div>
+    &nbsp;&nbsp;
+    <div>
+      <input type="radio" id="color-line"  [checked]="!ticket.hasZoneNotLine" (change)="hasZoneNotLineChanged()">
+      <label for="color-line">
+        <span>
+        </span>
+      </label>
+      <span>&nbsp;Ticket for line</span>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label for="id_line">&nbsp;&nbsp;Line</label>
+    <select class="form-control" id="id_line" [(ngModel)]="ticket.name" name="line" [disabled]="ticket.hasZoneNotLine || ticket.ticketType == (ticketTypes[0] | uppercase)">
+      <ng-template [ngIf]="!ticket.hasZoneNotLine && selectedZone && ticket.ticketType != (ticketTypes[0] | uppercase)"> 
+          <option *ngFor="let lineName of selectedZone.distinctLines" [ngValue]="lineName">{{lineName}}</option>
+      </ng-template>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="id_ticket_type">&nbsp;&nbsp;Ticket type</label>
+    <select class="form-control" id="id_ticket_type" [(ngModel)]="ticket.ticketType" name="ticketType">
+      <option *ngIf="!ticket.hasZoneNotLine" [ngValue]="ticketTypes[0] | uppercase">{{ticketTypes[0]}}</option>
+      <option [ngValue]="ticketTypes[1] | uppercase">{{ticketTypes[1]}}</option>
+      <option [ngValue]="ticketTypes[2] | uppercase">{{ticketTypes[2]}}</option>
+      <option [ngValue]="ticketTypes[3] | uppercase">{{ticketTypes[3]}}</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <select class="form-control" *ngIf="ticket.ticketType == (ticketTypes[2] | uppercase)" [(ngModel)]="selectedMonth" name="month">
+        <ng-template ngFor let-month let-i="index" [ngForOf]="months">
+            <option *ngIf="i >= currentMonth" [ngValue]="i+1">{{month}}</option>
+        </ng-template>
+    </select>
+
+    <div *ngIf="ticket.ticketType != (ticketTypes[2] | uppercase)" class="input-group">
+      <input class="form-control" placeholder="yyyy-mm-dd"
+              name="dp" [(ngModel)]="date" ngbDatepicker #d="ngbDatepicker" (focus)="d.open()" [disabled]="ticket.ticketType != (ticketTypes[2] | uppercase)">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+      </div>
+    </div>
+  </div>
+
+  <input class="btn btn-primary pull-right" type="submit" value="Buy"/>
+</form>

@@ -8,10 +8,9 @@
     </button>-->
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-item nav-link btn btn-outline-primary active" href="#" [routerLink]="['/login']">Login<span class="sr-only">(current)</span></a>
-        <a class="nav-item nav-link btn btn-outline-primary" href="#" [routerLink]="['/register']">Register</a>
-        <a class="nav-item nav-link btn btn-outline-primary" href="#">Lines</a>
-        <a class="nav-item nav-link btn btn-outline-primary disabled" href="#">Disabled</a>
+          <a class="nav-item nav-link btn btn-outline-primary" [routerLinkActive]="['active']" href="#" [routerLink]="['/home-page']">Home page</a>
+        <a class="nav-item nav-link btn btn-outline-primary" [routerLinkActive]="['active']" href="#" [routerLink]="['/login']">Login</a>
+        <a class="nav-item nav-link btn btn-outline-primary" [routerLinkActive]="['active']" href="#" [routerLink]="['/register']">Register</a>
       </div>
     </div>
   </nav>

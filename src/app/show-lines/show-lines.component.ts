@@ -14,6 +14,10 @@ export class ShowLinesComponent implements OnInit {
   @Input()
   zones: ZoneWithLines[];
 
+  transports: string[] = ['all', 'bus', 'tram', 'metro'];
+
+  transport: number;
+
   colors: string[];  
 
   selectors: string = 'input:checked + .slider:before,'
@@ -21,6 +25,7 @@ export class ShowLinesComponent implements OnInit {
 
   
   constructor() { 
+    this.transport = 0;
     this.colors = colors;
   }
 

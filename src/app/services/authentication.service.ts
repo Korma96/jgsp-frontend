@@ -30,11 +30,11 @@ export class AuthenticationService {
           return false;
         }
       }
-    ).catch((error: any) => {
-      if (error.status === 400 ) {
+    ).catch((err: any) => {
+      if (err.status === 400 ) {
         return Observable.throw('Ilegal login');
       } else {
-        return Observable.throw(error.json().error || 'Server error');
+        return Observable.throw(err.json().error || 'Server error');
       }
     });
   }
