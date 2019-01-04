@@ -41,6 +41,7 @@ import { TimesService } from './services/times.service';
 import { ShowTimesComponent } from './show-times/show-times.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { CheckTicketPageComponent } from './pages/check-ticket-page/check-ticket-page.component';
+import { ShowAdminsComponent } from './show-admins/show-admins.component';
 
 
 const appRoutes: Routes = [
@@ -93,7 +94,8 @@ const appRoutes: Routes = [
     UpdateZoneComponent,
     ShowTimesComponent,
     RegisterPageComponent,
-    CheckTicketPageComponent
+    CheckTicketPageComponent,
+    ShowAdminsComponent
   ],
   imports: [
     BrowserModule,
