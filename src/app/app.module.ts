@@ -8,7 +8,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
-import { AgmCoreModule } from '@agm/core';
+import {AgmCoreModule, GoogleMapsAPIWrapper} from '@agm/core';
 
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
@@ -113,7 +113,7 @@ const appRoutes: Routes = [
     UserAdminPageComponent,
     AccountRequestsComponent,
     ReportsComponent,
-    AddAdminComponent
+    AddAdminComponent,
     TransportAdminMapComponent
   ],
   imports: [
