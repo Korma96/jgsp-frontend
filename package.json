@@ -20,6 +20,8 @@
     "@angular/platform-browser": "~7.1.0",
     "@angular/platform-browser-dynamic": "~7.1.0",
     "@angular/router": "~7.1.0",
+    "@ng-bootstrap/ng-bootstrap": "^4.0.1",
+    "@swimlane/ngx-datatable": "^14.0.0",
     "bootstrap": "^4.2.1",
     "bootstrap-select": "^1.13.5",
     "bootstrap-switch": "^3.3.4",

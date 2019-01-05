@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
+/* bootsrtap-ove klase su "negativno" utiacle na toastr, zato smo ih ovde pregazili */
+
 .toast {
     background-color: #030303;
     pointer-events: auto;

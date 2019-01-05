@@ -7,33 +7,32 @@
               <div class="panel panel-default">
                 <!-- Default panel contents -->
                 <div class="panel-heading border border-secondary rounded div-backgorund"><h3 align="center">Lines</h3></div>
-            
+                <div class="row">
+                    <div class="col-xl-12">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label for="id_transport">Transport:</label>
+                                <select id="id_transport_type" class="form-control custom-select" [(ngModel)]="transport" name="transport">
+                                    <option [ngValue]="0">{{transports[0]}}</option>
+                                    <option [ngValue]="1">{{transports[1]}}</option>
+                                    <option [ngValue]="2">{{transports[2]}}</option>
+                                    <option [ngValue]="3">{{transports[3]}}</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                 <div class="row table-bordered scrollbar-zones scrollbar-primary">
-                    <div class="col-xl-4 scrollbar-lines scrollbar-primary" *ngFor="let zone of zones">
-                        <div class="row table-bordered zone-row" title="{{zone.name}}">
-                               {{zone.name}}
-                        </div>
-                        <div class="row table-bordered line-row" *ngFor="let line of zone.lines">
-                            <app-check-slider [appCheck]="selectors" [color]="colors[line.id % colors.length]" [line]="line"> </app-check-slider>
-                        </div>
-                    </div>
-                    
-                     <!--<div class="col-xl-4" *ngIf="lines">
-                        <div class="row table-bordered line-row" *ngFor="let line of lines.slice(0, lines.length/3); let i = index;">
-                            <app-check-slider [appCheck]="selectors" [color]="colors[line.id % colors.length]" [line]="line"> </app-check-slider>
-                        </div>
-                    </div>
-                    <div class="col-xl-4" *ngIf="lines">
-                        <div class="row table-bordered line-row" *ngFor="let line of lines.slice(lines.length/3, 2*lines.length/3); let i = index;">
-                            <app-check-slider [appCheck]="selectors" [color]="colors[line.id % colors.length]" [line]="line"> </app-check-slider>
-                        </div>
-                    </div>
-                    <div class="col-xl-4" *ngIf="lines">
-                        <div class="row table-bordered line-row" title="{{line.name}}" *ngFor="let line of lines.slice(2*lines.length/3, lines.length); let i = index;">
-                            <app-check-slider [appCheck]="selectors" [color]="colors[line.id % colors.length]" [line]="line"> </app-check-slider>
-                        </div>
-                    </div>
-                     -->
+                    <ng-template ngFor let-zone [ngForOf]="zones">
+                            <div class="col-xl-4 scrollbar-lines scrollbar-primary" *ngIf="transport == 0 || zone.transport == transports[transport]">
+                                <div class="row table-bordered zone-row" title="{{zone.name}}">
+                                        {{zone.name}}
+                                </div>
+                                <div class="row table-bordered line-row" *ngFor="let line of zone.lines">
+                                    <app-check-slider [appCheck]="selectors" [color]="colors[line.id % colors.length]" [line]="line"> </app-check-slider>
+                                </div>
+                            </div>
+                    </ng-template>
                 </div>
               </div>            
           </div> 

@@ -1,36 +1,28 @@
-<h3>Buy ticket</h3>
-
-<form class="form" (ngSubmit)="buyTicket()">
-  <div class="form-group">
-    <label for="id_transport_type">Transport type:</label>
-    <select id="id_transport_type" class="form-control custom-select" >
-      <option>Bus</option>
-      <option>Tram</option>
-      <option>Metro</option>
-    </select>
-  </div>
-
-  <!--
-  <label class="bs-switch">
-    <input type="checkbox">
-    <span class="slider round"></span>
-  </label>
-  -->
-
-  <div class="form-group">
-    <label for="id_line">line:</label>
-    <select id="id_line" class="form-control custom-select" data-style="btn-primary">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-    </select>
-  </div>
-
-  <!--
-  <div class="form-group">
-    <label for="entry">entry:</label>
-    <textarea class="form-control" id="entry" name="entry" [(ngModel)]="newBlogEntry.entry"></textarea>
-  </div>-->
-
-  <input class="btn btn-primary pull-right" type="submit" value="save"/>
-</form>
+<section id="tabs">
+    <div class="row">
+        <div class="col-xl-12 ">
+            <nav>
+                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-show-tickets-tab" data-toggle="tab" href="#nav-show-tickets" role="tab" aria-controls="nav-show-tickets" aria-selected="true">SHOW TICKETS</a>
+                    <a class="nav-item nav-link" id="nav-buy-ticket-tab" data-toggle="tab" href="#nav-buy-ticket" role="tab" aria-controls="nav-buy-ticket" aria-selected="false">BUY TICKET</a>
+                    <a class="nav-item nav-link" id="nav-show-lines-tab" data-toggle="tab" href="#nav-show-lines" role="tab" aria-controls="nav-show-lines" aria-selected="false">SHOW LINES</a>
+                    <a class="nav-item nav-link" id="nav-show-schedule-tab" data-toggle="tab" href="#nav-show-schedule" role="tab" aria-controls="nav-show-schedule" aria-selected="false">SHOW SCHEDULE</a>
+                </div>
+            </nav>
+            <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-show-tickets" role="tabpanel" aria-labelledby="nav-show-tickets-tab">
+                    <app-show-tickets [tickets]="tickets"> </app-show-tickets>
+                </div>
+                <div class="tab-pane fade" id="nav-buy-ticket" role="tabpanel" aria-labelledby="nav-buy-ticket-tab">
+                    <app-buy-ticket [zones]="zones" (boughtTicketEvent)="getTickets()"></app-buy-ticket>
+                </div>
+                <div class="tab-pane fade" id="nav-show-lines" role="tabpanel" aria-labelledby="nav-show-lines-tab">
+                    <app-show-lines [zones]="zones"> </app-show-lines>
+                </div>
+                <div class="tab-pane fade" id="nav-show-schedule" role="tabpanel" aria-labelledby="nav-show-schedule-tab">
+                    <app-show-schedule [zones]="zones"></app-show-schedule>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

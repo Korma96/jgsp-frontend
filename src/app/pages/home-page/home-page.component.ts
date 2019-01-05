@@ -4,6 +4,7 @@ import { GenericService } from 'src/app/services/generic/generic.service';
 import { ToastrService } from 'ngx-toastr';
 import { Zone } from 'src/app/model/zone';
 import { ZoneWithLines } from 'src/app/model/zone-with-lines';
+import { ForwardingZonesService } from 'src/app/services/forwarding-zones/forwarding-zones.service';
 
 @Component({
   selector: 'app-home-page',
@@ -14,10 +15,20 @@ export class HomePageComponent implements OnInit {
 
   zones: ZoneWithLines[];
 
-  private relativeUrl: string;
+  constructor(private forwardingZonesService: ForwardingZonesService) {
+  }
+
+  ngOnInit() {
+    this.forwardingZonesService.replaySubject.subscribe(
+      (receivedZones: ZoneWithLines[]) => this.zones = receivedZones
+    );
+  }
+
+  /*private relativeUrl: string;
   
 
-  constructor(private lineService: GenericService, private toastr: ToastrService) {
+  constructor(private zoneService: GenericService, private toastr: ToastrService, 
+              private forwardingZonesService: ForwardingZonesService) {
     this.relativeUrl = '/zone/all-with-line';
   }
 
@@ -26,7 +37,7 @@ export class HomePageComponent implements OnInit {
   }
 
   getZones() {
-    this.lineService.getAll<ZoneWithLines>(this.relativeUrl) .subscribe(
+    this.zoneService.getAll<ZoneWithLines>(this.relativeUrl) .subscribe(
       zones => {
         this.zones = zones;
         if (this.zones) {
@@ -34,6 +45,7 @@ export class HomePageComponent implements OnInit {
             this.zones.forEach(
               zone => this.setDistinctLines(zone)
             );
+            this.forwardingZonesService.sendZones(this.zones);
             this.toastr.success('Zones are successfully loaded!');
           }
           else {
@@ -67,6 +79,6 @@ export class HomePageComponent implements OnInit {
       zone.distinctLines = lines;
     }
     
-  }
+  }*/
 
 }

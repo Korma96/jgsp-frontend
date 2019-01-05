@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-xl-12">
+      <form class="form" (ngSubmit)="save()">
+          <div class="form-group">
+              <label for="id_username">&nbsp;&nbsp;Username</label>
+              <input type="text" class="form-control" id="id_username" [(ngModel)]="admin.username" name="username"/>
+          </div>
+
+          <div class="form-group">
+              <label for="id_password">&nbsp;&nbsp;Password</label>
+              <input type="password" class="form-control" id="id_password" [(ngModel)]="admin.password" name="password"/>
+          </div>
+          
+          <div class="form-group">
+            <label for="id_user_type">&nbsp;&nbsp;User type</label>
+            <select class="form-control" id="id_user_type" [(ngModel)]="admin.userType" name="userType">
+              <option *ngFor="let ut of userTypes" [ngValue]="ut">{{ut}}</option>
+            </select>
+          </div>
+          <br/>
+          <br/>
+          <input type="submit" class="btn btn-primary btn-lg" value="Save"/>
+        </form>
+  </div>
+</div>
