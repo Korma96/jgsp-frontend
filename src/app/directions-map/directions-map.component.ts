@@ -1,5 +1,5 @@
 import {GoogleMapsAPIWrapper} from '@agm/core/services/google-maps-api-wrapper';
-import { Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, Injectable} from '@angular/core';
 import { Line } from '../model/line';
 import { GenericService } from 'src/app/services/generic/generic.service';
 import { colors } from '../resources/colors';
@@ -10,7 +10,6 @@ import { CheckSliderService } from '../services/check-slider/check-slider.servic
 import { LineAndChecked } from '../model/line-and-checked';
 
 declare var google: any;
-
 
 
 @Component({

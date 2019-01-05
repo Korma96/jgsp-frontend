@@ -5,7 +5,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
-import { AgmCoreModule } from '@agm/core';
+import {AgmCoreModule, GoogleMapsAPIWrapper} from '@agm/core';
 
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
@@ -41,6 +41,7 @@ import { TimesService } from './services/times.service';
 import { ShowTimesComponent } from './show-times/show-times.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { CheckTicketPageComponent } from './pages/check-ticket-page/check-ticket-page.component';
+import { TransportAdminMapComponent } from './pages/transport-admin-page/transport-admin-map/transport-admin-map.component';
 
 
 const appRoutes: Routes = [
@@ -93,7 +94,8 @@ const appRoutes: Routes = [
     UpdateZoneComponent,
     ShowTimesComponent,
     RegisterPageComponent,
-    CheckTicketPageComponent
+    CheckTicketPageComponent,
+    TransportAdminMapComponent
   ],
   imports: [
     BrowserModule,
@@ -111,6 +113,7 @@ const appRoutes: Routes = [
   ],
   providers: [
     GenericService,
+    GoogleMapsAPIWrapper,
     InterceptorService,
     { provide: 'BASE_API_URL', useValue: 'http://localhost:8080/api' },  // environment.apiUrl
     CheckSliderService,
