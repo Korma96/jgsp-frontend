@@ -1,0 +1,28 @@
+<section id="tabs">
+  <div class="row">
+      <div class="col-xl-12 ">
+          <nav>
+              <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                  <a class="nav-item nav-link active" id="nav-account-request-tab" data-toggle="tab" href="#nav-account-request" role="tab" aria-controls="nav-account-request" aria-selected="true">ACCOUNT REQUESTS</a>
+                  <a class="nav-item nav-link" id="nav-add-admin-tab" data-toggle="tab" href="#nav-add-admin" role="tab" aria-controls="nav-add-admin" aria-selected="false">ADD ADMIN</a>
+                  <a class="nav-item nav-link" id="nav-work-with-admins-tab" data-toggle="tab" href="#nav-work-with-admins" role="tab" aria-controls="nav-work-with-admins" aria-selected="false">WORK WITH ADMINS</a>
+                  <a class="nav-item nav-link" id="nav-reports-tab" data-toggle="tab" href="#nav-reports" role="tab" aria-controls="nav-reports" aria-selected="false">REPORTS</a>
+              </div>
+          </nav>
+          <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-account-request" role="tabpanel" aria-labelledby="nav-account-request-tab">
+                  <app-account-requests></app-account-requests>
+              </div>
+              <div class="tab-pane fade" id="nav-add-admin" role="tabpanel" aria-labelledby="nav-add-admin-tab">
+                <app-add-admin (adminAdded)="getAdmins()"></app-add-admin>
+            </div>
+              <div class="tab-pane fade" id="nav-work-with-admins" role="tabpanel" aria-labelledby="nav-work-with-admins-tab">
+                <app-show-admins [admins]="admins" (adminDeleted)="getAdmins()"></app-show-admins>
+              </div>
+              <div class="tab-pane fade" id="nav-reports" role="tabpanel" aria-labelledby="nav-reports-tab">
+                  <app-reports></app-reports>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>

@@ -1,3 +1,32 @@
-<p>
-  show-admins works!
-</p>
+<ngx-datatable class="dark" [loadingIndicator]="loadingIndicator" [reorderable]="reorderable" [rows]="admins" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'"
+     [count]="100" [offset]="0" [limit]="100" [externalPaging]="false">
+     
+     <ngx-datatable-column name="Index">
+        <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
+            {{rowIndex+1}}
+        </ng-template>
+    </ngx-datatable-column>
+     <ngx-datatable-column name="Username" prop="username" [sortable]="true">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            {{value}}
+        </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Admin type" prop="userType" [sortable]="true">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            {{value}}
+        </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Admin status" prop="userStatus" [sortable]="true">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            {{value}}
+        </ng-template>
+      </ngx-datatable-column>
+
+    <ngx-datatable-column name="" prop="id">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            <a href="javascript:;" (click)="delete(value)">Delete</a>
+        </ng-template>
+    </ngx-datatable-column>
+  
+</ngx-datatable>

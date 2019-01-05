@@ -5,6 +5,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+
 import { AgmCoreModule } from '@agm/core';
 
 import { AppComponent } from './app.component';
@@ -20,7 +23,6 @@ import { StopPageComponent } from './pages/transport-admin-page/stop-page/stop-p
 import {SchedulePageComponent} from './pages/transport-admin-page/schedule-page/schedule-page.component';
 import {ZoneService} from './services/transport-admin-services/zone-service/zone.service';
 import { ZoneComponent } from './pages/transport-admin-page/zone-page/zone/zone.component';
-import {InterceptorService} from './services/shared-services/interceptor.service';
 
 import { RouterModule, Routes } from '@angular/router';
 import { GenericService } from './services/generic/generic.service';
@@ -42,6 +44,14 @@ import { ShowTimesComponent } from './show-times/show-times.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { CheckTicketPageComponent } from './pages/check-ticket-page/check-ticket-page.component';
 import { ShowAdminsComponent } from './show-admins/show-admins.component';
+import { UserAdminPageComponent } from './pages/user-admin-page/user-admin-page.component';
+import { AccountRequestsComponent } from './account-requests/account-requests.component';
+import { ReportsComponent } from './reports/reports.component';
+import { TokenInterceptorService } from './services/token-interceptor-service/token-interceptor.service';
+import { DownloadFileService } from './services/download-file/download-file.service';
+import { BuyTicketComponent } from './buy-ticket/buy-ticket.component';
+import { ShowTicketsComponent } from './show-tickets/show-tickets.component';
+import { AddAdminComponent } from './add-admin/add-admin.component';
 
 
 const appRoutes: Routes = [
@@ -60,6 +70,7 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterPageComponent},
   { path: 'checkticket', component: CheckTicketPageComponent},
   { path: 'passenger', component: PassengerPageComponent},
+  { path: 'user-admin', component: UserAdminPageComponent},
   // { path: 'entry/:index',      component: BlogEntryPageComponent },
   { path: '', // localhost:4200 redirect to localhost:4200/home-page
     redirectTo: '/home-page',
@@ -95,7 +106,13 @@ const appRoutes: Routes = [
     ShowTimesComponent,
     RegisterPageComponent,
     CheckTicketPageComponent,
-    ShowAdminsComponent
+    ShowAdminsComponent,
+    BuyTicketComponent,
+    ShowTicketsComponent,
+    UserAdminPageComponent,
+    AccountRequestsComponent,
+    ReportsComponent,
+    AddAdminComponent
   ],
   imports: [
     BrowserModule,
@@ -109,7 +126,9 @@ const appRoutes: Routes = [
       apiKey: 'AIzaSyCncyqJ42IAu6XewfdwvXyVmCOUyr30gWI'
     }),
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot() // ToastrModule added
+    ToastrModule.forRoot(), // ToastrModule added
+    NgbModule,
+    NgxDatatableModule
   ],
   providers: [
     GenericService,
@@ -117,13 +136,10 @@ const appRoutes: Routes = [
     CheckSliderService,
     AuthenticationService,
     JwtUtilsService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: InterceptorService,
-      multi: true
-    },
     ZoneService,
-    TimesService
+    TimesService,
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
+    DownloadFileService
   ],
   bootstrap: [AppComponent]
 })

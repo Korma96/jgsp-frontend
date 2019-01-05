@@ -1,0 +1,50 @@
+<ngx-datatable class="dark" [loadingIndicator]="loadingIndicator" [reorderable]="reorderable" [rows]="tickets" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'"
+     [count]="100" [offset]="0" [limit]="100" [externalPaging]="false">
+     
+     <ngx-datatable-column name="Index">
+        <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
+            {{rowIndex+1}}
+        </ng-template>
+    </ngx-datatable-column>
+     <ngx-datatable-column name="Start date and time" prop="startDateAndTime" [sortable]="true">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            {{value}}
+        </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="End date and time" prop="endDateAndTime" [sortable]="true">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            {{value}}
+        </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Ticket type" prop="ticketType" [sortable]="true">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            {{value}}
+        </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Passenger type" prop="passengerType" [sortable]="true">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            {{value}}
+        </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Line/Zone" prop="lineZone" [sortable]="true">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            {{value}}
+        </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Price" prop="price" [sortable]="true">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            {{value}}
+        </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="" prop="id">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            <a href="javascript:;" (click)="download(value)">Download</a>
+        </ng-template>
+    </ngx-datatable-column>
+  
+</ngx-datatable>

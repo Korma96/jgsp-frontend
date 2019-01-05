@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { InterceptorService } from './interceptor.service';
+import { DownloadFileService } from './download-file.service';
 
-describe('InterceptorService', () => {
+describe('DownloadFileService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: InterceptorService = TestBed.get(InterceptorService);
+    const service: DownloadFileService = TestBed.get(DownloadFileService);
     expect(service).toBeTruthy();
   });
 });

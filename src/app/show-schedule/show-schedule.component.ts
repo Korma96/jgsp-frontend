@@ -43,6 +43,12 @@ export class ShowScheduleComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.getDates();
+
+    if (this.zones) {
+        if (this.zones.length > 0) {
+            this.selectedZone = this.zones[0];
+        }
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -51,12 +57,14 @@ export class ShowScheduleComponent implements OnInit, OnChanges {
     if (!zones.firstChange) {
       console.log('prev value: ', zones.previousValue);
       console.log('got name: ', zones.currentValue);
-      this.selectedZone = zones.currentValue[0];  // default-no podesavanje
+      if (zones.currentValue.length > 0) {
+        this.selectedZone = zones.currentValue[0];  // default-no podesavanje
+      }
     }
     
   }
   
-  getTImes(): Observable<LineAndTimes[]> {
+  getTimes(): Observable<LineAndTimes[]> {
     const retValue = this.timesService.get(this.schedule.date, this.days[this.schedule.day], this.schedule.lines);
     retValue.subscribe(
       receivedLinesWithTimes => {   
@@ -77,7 +85,7 @@ export class ShowScheduleComponent implements OnInit, OnChanges {
         }
 
       },
-      error => alert('Error: ' + JSON.stringify(error))
+      () =>  this.toastr.error('There are no schedule, for checked line, at the moment!')
     );
 
     return retValue;
@@ -118,7 +126,7 @@ export class ShowScheduleComponent implements OnInit, OnChanges {
       }
     );*/
       if (this.schedule.lines.length > 0) {
-          const observable = this.getTImes();
+          const observable = this.getTimes();
           observable.subscribe(
             res => el.scrollIntoView() // kad pristignu podaci skroluj na njih  
           );
