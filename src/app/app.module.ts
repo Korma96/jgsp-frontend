@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -47,6 +47,11 @@ import { BuyTicketComponent } from './buy-ticket/buy-ticket.component';
 import { TokenInterceptorService } from './services/token-interceptor-service/token-interceptor.service';
 import { ShowTicketsComponent } from './show-tickets/show-tickets.component';
 import { DownloadFileService } from './services/download-file/download-file.service';
+import { PriceService } from './services/price/price.service';
+import { ChangeAccountTypeComponent } from './change-account-type/change-account-type.component';
+import { ChangeAccountTypeService } from './services/change-account-type/change-account-type.service';
+import { PositionsOfVehiclesComponent } from './positions-of-vehicles/positions-of-vehicles.component';
+
 
 
 const appRoutes: Routes = [
@@ -101,7 +106,9 @@ const appRoutes: Routes = [
     RegisterPageComponent,
     CheckTicketPageComponent,
     BuyTicketComponent,
-    ShowTicketsComponent
+    ShowTicketsComponent,
+    ChangeAccountTypeComponent,
+    PositionsOfVehiclesComponent
   ],
   imports: [
     BrowserModule,
@@ -117,7 +124,8 @@ const appRoutes: Routes = [
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
     NgbModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    ReactiveFormsModule
   ],
   providers: [
     GenericService,
@@ -128,7 +136,9 @@ const appRoutes: Routes = [
     ZoneService,
     TimesService,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
-    DownloadFileService
+    DownloadFileService,
+    PriceService,
+    ChangeAccountTypeService
   ],
   bootstrap: [AppComponent]
 })

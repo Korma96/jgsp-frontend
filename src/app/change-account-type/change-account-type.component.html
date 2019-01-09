@@ -1,0 +1,22 @@
+
+<form class="form" [formGroup]="form">
+    <label >&nbsp;&nbsp;Current passenger type:&nbsp;&nbsp;{{authenticationService.getCurrentUser().roles}}</label>
+
+    <div class="form-group">
+      <label for="id_passenger_type">&nbsp;&nbsp;New passenger type</label>
+      <select id="id_passenger_type" class="form-control custom-select" [(ngModel)]="newPassengerType" [ngModelOptions]="{standalone: true}">
+        <option [ngValue]="passengerTypes[0]">{{passengerTypes[0]}}</option>
+        <option [ngValue]="passengerTypes[1]">{{passengerTypes[1]}}</option>
+      </select>
+    </div>
+  
+    <div class="form-group">
+        <label for="id_confirmation">&nbsp;&nbsp;Confirmation</label>
+        <input id="id_confirmation" class="form-control" type="file" (change)="onFileChange($event)" accept="image/*" #fileInput/>
+    </div>
+    
+    <br/>
+    <br/>
+  
+    <button class="btn btn-primary pull-right" (click)="send()">Send request for changing</button>
+  </form>

@@ -5,7 +5,8 @@
                 <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                     <a class="nav-item nav-link active" id="nav-show-tickets-tab" data-toggle="tab" href="#nav-show-tickets" role="tab" aria-controls="nav-show-tickets" aria-selected="true">SHOW TICKETS</a>
                     <a class="nav-item nav-link" id="nav-buy-ticket-tab" data-toggle="tab" href="#nav-buy-ticket" role="tab" aria-controls="nav-buy-ticket" aria-selected="false">BUY TICKET</a>
-                    <a class="nav-item nav-link" id="nav-show-lines-tab" data-toggle="tab" href="#nav-show-lines" role="tab" aria-controls="nav-show-lines" aria-selected="false">SHOW LINES</a>
+                    <a class="nav-item nav-link" id="nav-positions-of-vehicles-tab" data-toggle="tab" href="#nav-positions-of-vehicles" role="tab" aria-controls="nav-positions-of-vehicles" aria-selected="false">POSITIONS OF VEHICLES</a>
+                    <a class="nav-item nav-link" id="nav-change-account-type-tab" data-toggle="tab" href="#nav-change-account-type" role="tab" aria-controls="nav-change-account-type" aria-selected="false">CHANGE ACCOUNT TYPE</a>
                     <a class="nav-item nav-link" id="nav-show-schedule-tab" data-toggle="tab" href="#nav-show-schedule" role="tab" aria-controls="nav-show-schedule" aria-selected="false">SHOW SCHEDULE</a>
                 </div>
             </nav>
@@ -14,10 +15,13 @@
                     <app-show-tickets [tickets]="tickets"> </app-show-tickets>
                 </div>
                 <div class="tab-pane fade" id="nav-buy-ticket" role="tabpanel" aria-labelledby="nav-buy-ticket-tab">
-                    <app-buy-ticket [zones]="zones" (boughtTicketEvent)="getTickets()"></app-buy-ticket>
+                    <app-buy-ticket [zones]="zones" (boughtTicketEvent)="boughtTicket($event)"></app-buy-ticket>
                 </div>
-                <div class="tab-pane fade" id="nav-show-lines" role="tabpanel" aria-labelledby="nav-show-lines-tab">
-                    <app-show-lines [zones]="zones"> </app-show-lines>
+                <div class="tab-pane fade" id="nav-positions-of-vehicles" role="tabpanel" aria-labelledby="nav-positions-of-vehicles-tab">
+                        <app-positions-of-vehicles [zones]="zones"></app-positions-of-vehicles>
+                </div>
+                <div class="tab-pane fade" id="nav-change-account-type" role="tabpanel" aria-labelledby="nav-change-account-type-tab">
+                    <app-change-account-type></app-change-account-type>
                 </div>
                 <div class="tab-pane fade" id="nav-show-schedule" role="tabpanel" aria-labelledby="nav-show-schedule-tab">
                     <app-show-schedule [zones]="zones"></app-show-schedule>

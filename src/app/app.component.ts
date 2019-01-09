@@ -45,7 +45,7 @@ export class AppComponent implements OnInit {
           this.toastr.error('Problem with loading zones!');
         }
       },
-      error => console.log('Error: ' + JSON.stringify(error))
+      err => this.toastr.error('Error: ' + JSON.stringify(err))
     );
   }
 

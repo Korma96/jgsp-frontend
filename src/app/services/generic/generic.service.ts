@@ -1,8 +1,7 @@
 import { Injectable, Injector, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { UrlSegment } from '@angular/router';
-
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { DateTimesAndPrice } from 'src/app/model/date-times-and-price';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +27,11 @@ export class GenericService {
   getListById<T>(relativeUrl: string, id: number): Observable<T[]> {
     // const params: HttpParams = new HttpParams().set('_id',id);
     return this.http.get<T[]>(this.baseUrl + relativeUrl + `/${id}`);
+  }
+
+  putWithId<T>(relativeUrl: string, t: T): Observable<DateTimesAndPrice> {
+    const headers: HttpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.put<DateTimesAndPrice>(this.baseUrl + relativeUrl, t, { headers });
   }
 
   put<T>(relativeUrl: string, t: T): Observable<T> {

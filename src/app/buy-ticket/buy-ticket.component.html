@@ -40,8 +40,8 @@
   
   <div class="form-group">
     <label for="id_line">&nbsp;&nbsp;Line</label>
-    <select class="form-control" id="id_line" [(ngModel)]="ticket.name" name="line" [disabled]="ticket.hasZoneNotLine || ticket.ticketType == (ticketTypes[0] | uppercase)">
-      <ng-template [ngIf]="!ticket.hasZoneNotLine && selectedZone && ticket.ticketType != (ticketTypes[0] | uppercase)"> 
+    <select class="form-control" id="id_line" [(ngModel)]="ticket.name" name="line" [disabled]="ticket.hasZoneNotLine">
+      <ng-template [ngIf]="!ticket.hasZoneNotLine && selectedZone"> 
           <option *ngFor="let lineName of selectedZone.distinctLines" [ngValue]="lineName">{{lineName}}</option>
       </ng-template>
     </select>
@@ -72,6 +72,15 @@
       </div>
     </div>
   </div>
+
+  <div class="well">
+    sasaas
+    <h4 *ngIf="price && ticket.hasZoneNotLine">Price:&nbsp;&nbsp;{{price.priceZone}}</h4>
+    <h4 *ngIf="price && !ticket.hasZoneNotLine">Price:&nbsp;&nbsp;{{price.priceLine}}</h4>
+  </div>
+  
+  <br/>
+  <br/>
 
   <input class="btn btn-primary pull-right" type="submit" value="Buy"/>
 </form>

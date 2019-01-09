@@ -11,6 +11,7 @@ import { Observable } from 'rxjs/Rx';
 @Injectable()
 export class AuthenticationService {
   private relativeUrl;
+  private currentUserKey: string = 'currentUser';
 
   constructor(private loginService: GenericService, private jwtUtilsService: JwtUtilsService) {
     this.relativeUrl = '/users/login';
@@ -22,7 +23,7 @@ export class AuthenticationService {
       (res: any) => {
         const token = res && res['token'];
         if (token) {
-          localStorage.setItem('currentUser', JSON.stringify({username, password,
+          localStorage.setItem(this.currentUserKey, JSON.stringify({username, password,
                 roles: this.jwtUtilsService.getRoles(token), token: token}));
               return true;
         }
@@ -47,7 +48,7 @@ export class AuthenticationService {
   }
 
   logout(): void {
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem(this.currentUserKey);
   }
 
   isLoggedIn(): boolean {
