@@ -10,10 +10,8 @@ import { LineForShowing } from '../model/line-for-showing';
 import { CheckSliderService } from '../services/check-slider/check-slider.service';
 import { LineAndChecked } from '../model/line-and-checked';
 import { Point } from '../model/point';
-import { refreshDescendantViews } from '@angular/core/src/render3/instructions';
 
 declare var google: any;
-
 
 
 @Component({

@@ -8,7 +8,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
-import { AgmCoreModule } from '@agm/core';
+import {AgmCoreModule, GoogleMapsAPIWrapper} from '@agm/core';
 
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
@@ -43,15 +43,20 @@ import { TimesService } from './services/times.service';
 import { ShowTimesComponent } from './show-times/show-times.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { CheckTicketPageComponent } from './pages/check-ticket-page/check-ticket-page.component';
-import { BuyTicketComponent } from './buy-ticket/buy-ticket.component';
+import { ShowAdminsComponent } from './show-admins/show-admins.component';
+import { UserAdminPageComponent } from './pages/user-admin-page/user-admin-page.component';
+import { AccountRequestsComponent } from './account-requests/account-requests.component';
+import { ReportsComponent } from './reports/reports.component';
 import { TokenInterceptorService } from './services/token-interceptor-service/token-interceptor.service';
-import { ShowTicketsComponent } from './show-tickets/show-tickets.component';
 import { DownloadFileService } from './services/download-file/download-file.service';
 import { PriceService } from './services/price/price.service';
 import { ChangeAccountTypeComponent } from './change-account-type/change-account-type.component';
 import { ChangeAccountTypeService } from './services/change-account-type/change-account-type.service';
 import { PositionsOfVehiclesComponent } from './positions-of-vehicles/positions-of-vehicles.component';
-
+import { BuyTicketComponent } from './buy-ticket/buy-ticket.component';
+import { ShowTicketsComponent } from './show-tickets/show-tickets.component';
+import { AddAdminComponent } from './add-admin/add-admin.component';
+import { TransportAdminMapComponent } from './pages/transport-admin-page/transport-admin-map/transport-admin-map.component';
 
 
 const appRoutes: Routes = [
@@ -70,6 +75,7 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterPageComponent},
   { path: 'checkticket', component: CheckTicketPageComponent},
   { path: 'passenger', component: PassengerPageComponent},
+  { path: 'user-admin', component: UserAdminPageComponent},
   // { path: 'entry/:index',      component: BlogEntryPageComponent },
   { path: '', // localhost:4200 redirect to localhost:4200/home-page
     redirectTo: '/home-page',
@@ -105,10 +111,16 @@ const appRoutes: Routes = [
     ShowTimesComponent,
     RegisterPageComponent,
     CheckTicketPageComponent,
+    ShowAdminsComponent,
     BuyTicketComponent,
     ShowTicketsComponent,
     ChangeAccountTypeComponent,
-    PositionsOfVehiclesComponent
+    PositionsOfVehiclesComponent,
+    UserAdminPageComponent,
+    AccountRequestsComponent,
+    ReportsComponent,
+    AddAdminComponent,
+    TransportAdminMapComponent
   ],
   imports: [
     BrowserModule,
@@ -129,6 +141,7 @@ const appRoutes: Routes = [
   ],
   providers: [
     GenericService,
+    GoogleMapsAPIWrapper,
     { provide: 'BASE_API_URL', useValue: 'http://localhost:8080/api' },  // environment.apiUrl
     CheckSliderService,
     AuthenticationService,
