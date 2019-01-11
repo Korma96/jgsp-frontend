@@ -56,7 +56,7 @@ export class ShowTicketsComponent implements OnInit, OnChanges {
     let startDateTime = new Date(+tokensStart[2],+tokensStart[1]-1,+tokensStart[0],+tokens2Start[0],+tokens2Start[1]);
     let endDateTime = new Date(+tokensEnd[2],+tokensEnd[1]-1,+tokensEnd[0],+tokens2End[0],+tokens2End[1]);
 
-    const currentDateTime = new Date()
+    const currentDateTime = new Date();
     let retValue: boolean = startDateTime > currentDateTime || currentDateTime > endDateTime;
     
     return retValue;

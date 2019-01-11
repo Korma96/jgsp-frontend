@@ -3,9 +3,10 @@ import { ZoneWithLines } from '../model/zone-with-lines';
 import { TicketDto } from '../model/ticket-dto';
 import { GenericService } from '../services/generic/generic.service';
 import { ToastrService } from 'ngx-toastr';
-import { Price } from '../model/price';
 import { PriceService } from '../services/price/price.service';
 import { Ticket } from '../model/ticket';
+import { NgbCalendar, NgbDateStruct, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateCustomParserFormatter } from './ngb-date-custom-parser-formatter/ngb-date-custom-parser-formatter';
 
 @Component({
   selector: 'app-buy-ticket',
@@ -28,28 +29,32 @@ export class BuyTicketComponent implements OnInit, OnChanges {
 
   ticket: TicketDto;
 
-  date: any;
+  date: NgbDateStruct;
 
   selectedZone: ZoneWithLines;
 
-  price: Price;
-
   relativeUrlForBuyTicket: string;
+
+  price: number;
 
   @Output()
   boughtTicketEvent = new EventEmitter<Ticket>();
+  
 
   @Input()
   zones: ZoneWithLines[]; 
 
   constructor(private genericService: GenericService, private toastr: ToastrService,
-              private priceService: PriceService) {
+              private priceService: PriceService,
+              private calendar: NgbCalendar,
+              private ngbDateParserFormatter: NgbDateParserFormatter) {
     this.transport = 0;
     this.selectedMonth = this.currentMonth + 1; // +1 posto indeksi za currentMonth krecu od nule
     this.ticket = { hasZoneNotLine: true, name: null, dayInMonthOrMonthInYear: -1, 
       ticketType: this.ticketTypes[1].toUpperCase() };
     
     this.relativeUrlForBuyTicket = '/passengers/buy-ticket';
+    this.date = this.calendar.getToday();
   }
 
   ngOnInit() {
@@ -59,7 +64,6 @@ export class BuyTicketComponent implements OnInit, OnChanges {
         }
     }
 
-    this.getPrice();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -84,10 +88,6 @@ export class BuyTicketComponent implements OnInit, OnChanges {
 
   selectedZoneChanged() {
     if (this.selectedZone) {
-        if (this.ticket.ticketType) {
-          this.getPrice();
-        }
-
         if (this.selectedZone.distinctLines) {
             if (this.selectedZone.distinctLines.length > 0) {
               this.ticket.name = this.selectedZone.distinctLines[0];
@@ -113,21 +113,28 @@ export class BuyTicketComponent implements OnInit, OnChanges {
     this.selectedZoneChanged();
   }
 
-  buyTicket() {
-    if (this.ticket.hasZoneNotLine) {
-        this.ticket.name = this.selectedZone.name;
-    }
-
+  stopIfNotAllRight(event) {
     let stopBuying: boolean = false;
+    let now = new Date();
+    now.setHours(0,0,0,0);
 
     if (this.ticket.ticketType === this.ticketTypes[1].toUpperCase()) {
         if (!this.date) {
           this.toastr.error('You did not select a date!');
           stopBuying = true;
         }
-        else {
+        else if(new Date(this.date.year, this.date.month-1, this.date.day) < now) {
+          this.toastr.error('The selected date has already passed!');
+          stopBuying = true;
+        }
+        else if(this.date.day && this.date.month && this.date.year) {
           this.ticket.dayInMonthOrMonthInYear = this.date.day;
         }
+        else {
+          this.toastr.error('Not valid date!');
+          stopBuying = true;
+        }
+        
     }
     else if (this.ticket.ticketType === this.ticketTypes[2].toUpperCase()) {
       if (this.selectedMonth < this.currentMonth || this.selectedMonth > 12) {
@@ -139,9 +146,20 @@ export class BuyTicketComponent implements OnInit, OnChanges {
       }
     }
 
-    if (stopBuying) {
-      return;
+
+    if(stopBuying) {
+      event.stopPropagation(); // dialog se nece prikazati
     }
+
+    this.getPrice();
+  }
+
+  buyTicket() {
+    if (this.ticket.hasZoneNotLine) {
+        this.ticket.name = this.selectedZone.name;
+    }
+
+    
 
     this.genericService.save(this.relativeUrlForBuyTicket, this.ticket).subscribe(
       (receivedTicket: Ticket) => {
@@ -155,10 +173,17 @@ export class BuyTicketComponent implements OnInit, OnChanges {
   }  
 
   getPrice() {
-    this.price = { priceLine: 0, priceZone: 0 };
-    /*this.priceService.get(this.ticket.ticketType, this.selectedZone.name).subscribe(
-      (price: Price) => this.price = price 
-    );*/
+    this.priceService.get(this.ticket.hasZoneNotLine, this.ticket.ticketType, this.selectedZone.name)
+    .subscribe(
+      (price: number) => {
+        this.price = price;
+        this.toastr.success('The price has been successfully delivered! ' + this.price);
+      },
+      (err) => {
+        this.price = -999;
+        this.toastr.error('The price has not been successfully delivered!');
+      }
+    );
   }
 
 }

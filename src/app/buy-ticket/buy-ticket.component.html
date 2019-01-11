@@ -1,5 +1,5 @@
 
-<form class="form" (ngSubmit)="buyTicket()">
+<form class="form">
   <div class="form-group">
     <label for="id_transport_type">&nbsp;&nbsp;Transport</label>
     <select id="id_transport_type" class="form-control custom-select" [(ngModel)]="transport" name="transport" (change)="transportChanged()">
@@ -65,22 +65,25 @@
     </select>
 
     <div *ngIf="ticket.ticketType != (ticketTypes[2] | uppercase)" class="input-group">
-      <input class="form-control" placeholder="yyyy-mm-dd"
+      <input class="form-control" placeholder="dd.mm.yyyy."
               name="dp" [(ngModel)]="date" ngbDatepicker #d="ngbDatepicker" (focus)="d.open()" [disabled]="ticket.ticketType != (ticketTypes[1] | uppercase)">
       <div class="input-group-append">
         <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
       </div>
     </div>
   </div>
-
-  <div class="well">
-    sasaas
-    <h4 *ngIf="price && ticket.hasZoneNotLine">Price:&nbsp;&nbsp;{{price.priceZone}}</h4>
-    <h4 *ngIf="price && !ticket.hasZoneNotLine">Price:&nbsp;&nbsp;{{price.priceLine}}</h4>
-  </div>
   
   <br/>
   <br/>
 
-  <input class="btn btn-primary pull-right" type="submit" value="Buy"/>
+  <!-- Button trigger modal -->
+  <button type="button" (click)="stopIfNotAllRight($event)" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+    Buy ticket
+  </button>
+
+  <app-modal-dialog [transport]="transports[transport]" [zone]="selectedZone" 
+    [hasZoneNotLine]="ticket.hasZoneNotLine" [line]="ticket.name" [ticketType]="ticket.ticketType"
+    [date]="ngbDateParserFormatter.format(date)" [month]="months[selectedMonth]" [price]="price"
+    (confirmedPurchase)="buyTicket()">
+  </app-modal-dialog>
 </form>

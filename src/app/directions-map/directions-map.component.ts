@@ -204,7 +204,13 @@ export class DirectionsMapComponent implements OnInit, OnChanges, OnDestroy {
     this.stompClient = Stomp.over(socket);
 
     // prva lambda funkcija je callback za uspesno konektovanje, a druga lambda fukcija za pucanje konekcije
-    this.stompClient.connect({}, (frame) => {}, () => this.toastr.info('The connection with the vehicles was interrupted!') );
+    this.stompClient.connect({}, (frame) => {}, () => {
+        // ukloni sva vozila usled pucanja konekcije
+        this.postionsOfVehiclesChecked = false;
+        this.postionsOfVehiclesChanged();
+        this.toastr.info('The connection with the vehicles was interrupted!'); 
+      }
+    );
   }
 
   postionsOfVehiclesChanged() {

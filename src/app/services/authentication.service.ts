@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, HostListener } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { JwtUtilsService } from './jwt-utils.service';
 import { HttpHeaders } from '@angular/common/http';
@@ -16,6 +16,7 @@ export class AuthenticationService {
   constructor(private loginService: GenericService, private jwtUtilsService: JwtUtilsService) {
     this.relativeUrl = '/users/login';
   }
+
 
   login(username: string, password: string): Observable<boolean> {
     return this.loginService.put(this.relativeUrl, JSON.stringify({username, password}))

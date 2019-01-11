@@ -5,7 +5,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import {AgmCoreModule, GoogleMapsAPIWrapper} from '@agm/core';
@@ -57,6 +57,8 @@ import { BuyTicketComponent } from './buy-ticket/buy-ticket.component';
 import { ShowTicketsComponent } from './show-tickets/show-tickets.component';
 import { AddAdminComponent } from './add-admin/add-admin.component';
 import { TransportAdminMapComponent } from './pages/transport-admin-page/transport-admin-map/transport-admin-map.component';
+import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
+import { NgbDateCustomParserFormatter } from './buy-ticket/ngb-date-custom-parser-formatter/ngb-date-custom-parser-formatter';
 
 
 const appRoutes: Routes = [
@@ -120,7 +122,8 @@ const appRoutes: Routes = [
     AccountRequestsComponent,
     ReportsComponent,
     AddAdminComponent,
-    TransportAdminMapComponent
+    TransportAdminMapComponent,
+    ModalDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -151,7 +154,8 @@ const appRoutes: Routes = [
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
     DownloadFileService,
     PriceService,
-    ChangeAccountTypeService
+    ChangeAccountTypeService,
+    {provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter}
   ],
   bootstrap: [AppComponent]
 })
