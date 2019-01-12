@@ -14,6 +14,9 @@ export class ShowRequestsComponent implements OnInit {
   requests: Request[];
   relativeUrlForRequests: string;
 
+  imageForShow: any;
+  imageForShowLoaded: boolean;
+
   relativeUrlForImage: string;
 
   relativeUrlForAcceptOrDecline: string;
@@ -23,6 +26,9 @@ export class ShowRequestsComponent implements OnInit {
     this.relativeUrlForRequests = '/userAdmin/get-requests';
     this.relativeUrlForImage = '/userAdmin/get-image';
     this.relativeUrlForAcceptOrDecline = '/userAdmin/request-review';
+    
+    this.imageForShow = null;
+    this.imageForShowLoaded = false;
   }
 
  
@@ -94,6 +100,16 @@ export class ShowRequestsComponent implements OnInit {
     for (const req of this.requests) {
       if (req.id === id) {
         req.image = image;
+        return;
+      }
+    }
+  }
+
+  setImageForShow(id: number) {
+    for (const req of this.requests) {
+      if (req.id === id) {
+        this.imageForShow = req.image;
+        this.imageForShowLoaded = req.imageLoaded;
         return;
       }
     }

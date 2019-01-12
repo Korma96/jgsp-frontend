@@ -1,46 +1,45 @@
 <div *ngFor="let request of requests" class="row">
 	<div class="col-xl-12 table-bordered">
-		<div class="row">
-			<div class="col-xl-4 table-bordered">
-				<div class="row"> 
-                    <div class="col-xl-12 table-bordered">
-                            First name: &nbsp;&nbsp; {{request.firstName}}
-                    </div>
-                </div>
-                <div class="row"> 
-                    <div class="col-xl-12 table-bordered">
-                            Last name: &nbsp;&nbsp; {{request.lastName}}
-                    </div>
-                </div>
-                <div class="row"> 
-                    <div class="col-xl-12 table-bordered">
-                            Address: &nbsp;&nbsp; {{request.address}}
-                    </div>    
-                </div>
-                <div class="row"> 
-                    <div class="col-xl-12 table-bordered">
-                            Passenger type: &nbsp;&nbsp; {{request.passengerType}}
-                    </div>
-                </div>
-                <div class="row"> 
-                    <div class="col-xl-12 table-bordered">
-                            Requested passenger type: &nbsp;&nbsp; {{request.newPassengerType}}
-                    </div>
-                </div>
-			</div>
-			<div class="col-xl-8 table-bordered">
-				<img *ngIf="request.imageLoaded" [src]="request.image" alt="Loading image...">
-                <h3 *ngIf="!request.imageLoaded">Loadin image ...</h3>
+        <div class="row"> 
+            <div class="col-xl-3 offset-xl-4 table-bordered">
+                    First name: &nbsp;&nbsp; {{request.firstName}}
             </div>
-		</div>
-		<div class="row table-bordered">
-			<div class="col-xl-6"> 
-				<button class="btn btn-danger" (click)="acceptOrDecline(request.id, false)" [disabled]="!request.imageLoaded">Decline</button>
+        </div>
+        <div class="row"> 
+            <div class="col-xl-3 offset-xl-4 table-bordered">
+                    Last name: &nbsp;&nbsp; {{request.lastName}}
+            </div>
+        </div>
+        <div class="row"> 
+            <div class="col-xl-3 offset-xl-4 table-bordered">
+                    Address: &nbsp;&nbsp; {{request.address}}
+            </div>    
+        </div>
+        <div class="row"> 
+            <div class="col-xl-3 offset-xl-4 table-bordered">
+                    Passenger type: &nbsp;&nbsp; {{request.passengerType}}
+            </div>
+        </div>
+        <div class="row"> 
+            <div class="col-xl-3 offset-xl-4 table-bordered">
+                    Requested passenger type: &nbsp;&nbsp; {{request.newPassengerType}}
+            </div>
+        </div>
+        <div class="row"> 
+                <div class="col-xl-2 offset-xl-4">
+                    <button class="btn btn-lg btn-warning" (click)="setImageForShow(request.id)"  data-toggle="modal" data-target="#exampleModalCenter"> Show image</button>
+                </div>
+        </div>
+		<div class="row">
+			<div class="col-xl-2 offset-xl-3"> 
+				<button class="btn btn-lg btn-danger" (click)="acceptOrDecline(request.id, false)" [disabled]="!request.imageLoaded">Decline</button>
 			</div>
-			<div class="col-xl-6"> 
-				<button class="btn btn-success" (click)="acceptOrDecline(request.id, true)" [disabled]="!request.imageLoaded">Accept</button>
+			<div class="col-xl-2 offset-xl-2"> 
+				<button class="btn btn-lg btn-success" (click)="acceptOrDecline(request.id, true)" [disabled]="!request.imageLoaded">Accept</button>
 			</div>
 		</div>
 	</div>
 </div>
+
+<app-image-dialog [image]="imageForShow" [imageLoaded]="imageForShowLoaded"> </app-image-dialog>
 

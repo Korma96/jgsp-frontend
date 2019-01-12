@@ -62,6 +62,7 @@ import { ShowRequestsComponent } from './show-requests/show-requests.component';
 import { TransportAdminMapComponent } from './pages/transport-admin-page/transport-admin-map/transport-admin-map.component';
 import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
 import { NgbDateCustomParserFormatter } from './buy-ticket/ngb-date-custom-parser-formatter/ngb-date-custom-parser-formatter';
+import { ImageDialogComponent } from './image-dialog/image-dialog.component';
 
 
 const appRoutes: Routes = [
@@ -129,7 +130,8 @@ const appRoutes: Routes = [
     DailyGeneralReportComponent,
     ShowRequestsComponent,
     TransportAdminMapComponent,
-    ModalDialogComponent
+    ModalDialogComponent,
+    ImageDialogComponent
   ],
   imports: [
     BrowserModule,

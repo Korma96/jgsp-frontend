@@ -27,8 +27,20 @@ export class LoginPageComponent implements OnInit {
     .subscribe((loggedIn: boolean) => {
       console.log(loggedIn);
       if (loggedIn) {
-        this.toastr.success('Successfully login :)');
-        this.router.navigate(['/passenger']);
+        const currentUser = this.authenticationService.getCurrentUser();
+        this.toastr.success('Successfully logged in as ' 
+                            + currentUser.username);
+        if (currentUser.roles == 'PASSENGER') {
+          this.router.navigate(['/passenger']);
+        }
+        else if (currentUser.roles == 'USER_ADMINISTRATOR') {
+          this.router.navigate(['/user-admin']);
+        }
+        else {
+          this.toastr.error('Jos nije implementirano usmeravanje'
+          +' na sve stranice korisnika. Za sada radi samo za PASSENGER i USER_ADMINISTRATORA');
+        }
+        
       }
       else {
         this.toastr.error('Unsuccessfully login :(');

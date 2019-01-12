@@ -43,7 +43,7 @@ export class AuthenticationService {
 
 
   getToken(): String {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUser = JSON.parse(localStorage.getItem(this.currentUserKey));
     const token = currentUser && currentUser.token;
     return token ? token : '';
   }
