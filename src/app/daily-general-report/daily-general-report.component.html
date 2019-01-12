@@ -1,0 +1,55 @@
+
+<form class="form">
+
+  <div class="form-group">
+    <div class="input-group">
+      <input class="form-control" placeholder="yyyy-mm-dd"
+              name="dp" [(ngModel)]="date1" ngbDatepicker #d1="ngbDatepicker" (focus)="d1.open()">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button"></button>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn btn-primary pull-right" (click)="showReports()">show</button>
+</form>
+<!--
+<ngx-datatable class="dark" [loadingIndicator]="loadingIndicator" [reorderable]="reorderable" [row]="report" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'"
+     [count]="100" [offset]="0" [limit]="100" [externalPaging]="false">
+     
+     <ngx-datatable-column name="Index">
+        <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
+            {{rowIndex+1}}
+        </ng-template>
+    </ngx-datatable-column>
+     <ngx-datatable-column name="Daily" prop="daily" [sortable]="true">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            {{value}}
+        </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Onetime" prop="onetime" [sortable]="true">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            {{value}}
+        </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Monthly" prop="monthly" [sortable]="true">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            {{value}}
+        </ng-template>
+      </ngx-datatable-column>
+      
+    <ngx-datatable-column name="Annual" prop="annual" [sortable]="true">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+          {{value}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Profit" prop="profit" [sortable]="true">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+          {{value}}
+      </ng-template>
+    </ngx-datatable-column>
+
+
+</ngx-datatable>
+-->

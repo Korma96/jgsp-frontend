@@ -46,4 +46,13 @@ export class DownloadFileService {
     a.remove(); // remove the element
    }
 
+
+   getImageFile(relativeUrl: string, id: number) {
+    const httpOptions = {
+      'responseType': 'arraybuffer' as 'json'
+     };
+  
+    return this.http.get<any>(this.baseUrl + relativeUrl + `/${id}`, httpOptions);
+  }
+
 }

@@ -52,6 +52,9 @@ import { DownloadFileService } from './services/download-file/download-file.serv
 import { BuyTicketComponent } from './buy-ticket/buy-ticket.component';
 import { ShowTicketsComponent } from './show-tickets/show-tickets.component';
 import { AddAdminComponent } from './add-admin/add-admin.component';
+import { GeneralReportComponent } from './general-report/general-report.component';
+import { DailyGeneralReportComponent } from './daily-general-report/daily-general-report.component';
+import { ShowRequestsComponent } from './show-requests/show-requests.component';
 
 
 const appRoutes: Routes = [
@@ -112,7 +115,10 @@ const appRoutes: Routes = [
     UserAdminPageComponent,
     AccountRequestsComponent,
     ReportsComponent,
-    AddAdminComponent
+    AddAdminComponent,
+    GeneralReportComponent,
+    DailyGeneralReportComponent,
+    ShowRequestsComponent
   ],
   imports: [
     BrowserModule,

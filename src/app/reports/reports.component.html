@@ -1,25 +1,21 @@
-
-<form class="form">
-
-  <div class="form-group">
-    <div class="input-group">
-      <input class="form-control" placeholder="yyyy-mm-dd"
-              name="dp" [(ngModel)]="date1" ngbDatepicker #d1="ngbDatepicker" (focus)="d1.open()">
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button"></button>
+<section id="report-tabs">
+  <div class="row">
+      <div class="col-xl-123 ">
+          <nav>
+              <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                  <a class="nav-item nav-link active" id="nav-general-report-tab" data-toggle="tab" href="#nav-general-report" role="tab" aria-controls="nav-general-report" aria-selected="true">GENERAL REPORT</a>
+                  <a class="nav-item nav-link" id="nav-daily-general-report-tab" data-toggle="tab" href="#nav-daily-general-report" role="tab" aria-controls="nav-daily-general-report" aria-selected="false">DAILY GENERAL REPORT</a>
+                  <a class="nav-item nav-link" id="nav-zone-line-report-tab" data-toggle="tab" href="#nav-zone-line-report" role="tab" aria-controls="nav-zone-line-report" aria-selected="false">ZONE LINE REPORT</a>
+                  <a class="nav-item nav-link" id="nav-daily-zone-line-report" data-toggle="tab" href="#nav-daily-zone-line-report" role="tab" aria-controls="nav-daily-zone-line-report" aria-selected="false">ZONE LINE DAILY REPORT</a>
+              </div>
+          </nav>
+          <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-general-report" role="tabpanel" aria-labelledby="nav-general-report-tab">
+                  <app-general-report></app-general-report>
+              </div>
+              <div class="tab-pane fade show active" id="nav-general-report1" role="tabpanel" aria-labelledby="nav-general-report-tab">
+            </div>
+          </div>
       </div>
-    </div>
   </div>
-
-  <div class="form-group">
-    <div class="input-group">
-      <input class="form-control" placeholder="yyyy-mm-dd"
-              name="dp" [(ngModel)]="date2" ngbDatepicker #d2="ngbDatepicker" (focus)="d2.open()">
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"></button>
-      </div>
-    </div>
-  </div>
-
-  <button class="btn btn-primary pull-right" (click)="showReports()">show</button>
-</form>
+</section>
