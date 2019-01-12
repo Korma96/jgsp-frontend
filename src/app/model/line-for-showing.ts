@@ -9,4 +9,6 @@ export interface LineForShowing {
     markers: any[];
     relativeUrl: string;
     color: string;
+    markersForVehicles: any[];
+    subscription: any;
 }

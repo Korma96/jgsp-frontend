@@ -4,6 +4,7 @@ import { ForwardingZonesService } from 'src/app/services/forwarding-zones/forwar
 import { Ticket } from 'src/app/model/ticket';
 import { GenericService } from 'src/app/services/generic/generic.service';
 import { ToastrService } from 'ngx-toastr';
+import { TicketDto } from 'src/app/model/ticket-dto';
 
 @Component({
   selector: 'app-passenger-page',
@@ -53,8 +54,12 @@ export class PassengerPageComponent implements OnInit {
             this.toastr.error('Problem with loading tickets!');
           }
        },
-       error => console.log('Error: ' + JSON.stringify(error))
+       err => this.toastr.error('Error: ' + JSON.stringify(err))
     );
-}
+  }
+
+  boughtTicket(ticket: Ticket) {
+    this.tickets.push(ticket);
+  }
 
 }

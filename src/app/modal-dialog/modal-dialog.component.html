@@ -1,0 +1,106 @@
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 class="modal-title w-100" id="exampleModalLongTitle">TICKET</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body w-100">
+        <div class="container-fluid">
+          <div class="row" id="id_header">
+            <div *ngIf="!hasZoneNotLine && ticketType != dailyTicketType && ticketType != monthlyTicketType"
+                 class="col-xl-2 offset-xl-1 table-bordered">
+                Transport
+            </div>
+            <div *ngIf="hasZoneNotLine && ticketType != dailyTicketType && ticketType != monthlyTicketType"
+                 class="col-xl-2 offset-xl-2 table-bordered">
+                Transport
+            </div>
+            <div *ngIf="hasZoneNotLine && (ticketType == dailyTicketType || ticketType == monthlyTicketType)"
+                 class="col-xl-2 offset-xl-1 table-bordered">
+                Transport
+            </div>
+            <div *ngIf="!hasZoneNotLine && (ticketType == dailyTicketType || ticketType == monthlyTicketType)"
+                 class="col-xl-2 table-bordered">
+                Transport
+            </div>
+            <div class="col-xl-2 table-bordered">
+                Zone
+            </div>
+            <div *ngIf="!hasZoneNotLine" class="col-xl-2 table-bordered">
+              Line
+            </div>
+            <div class="col-xl-2 table-bordered">
+              Ticket type
+            </div>
+            <div *ngIf="ticketType == dailyTicketType" class="col-xl-2 table-bordered">
+              Date
+            </div>
+            <div *ngIf="ticketType == monthlyTicketType" class="col-xl-2 table-bordered">
+              Month
+            </div>
+            <div class="col-xl-2 table-bordered">
+              Price
+            </div>
+          </div>
+
+          <div class="row">
+              <div *ngIf="!hasZoneNotLine && ticketType != dailyTicketType && ticketType != monthlyTicketType"
+                  class="col-xl-2 offset-xl-1 table-bordered text-truncate" title="{{transport}}">
+                  {{transport}}
+              </div>
+              <div *ngIf="hasZoneNotLine && ticketType != dailyTicketType && ticketType != monthlyTicketType"
+                  class="col-xl-2 offset-xl-2 table-bordered text-truncate" title="{{transport}}">
+                  {{transport}}
+              </div>
+              <div *ngIf="hasZoneNotLine && (ticketType == dailyTicketType || ticketType == monthlyTicketType)"
+                  class="col-xl-2 offset-xl-1 table-bordered text-truncate" title="{{transport}}">
+                  {{transport}}
+              </div>
+              <div *ngIf="!hasZoneNotLine && (ticketType == dailyTicketType || ticketType == monthlyTicketType)"
+                  class="col-xl-2 table-bordered text-truncate" title="{{transport}}">
+                  {{transport}}
+              </div>
+              <div *ngIf="zone" class="col-xl-2 table-bordered text-truncate" title="{{zone.name}}">
+                  {{zone.name}}
+              </div>
+              <div *ngIf="!zone" class="col-xl-2 table-bordered">
+                  unknown
+              </div>
+              <div *ngIf="!hasZoneNotLine" title="{{line}}"class="col-xl-2 table-bordered text-truncate">
+                {{line}}
+              </div>
+              <div class="col-xl-2 table-bordered">
+                {{ticketType}}
+              </div>
+              <div *ngIf="ticketType == dailyTicketType && date" class="col-xl-2 table-bordered">
+                {{date}}
+              </div>
+              <div *ngIf="ticketType == monthlyTicketType" class="col-xl-2 table-bordered">
+                {{month}}
+              </div>
+              <div class="col-xl-2 table-bordered">
+                  <ng-template [ngIf]="!price">
+                      Please wait...
+                  </ng-template>
+                  <ng-template [ngIf]="price">
+                    {{price}}
+                  </ng-template>  
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel purchase</button>
+        
+        <button *ngIf="!price" type="button" class="btn btn-secondary" disabled>Confirm purchase</button>
+        <button *ngIf="price" type="button" class="btn btn-success" data-dismiss="modal"
+               (click)="confirmPurchase()">Confirm purchase</button>
+      </div>
+    </div>
+  </div>
+</div>

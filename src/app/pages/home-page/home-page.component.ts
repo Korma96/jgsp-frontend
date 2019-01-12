@@ -15,6 +15,9 @@ export class HomePageComponent implements OnInit {
 
   zones: ZoneWithLines[];
 
+  postionsOfVehiclesChecked: boolean = false;
+  neverShowPositionOfVehicles: boolean = true;
+
   constructor(private forwardingZonesService: ForwardingZonesService) {
   }
 

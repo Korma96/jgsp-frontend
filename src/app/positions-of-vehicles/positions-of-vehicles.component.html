@@ -1,0 +1,9 @@
+<div>
+    Show postions of vehicles 
+    <span> 
+      <input type="checkbox" [checked]="postionsOfVehiclesChecked" 
+            (change)="postionsOfVehiclesChecked = !postionsOfVehiclesChecked" /> 
+    </span>
+</div>
+
+<app-show-lines [neverShowPositionOfVehicles]="neverShowPositionOfVehicles" [postionsOfVehiclesChecked]="postionsOfVehiclesChecked" [zones]="zones"> </app-show-lines>

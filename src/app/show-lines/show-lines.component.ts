@@ -14,6 +14,12 @@ export class ShowLinesComponent implements OnInit {
   @Input()
   zones: ZoneWithLines[];
 
+  @Input()
+  postionsOfVehiclesChecked: boolean;
+
+  @Input()
+  neverShowPositionOfVehicles: boolean;
+
   transports: string[] = ['all', 'bus', 'tram', 'metro'];
 
   transport: number;

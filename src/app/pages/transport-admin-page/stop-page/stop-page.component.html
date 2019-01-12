@@ -1,3 +1,57 @@
-<div *ngFor="let stop of stops">
-  <div>{{stop.name}}</div>
+<div>
+  <table class="table_style" cellpadding="5">
+    <tr>
+      <td>
+        <agm-map [latitude]="center.lat" [longitude]="center.lng" [zoom]="13.5">
+          <app-transport-admin-map
+            [currentAction]="currentAction"
+            (stopEmitter)="getSelectedStop($event)"
+            (latLngEmitter)="getLatLng($event)">
+          </app-transport-admin-map>
+        </agm-map>
+      </td>
+      <td valign="top">
+        <table>
+          <tr>
+              <th colspan="3"><label>Choose action</label></th>
+          </tr>
+          <tr>
+            <td><label for="action_select" class="right_margin">Action: </label></td>
+            <td colspan="2">
+              <select id="action_select" (change)="actionChanged($event)">
+                <option selected>ADD</option>
+                <option>UPDATE</option>
+                <option>DELETE</option>
+              </select>
+            </td>
+          </tr>
+          <tr><td colspan="3"><label>Description: </label></td></tr>
+          <tr><td colspan="3"><label>{{actionDescription}}</label></td></tr>
+          <tr><td colspan="3"><label>{{actionDescriptionAppendix}}</label></td></tr>
+        </table>
+        <div style="height: 25px"></div>
+        <table>
+          <tr>
+            <th colspan="2">Selected stop</th>
+          </tr>
+          <tr><td colspan="2"><label> </label></td></tr>
+          <tr>
+            <td><label for="name_input" class="right_margin">Name: </label></td>
+            <td><input id="name_input" type="text" [(ngModel)]="selectedStop.name" [disabled]="isNameInputDisabled"></td>
+          </tr>
+          <tr>
+            <td><label for="lat_input" class="right_margin">Lat: </label></td>
+            <td><input id="lat_input" type="text" [value]="selectedStop.latitude" disabled/></td>
+          </tr>
+          <tr>
+            <td><label for="lng_input" class="right_margin">Lng: </label></td>
+            <td><input id="lng_input" type="text" [value]="selectedStop.longitude" disabled/></td>
+          </tr>
+          <tr><td></td><td><button (click)="doAction()">{{currentAction}}</button></td></tr>
+          <tr><td colspan="2"><label> </label></td></tr>
+          <tr><td colspan="2"><p>Warning: If selected stop<br>is not refreshing then<br>drag map in any direction!</p></td></tr>
+        </table>
+      </td>
+    </tr>
+  </table>
 </div>

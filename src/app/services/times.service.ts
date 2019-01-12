@@ -8,7 +8,7 @@ import { LineAndTimes } from '../model/line-and-times';
 })
 export class TimesService {
   
-  private relativeUrl;
+  private relativeUrl: string;
 
   constructor(private http: HttpClient, @Inject('BASE_API_URL') private baseUrl: string) { 
     this.relativeUrl = '/line/times';
