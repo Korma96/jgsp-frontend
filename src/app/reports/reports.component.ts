@@ -6,17 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./reports.component.css']
 })
 export class ReportsComponent implements OnInit {
+    
+    relativeUrl: string;
   
-  date1: any;
-  date2: any;
-  constructor() { }
+    constructor() {
+     }
+  
+    ngOnInit() {
+    }
 
-  ngOnInit() {
+  
   }
-
-  showReports() {
-    alert(`date1= ${this.date1.day}.${this.date1.month}.${this.date1.year}.`
-    + `date2= ${this.date2.day}.${this.date2.month}.${this.date2.year}.`);
-  }
-
-}
+  

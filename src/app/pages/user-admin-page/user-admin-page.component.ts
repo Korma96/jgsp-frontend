@@ -11,11 +11,14 @@ import { ToastrService } from 'ngx-toastr';
 export class UserAdminPageComponent implements OnInit {
 
   admins: UserFrontend[];
+  requests: Request[];
   
   relativeUrl: string;
+  relativeUrlRequests: string;
 
   constructor(private adminService: GenericService, private toastr: ToastrService) {
     this.relativeUrl = '/userAdmin/get-admins';
+    this.relativeUrlRequests = '/userAdmin/get-requests';
    }
 
   ngOnInit() {

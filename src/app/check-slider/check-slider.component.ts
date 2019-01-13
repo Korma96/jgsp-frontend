@@ -25,8 +25,8 @@ export class CheckSliderComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('check-slider (completeLine) id: ' + this.line.id
-      + ', completeLine name: ' + this.line.name);
+    /*console.log('check-slider (completeLine) id: ' + this.line.id
+      + ', completeLine name: ' + this.line.name);*/
   }
 
   changedState() {

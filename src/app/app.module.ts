@@ -2,10 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import {AgmCoreModule, GoogleMapsAPIWrapper} from '@agm/core';
@@ -49,10 +49,20 @@ import { AccountRequestsComponent } from './account-requests/account-requests.co
 import { ReportsComponent } from './reports/reports.component';
 import { TokenInterceptorService } from './services/token-interceptor-service/token-interceptor.service';
 import { DownloadFileService } from './services/download-file/download-file.service';
+import { PriceService } from './services/price/price.service';
+import { ChangeAccountTypeComponent } from './change-account-type/change-account-type.component';
+import { ChangeAccountTypeService } from './services/change-account-type/change-account-type.service';
+import { PositionsOfVehiclesComponent } from './positions-of-vehicles/positions-of-vehicles.component';
 import { BuyTicketComponent } from './buy-ticket/buy-ticket.component';
 import { ShowTicketsComponent } from './show-tickets/show-tickets.component';
 import { AddAdminComponent } from './add-admin/add-admin.component';
+import { GeneralReportComponent } from './general-report/general-report.component';
+import { DailyGeneralReportComponent } from './daily-general-report/daily-general-report.component';
+import { ShowRequestsComponent } from './show-requests/show-requests.component';
 import { TransportAdminMapComponent } from './pages/transport-admin-page/transport-admin-map/transport-admin-map.component';
+import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
+import { NgbDateCustomParserFormatter } from './buy-ticket/ngb-date-custom-parser-formatter/ngb-date-custom-parser-formatter';
+import { ImageDialogComponent } from './image-dialog/image-dialog.component';
 import { TransportAdminLineMapComponent } from './pages/transport-admin-page/transport-admin-line-map/transport-admin-line-map.component';
 
 
@@ -111,10 +121,18 @@ const appRoutes: Routes = [
     ShowAdminsComponent,
     BuyTicketComponent,
     ShowTicketsComponent,
+    ChangeAccountTypeComponent,
+    PositionsOfVehiclesComponent,
     UserAdminPageComponent,
     AccountRequestsComponent,
     ReportsComponent,
     AddAdminComponent,
+    GeneralReportComponent,
+    DailyGeneralReportComponent,
+    ShowRequestsComponent,
+    TransportAdminMapComponent,
+    ModalDialogComponent,
+    ImageDialogComponent,
     TransportAdminMapComponent,
     TransportAdminLineMapComponent
   ],
@@ -132,7 +150,8 @@ const appRoutes: Routes = [
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
     NgbModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    ReactiveFormsModule
   ],
   providers: [
     GenericService,
@@ -144,7 +163,10 @@ const appRoutes: Routes = [
     ZoneService,
     TimesService,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
-    DownloadFileService
+    DownloadFileService,
+    PriceService,
+    ChangeAccountTypeService,
+    {provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter}
   ],
   bootstrap: [AppComponent]
 })

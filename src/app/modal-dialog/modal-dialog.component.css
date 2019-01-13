@@ -1,0 +1,13 @@
+.modal-body {
+    color: black;
+    text-align: center;
+} 
+
+.modal-title {
+    color: blue;
+}
+
+
+#id_header .col-xl-2 {
+    background-color: gray;
+}

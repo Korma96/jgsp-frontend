@@ -11,6 +11,9 @@
           <a class="nav-item nav-link btn btn-outline-primary" [routerLinkActive]="['active']" href="#" [routerLink]="['/home-page']">Home page</a>
         <a class="nav-item nav-link btn btn-outline-primary" [routerLinkActive]="['active']" href="#" [routerLink]="['/login']">Login</a>
         <a class="nav-item nav-link btn btn-outline-primary" [routerLinkActive]="['active']" href="#" [routerLink]="['/register']">Register</a>
+        <a *ngIf="authenticationService.isLoggedIn()" class="btn btn-secondary btn-lg" [routerLinkActive]="['active']" href="#" [routerLink]="['/login']" (click)="authenticationService.logout()">
+          <span class="glyphicon glyphicon-log-out"></span> Log out
+      </a>
       </div>
     </div>
   </nav>
