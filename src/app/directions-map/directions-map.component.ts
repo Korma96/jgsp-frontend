@@ -38,40 +38,44 @@ export class DirectionsMapComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.gmapsApi.getNativeMap().then(map => {
-          this.map = map;
-      });
+    this.gmapsApi.getNativeMap().then(map => {
+        this.map = map;
+    });
 
-      this.checkSliderService.change.subscribe(
-        (lineAndChecked: LineAndChecked) => {
-          if (lineAndChecked.checked) {
-              if (this.linesForShowing[lineAndChecked.line.id]) { 
-                this.show(this.linesForShowing[lineAndChecked.line.id]);
-              }
-              else {
-                this.linesForShowing[lineAndChecked.line.id] = {
-                  name: lineAndChecked.line.name,
-                  points: [],
-                  stops: [],
-                  polyline: null,
-                  markers: null,
-                  relativeUrl: `/line/${lineAndChecked.line.id}/points-and-stops`,
-                  color: this.colors[lineAndChecked.line.id % this.colors.length]
-                };
-                
-                this.getPointsAndStops(this.linesForShowing[lineAndChecked.line.id]);
-              }
-          } 
-          else {
-              if (this.linesForShowing[lineAndChecked.line.id]) {
-                  this.hide(this.linesForShowing[lineAndChecked.line.id]);
-              }
-              else {
-                  this.toastr.warning('The completeLine you need to remove can not be found in Google Maps');
-              }
-          }
-        }
-      );
+    this.checkSliderService.change.subscribe(
+      (lineAndChecked: LineAndChecked) => {
+        this.showCheckedLine(lineAndChecked);
+      }
+    );
+  }
+
+  protected showCheckedLine(lineAndChecked: LineAndChecked) {
+    if (lineAndChecked.checked) {
+      if (this.linesForShowing[lineAndChecked.line.id]) {
+        this.show(this.linesForShowing[lineAndChecked.line.id]);
+      }
+      else {
+        this.linesForShowing[lineAndChecked.line.id] = {
+          name: lineAndChecked.line.name,
+          points: [],
+          stops: [],
+          polyline: null,
+          markers: null,
+          relativeUrl: `/line/${lineAndChecked.line.id}/points-and-stops`,
+          color: this.colors[lineAndChecked.line.id % this.colors.length]
+        };
+
+        this.getPointsAndStops(this.linesForShowing[lineAndChecked.line.id]);
+      }
+    }
+    else {
+      if (this.linesForShowing[lineAndChecked.line.id]) {
+        this.hide(this.linesForShowing[lineAndChecked.line.id]);
+      }
+      else {
+        this.toastr.warning('The completeLine you need to remove can not be found in Google Maps');
+      }
+    }
   }
 
   getPointsAndStops(lineForShowing: LineForShowing) {

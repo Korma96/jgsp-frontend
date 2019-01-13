@@ -53,6 +53,7 @@ import { BuyTicketComponent } from './buy-ticket/buy-ticket.component';
 import { ShowTicketsComponent } from './show-tickets/show-tickets.component';
 import { AddAdminComponent } from './add-admin/add-admin.component';
 import { TransportAdminMapComponent } from './pages/transport-admin-page/transport-admin-map/transport-admin-map.component';
+import { TransportAdminLineMapComponent } from './pages/transport-admin-page/transport-admin-line-map/transport-admin-line-map.component';
 
 
 const appRoutes: Routes = [
@@ -114,7 +115,8 @@ const appRoutes: Routes = [
     AccountRequestsComponent,
     ReportsComponent,
     AddAdminComponent,
-    TransportAdminMapComponent
+    TransportAdminMapComponent,
+    TransportAdminLineMapComponent
   ],
   imports: [
     BrowserModule,

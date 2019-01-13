@@ -1,3 +1,14 @@
-<div *ngFor="let line of lines">
-  <div>{{line.name}}</div>
+<div *ngIf="lines.length != 0" style="height: 100px;overflow-y: scroll; margin-bottom: 5px; border: solid 1px dodgerblue;">
+  <table>
+    <tr *ngFor="let linesInRow of linesView">
+      <td *ngFor="let line of linesInRow">
+        <app-line [line] = "line" [buttonSign]="'x'" (lineDeleteEventHandler)="delete($event)"></app-line>
+      </td>
+    </tr>
+  </table>
+</div>
+<div>
+  <agm-map [latitude]="center.lat" [longitude]="center.lng" [zoom]="13.5">
+    <app-transport-admin-line-map></app-transport-admin-line-map>
+  </agm-map>
 </div>
