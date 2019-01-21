@@ -16,4 +16,9 @@ export class LineService {
     const path = this.lineUrl + '/all';
     return this.http.get<Line[]>(path);
   }
+
+  rename(line: Line) {
+    const path = this.lineUrl + '/rename';
+    return this.http.post(path, line);
+  }
 }

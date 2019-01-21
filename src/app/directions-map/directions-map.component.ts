@@ -82,7 +82,7 @@ export class DirectionsMapComponent implements OnInit, OnChanges, OnDestroy {
   
 
   constructor (@Inject('BASE_API_URL') private baseUrl: string,
-              private gmapsApi: GoogleMapsAPIWrapper, 
+               public gmapsApi: GoogleMapsAPIWrapper,
               private stopService: GenericService,
               private toastr: ToastrService,
               private checkSliderService: CheckSliderService,
@@ -252,7 +252,7 @@ export class DirectionsMapComponent implements OnInit, OnChanges, OnDestroy {
       return positionsOfVehicles;
   }
 
-  protected showCheckedLine(lineAndChecked: LineAndChecked) {
+  public showCheckedLine(lineAndChecked: LineAndChecked) {
     if (lineAndChecked.checked) {
       if (this.linesForShowing[lineAndChecked.line.id]) {
         this.show(this.linesForShowing[lineAndChecked.line.id]);
@@ -265,7 +265,9 @@ export class DirectionsMapComponent implements OnInit, OnChanges, OnDestroy {
           polyline: null,
           markers: null,
           relativeUrl: `/line/${lineAndChecked.line.id}/points-and-stops`,
-          color: this.colors[lineAndChecked.line.id % this.colors.length]
+          color: this.colors[lineAndChecked.line.id % this.colors.length],
+          markersForVehicles: [],
+          subscription: null
         };
 
         this.getPointsAndStops(this.linesForShowing[lineAndChecked.line.id]);
@@ -377,7 +379,7 @@ export class DirectionsMapComponent implements OnInit, OnChanges, OnDestroy {
       lineForShowing.polyline.setMap(null);
     }
   }
-  
+
   drawStops(lineForShowing: LineForShowing) {
     if (!lineForShowing.markers) {
       this.createMarkers(lineForShowing);
@@ -423,7 +425,7 @@ export class DirectionsMapComponent implements OnInit, OnChanges, OnDestroy {
                                lineForShowing.stops[i].name);
       lineForShowing.markers.push(marker);
     }
-  } 
+  }
 
   addMarker(image, latlng, title): any {
     const infowindow = new google.maps.InfoWindow({

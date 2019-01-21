@@ -20,7 +20,7 @@ export class LineComponent implements OnInit {
     this.lineDeleteEventHandler.next(lineId);
   }
 
-  lineClick() {
-
+  lineClick(lineId: number) {
+    this.lineButtonEventHandler.next(lineId);
   }
 }

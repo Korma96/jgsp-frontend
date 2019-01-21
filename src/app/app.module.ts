@@ -64,6 +64,8 @@ import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
 import { NgbDateCustomParserFormatter } from './buy-ticket/ngb-date-custom-parser-formatter/ngb-date-custom-parser-formatter';
 import { ImageDialogComponent } from './image-dialog/image-dialog.component';
 import { TransportAdminLineMapComponent } from './pages/transport-admin-page/transport-admin-line-map/transport-admin-line-map.component';
+import { AddLineComponent } from './pages/transport-admin-page/line-page/add-line/add-line.component';
+import { UpdateLineComponent } from './pages/transport-admin-page/line-page/update-line/update-line.component';
 
 
 const appRoutes: Routes = [
@@ -74,6 +76,7 @@ const appRoutes: Routes = [
       { path: 'add_zone', component: AddZoneComponent},
       { path: 'update_zone/:id', component: UpdateZoneComponent},
       { path: 'line', component: LinePageComponent},
+      { path: 'add_line', component: AddLineComponent},
       { path: 'stop', component: StopPageComponent},
       { path: 'schedule', component: SchedulePageComponent}
     ]
@@ -134,7 +137,9 @@ const appRoutes: Routes = [
     ModalDialogComponent,
     ImageDialogComponent,
     TransportAdminMapComponent,
-    TransportAdminLineMapComponent
+    TransportAdminLineMapComponent,
+    AddLineComponent,
+    UpdateLineComponent
   ],
   imports: [
     BrowserModule,

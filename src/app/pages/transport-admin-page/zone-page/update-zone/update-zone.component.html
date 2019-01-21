@@ -16,8 +16,8 @@
     </tr>
     <tr *ngFor="let linesInRow of zoneLinesView">
       <td *ngFor="let line of linesInRow">
-        <app-complete-line [buttonSign] = "removeButtonSign" [completeLine]="line"
-                           (completeLineNameEventHandler)="removeLineFromZone($event)"></app-complete-line>
+        <app-complete-line [buttonSign] = "removeButtonSign" [completeLine]="line" [isCompleteLineButtonDisabled]="true"
+                           (manipulateCompleteLineEventHandler)="removeLineFromZone($event)"></app-complete-line>
       </td>
     </tr>
   </table>
@@ -26,8 +26,8 @@
   <table id="remaining_lines_table">
     <tr *ngFor="let linesInRow of remainingLinesView">
       <td *ngFor="let line of linesInRow">
-        <app-complete-line [buttonSign] = "addButtonSign" [completeLine]="line"
-                           (completeLineNameEventHandler)="addLineToZone($event)"></app-complete-line>
+        <app-complete-line [buttonSign] = "addButtonSign" [completeLine]="line" [isCompleteLineButtonDisabled]="true"
+                           (manipulateCompleteLineEventHandler)="addLineToZone($event)"></app-complete-line>
       </td>
     </tr>
   </table>
