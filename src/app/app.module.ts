@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -56,6 +56,48 @@ import { PositionsOfVehiclesComponent } from './positions-of-vehicles/positions-
 import { BuyTicketComponent } from './buy-ticket/buy-ticket.component';
 import { ShowTicketsComponent } from './show-tickets/show-tickets.component';
 import { AddAdminComponent } from './add-admin/add-admin.component';
+import { AddPriceTicketComponent } from './add-price-ticket/add-price-ticket.component';
+import { PriceticketUdComponent, EditDialogComponent } from './priceticket-ud/priceticket-ud.component';
+import {MatButtonModule, MatCheckboxModule, MatDialogModule,
+  MatAutocompleteModule,
+  MatBadgeModule,
+  MatBottomSheetModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatChipsModule,
+  MatDatepickerModule,
+  MatDividerModule,
+  MatExpansionModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
+  MatNativeDateModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatRippleModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatSortModule,
+  MatStepperModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule,
+  MatTreeModule,
+
+
+
+} from '@angular/material';
+import { MenuPriceticketComponent } from './pages/menu-priceticket/menu-priceticket.component';
+import { CanActivateUserGuard } from './services/guard/can-activate-user.guard';
+//import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 import { GeneralReportComponent } from './general-report/general-report.component';
 import { DailyGeneralReportComponent } from './daily-general-report/daily-general-report.component';
 import { ShowRequestsComponent } from './show-requests/show-requests.component';
@@ -83,9 +125,10 @@ const appRoutes: Routes = [
   },
   { path: 'login', component: LoginPageComponent},
   { path: 'register', component: RegisterPageComponent},
-  { path: 'checkticket', component: CheckTicketPageComponent},
-  { path: 'passenger', component: PassengerPageComponent},
-  { path: 'user-admin', component: UserAdminPageComponent},
+  { path: 'checkticket', component: CheckTicketPageComponent, canActivate: [CanActivateUserGuard]},
+  { path: 'passenger', component: PassengerPageComponent, canActivate: [CanActivateUserGuard]},
+  { path: 'user-admin', component: UserAdminPageComponent, canActivate: [CanActivateUserGuard]},
+  { path: 'priceticket', component: MenuPriceticketComponent, canActivate: [CanActivateUserGuard]},
   // { path: 'entry/:index',      component: BlogEntryPageComponent },
   { path: '', // localhost:4200 redirect to localhost:4200/home-page
     redirectTo: '/home-page',
@@ -130,6 +173,10 @@ const appRoutes: Routes = [
     AccountRequestsComponent,
     ReportsComponent,
     AddAdminComponent,
+    AddPriceTicketComponent,
+    PriceticketUdComponent,
+    EditDialogComponent,
+    MenuPriceticketComponent,
     GeneralReportComponent,
     DailyGeneralReportComponent,
     ShowRequestsComponent,
@@ -145,6 +192,8 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    MatInputModule,
+    MatDialogModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
@@ -169,10 +218,12 @@ const appRoutes: Routes = [
     TimesService,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
     DownloadFileService,
+    CanActivateUserGuard,
     PriceService,
     ChangeAccountTypeService,
     {provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter}
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [EditDialogComponent]
 })
 export class AppModule { }
