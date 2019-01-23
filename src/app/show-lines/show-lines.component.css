@@ -19,6 +19,12 @@ agm-map {
     height: 650px
   }
 
+  label[for="id_transport"] {
+    border-style: solid;
+    border-width: 6px;
+    font-size: larger;
+  }
+
 
   .scrollbar-lines {
     margin-left: 45px;

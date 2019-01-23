@@ -18,8 +18,8 @@ export class AppComponent implements OnInit {
   
 
   constructor(private lineService: GenericService, private toastr: ToastrService,
-              private forwardingZonesService: ForwardingZonesService,
-              private authenticationService: AuthenticationService) {
+              private forwardingZonesService: ForwardingZonesService/*,
+              private authenticationService: AuthenticationService*/) {
     this.relativeUrl = '/zone/all-with-line';
   }
 
@@ -27,11 +27,11 @@ export class AppComponent implements OnInit {
     this.getZones();
   }
 
-
+  /*
   @HostListener('window:unload', [ '$event' ])
   unloadHandler(event) {
     this.authenticationService.logout();
-  }
+  }*/
 
   /*@HostListener('window:beforeunload', [ '$event' ])
   beforeUnloadHander(event) {

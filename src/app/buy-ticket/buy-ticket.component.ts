@@ -150,16 +150,16 @@ export class BuyTicketComponent implements OnInit, OnChanges {
     if(stopBuying) {
       event.stopPropagation(); // dialog se nece prikazati
     }
+    else {
+      this.getPrice();
+    }
 
-    this.getPrice();
   }
 
   buyTicket() {
     if (this.ticket.hasZoneNotLine) {
         this.ticket.name = this.selectedZone.name;
     }
-
-    
 
     this.genericService.save(this.relativeUrlForBuyTicket, this.ticket).subscribe(
       (receivedTicket: Ticket) => {
@@ -180,7 +180,7 @@ export class BuyTicketComponent implements OnInit, OnChanges {
         this.toastr.success('The price has been successfully delivered! ' + this.price);
       },
       (err) => {
-        this.price = -999;
+        this.price = null;
         this.toastr.error('The price has not been successfully delivered!');
       }
     );

@@ -16,11 +16,14 @@ export class ChangeAccountTypeComponent implements OnInit {
   newPassengerType: string;
 
   form: FormGroup;
+
+  fileName: string;
   
 
   constructor(private changeAccountTypeService: ChangeAccountTypeService, private toastr: ToastrService,
               private fb: FormBuilder, public authenticationService: AuthenticationService) { 
     this.newPassengerType = this.passengerTypes[0];
+    this.fileName = 'Choose file';
   }
 
   ngOnInit() {
@@ -36,6 +39,7 @@ export class ChangeAccountTypeComponent implements OnInit {
   onFileChange(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
+      this.fileName = file.name;
       this.form.get('image').setValue(file);
     }
   }

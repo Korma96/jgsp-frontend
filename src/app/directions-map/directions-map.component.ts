@@ -76,6 +76,7 @@ export class DirectionsMapComponent implements OnInit, OnChanges, OnDestroy {
 
   private serverSocketRelativeUrl = '/socket';
   private stompClient;
+  private successfullyConnected: boolean;
 
   relativeUrlForAddLineForShowPostions: string;
   relativeUrlForRemoveLineForShowPostions: string;
@@ -162,14 +163,18 @@ export class DirectionsMapComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy() {
-    // uklanjamo sva vozila i unscribujemo se sa svih subscribovanih linija
-    this.postionsOfVehiclesChecked = false;
-    this.postionsOfVehiclesChanged();
+    if(!this.neverShowPositionOfVehicles) { 
+      // uklanjamo sva vozila i unscribujemo se sa svih subscribovanih linija
+      this.postionsOfVehiclesChecked = false;
+      this.postionsOfVehiclesChanged();
 
-    if(!this.neverShowPositionOfVehicles && this.stompClient) {
-      this.stompClient.disconnect(
-        () => this.toastr.info('The connection with the vehicles was interrupted!')
-      );
+      if(this.stompClient) {
+        if(this.successfullyConnected) {
+          this.stompClient.disconnect(
+            () => this.toastr.info('The connection with the vehicles was interrupted!')
+          );
+        }
+      }
     }
     
   }
@@ -202,9 +207,10 @@ export class DirectionsMapComponent implements OnInit, OnChanges, OnDestroy {
   initializeWebSocketConnection(){
     let socket = new SockJS(this.baseUrl + this.serverSocketRelativeUrl);
     this.stompClient = Stomp.over(socket);
-
+    
+    this.successfullyConnected = false;
     // prva lambda funkcija je callback za uspesno konektovanje, a druga lambda fukcija za pucanje konekcije
-    this.stompClient.connect({}, (frame) => {}, () => {
+    this.stompClient.connect({}, (frame) => this.successfullyConnected = true, () => {
         // ukloni sva vozila usled pucanja konekcije
         this.postionsOfVehiclesChecked = false;
         this.postionsOfVehiclesChanged();

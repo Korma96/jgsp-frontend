@@ -26,7 +26,8 @@
               "src/styles.css",
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css"
+              "node_modules/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css",
+              "node_modules/font-awesome/css/font-awesome.min.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",

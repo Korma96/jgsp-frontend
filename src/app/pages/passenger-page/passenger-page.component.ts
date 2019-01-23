@@ -59,7 +59,8 @@ export class PassengerPageComponent implements OnInit {
   }
 
   boughtTicket(ticket: Ticket) {
-    this.tickets.push(ticket);
+    this.getTickets();
+    // this.tickets.push(ticket);
   }
 
 }
