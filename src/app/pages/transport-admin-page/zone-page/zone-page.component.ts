@@ -20,7 +20,7 @@ export class ZonePageComponent implements OnInit {
               private toastr: ToastrService) { }
 
   ngOnInit() {
-    this.genericService.getAll<Zone>('/zone/all').subscribe(zones => {
+    this.genericService.getAll<Zone>('/zone/all/0').subscribe(zones => {
       this.zones = zones;
       this.updateZonesView();
     });
@@ -36,6 +36,14 @@ export class ZonePageComponent implements OnInit {
       }, error => {
               console.log(JSON.stringify(error));
               this.toastr.error(error.error.error);
+    });
+  }
+
+  transportTypeChanged(event: any) {
+    const type: number = event.target.value;
+    this.genericService.getAll<Zone>(`/zone/all/${type}`).subscribe(zones => {
+      this.zones = zones;
+      this.updateZonesView();
     });
   }
 

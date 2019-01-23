@@ -1,6 +1,16 @@
 <div>
   <table>
     <tr>
+      <td><label for="transport_type_select">Choose transport type: </label></td>
+      <td>
+        <select id="transport_type_select" (change)="transportTypeChanged($event)">
+          <option value="0" selected>BUS</option>
+          <option value="1">TRAM</option>
+          <option value="2">METRO</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
       <td style="width: 165px" align="right">
         <label for="zone_name_input">Zone name: </label>
       </td>
