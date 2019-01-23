@@ -2,13 +2,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Component } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
-import { AgmCoreModule } from '@agm/core';
+import {AgmCoreModule, GoogleMapsAPIWrapper} from '@agm/core';
 
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
@@ -49,6 +49,10 @@ import { AccountRequestsComponent } from './account-requests/account-requests.co
 import { ReportsComponent } from './reports/reports.component';
 import { TokenInterceptorService } from './services/token-interceptor-service/token-interceptor.service';
 import { DownloadFileService } from './services/download-file/download-file.service';
+import { PriceService } from './services/price/price.service';
+import { ChangeAccountTypeComponent } from './change-account-type/change-account-type.component';
+import { ChangeAccountTypeService } from './services/change-account-type/change-account-type.service';
+import { PositionsOfVehiclesComponent } from './positions-of-vehicles/positions-of-vehicles.component';
 import { BuyTicketComponent } from './buy-ticket/buy-ticket.component';
 import { ShowTicketsComponent } from './show-tickets/show-tickets.component';
 import { AddAdminComponent } from './add-admin/add-admin.component';
@@ -94,6 +98,16 @@ import {MatButtonModule, MatCheckboxModule, MatDialogModule,
 import { MenuPriceticketComponent } from './pages/menu-priceticket/menu-priceticket.component';
 import { CanActivateUserGuard } from './services/guard/can-activate-user.guard';
 //import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
+import { GeneralReportComponent } from './general-report/general-report.component';
+import { DailyGeneralReportComponent } from './daily-general-report/daily-general-report.component';
+import { ShowRequestsComponent } from './show-requests/show-requests.component';
+import { TransportAdminMapComponent } from './pages/transport-admin-page/transport-admin-map/transport-admin-map.component';
+import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
+import { NgbDateCustomParserFormatter } from './buy-ticket/ngb-date-custom-parser-formatter/ngb-date-custom-parser-formatter';
+import { ImageDialogComponent } from './image-dialog/image-dialog.component';
+import { TransportAdminLineMapComponent } from './pages/transport-admin-page/transport-admin-line-map/transport-admin-line-map.component';
+import { AddLineComponent } from './pages/transport-admin-page/line-page/add-line/add-line.component';
+import { UpdateLineComponent } from './pages/transport-admin-page/line-page/update-line/update-line.component';
 
 
 const appRoutes: Routes = [
@@ -104,6 +118,7 @@ const appRoutes: Routes = [
       { path: 'add_zone', component: AddZoneComponent},
       { path: 'update_zone/:id', component: UpdateZoneComponent},
       { path: 'line', component: LinePageComponent},
+      { path: 'add_line', component: AddLineComponent},
       { path: 'stop', component: StopPageComponent},
       { path: 'schedule', component: SchedulePageComponent}
     ]
@@ -113,9 +128,7 @@ const appRoutes: Routes = [
   { path: 'checkticket', component: CheckTicketPageComponent, canActivate: [CanActivateUserGuard]},
   { path: 'passenger', component: PassengerPageComponent, canActivate: [CanActivateUserGuard]},
   { path: 'user-admin', component: UserAdminPageComponent, canActivate: [CanActivateUserGuard]},
-  { path: 'add-price-ticket', component: AddPriceTicketComponent},
-  { path: 'pricetickets', component: PriceticketUdComponent},
-  { path: 'priceticket', component: MenuPriceticketComponent},
+  { path: 'priceticket', component: MenuPriceticketComponent, canActivate: [CanActivateUserGuard]},
   // { path: 'entry/:index',      component: BlogEntryPageComponent },
   { path: '', // localhost:4200 redirect to localhost:4200/home-page
     redirectTo: '/home-page',
@@ -154,6 +167,8 @@ const appRoutes: Routes = [
     ShowAdminsComponent,
     BuyTicketComponent,
     ShowTicketsComponent,
+    ChangeAccountTypeComponent,
+    PositionsOfVehiclesComponent,
     UserAdminPageComponent,
     AccountRequestsComponent,
     ReportsComponent,
@@ -161,47 +176,24 @@ const appRoutes: Routes = [
     AddPriceTicketComponent,
     PriceticketUdComponent,
     EditDialogComponent,
-    MenuPriceticketComponent
+    MenuPriceticketComponent,
+    GeneralReportComponent,
+    DailyGeneralReportComponent,
+    ShowRequestsComponent,
+    TransportAdminMapComponent,
+    ModalDialogComponent,
+    ImageDialogComponent,
+    TransportAdminMapComponent,
+    TransportAdminLineMapComponent,
+    AddLineComponent,
+    UpdateLineComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatDialogModule,
-    MatAutocompleteModule,
-    MatBadgeModule,
-    MatBottomSheetModule,
-    MatButtonToggleModule,
-    MatCardModule,
-    MatChipsModule,
-    MatDatepickerModule,
-    MatDividerModule,
-    MatExpansionModule,
-    MatGridListModule,
-    MatIconModule,
     MatInputModule,
-    MatListModule,
-    MatMenuModule,
-    MatNativeDateModule,
-    MatPaginatorModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
-    MatRadioModule,
-    MatRippleModule,
-    MatSelectModule,
-    MatSidenavModule,
-    MatSliderModule,
-    MatSlideToggleModule,
-    MatSnackBarModule,
-    MatSortModule,
-    MatStepperModule,
-    MatTableModule,
-    MatTabsModule,
-    MatToolbarModule,
-    MatTooltipModule,
-    MatTreeModule,
+    MatDialogModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
@@ -212,10 +204,12 @@ const appRoutes: Routes = [
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
     NgbModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    ReactiveFormsModule
   ],
   providers: [
     GenericService,
+    GoogleMapsAPIWrapper,
     { provide: 'BASE_API_URL', useValue: 'http://localhost:8080/api' },  // environment.apiUrl
     CheckSliderService,
     AuthenticationService,
@@ -224,7 +218,10 @@ const appRoutes: Routes = [
     TimesService,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
     DownloadFileService,
-    CanActivateUserGuard
+    CanActivateUserGuard,
+    PriceService,
+    ChangeAccountTypeService,
+    {provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter}
   ],
   bootstrap: [AppComponent],
   entryComponents: [EditDialogComponent]

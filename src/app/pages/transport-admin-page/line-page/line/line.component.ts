@@ -9,13 +9,18 @@ import {Line} from '../../../../model/line';
 export class LineComponent implements OnInit {
   @Input() line: Line;
   @Input() buttonSign: string;
-  @Output() lineIdEventHandler: EventEmitter<number> = new EventEmitter<number>();
+  @Output() lineDeleteEventHandler: EventEmitter<number> = new EventEmitter<number>();
+  @Output() lineButtonEventHandler: EventEmitter<number> = new EventEmitter<number>();
   constructor() { }
 
   ngOnInit() {
   }
 
   deleteLine(lineId: number) {
-    this.lineIdEventHandler.next(lineId);
+    this.lineDeleteEventHandler.next(lineId);
+  }
+
+  lineClick(lineId: number) {
+    this.lineButtonEventHandler.next(lineId);
   }
 }

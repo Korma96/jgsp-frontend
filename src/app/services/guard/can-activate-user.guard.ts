@@ -13,7 +13,8 @@ export class CanActivateUserGuard implements CanActivate {
   mapRelativeUrlToUserType: any = {
     'passenger': 'PASSENGER',
     'user-admin': 'USER_ADMINISTRATOR',
-    'checkticket': 'CONTROLLOR'
+    'checkticket': 'CONTROLLOR',
+    'priceticket': 'TRANSPORT_ADMINISTRATOR'
   };
 
   constructor(private authenticationService: AuthenticationService, private router: Router,

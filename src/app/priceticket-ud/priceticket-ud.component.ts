@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import * as cloneDeep from 'lodash/cloneDeep';
 import { PriceticketDTOFrontend } from '../model/priceticket-dtoFrontend';
+import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 
 
 export interface DialogData {
@@ -30,7 +31,8 @@ export class PriceticketUdComponent implements OnInit {
   public errorMessage: string;
 
 
-  constructor(private service: GenericService, private toastr: ToastrService, public dialog: MatDialog) {
+  constructor(private service: GenericService, private toastr: ToastrService, 
+              public dialog: MatDialog, private ngbDateParserFormatter: NgbDateParserFormatter) {
     this.editItem = {id: 0, dateFrom: '', passengerType: '', ticketType: '', priceLine: 0, priceZone: 0, id_zone: 0};
     this.priceticketsDTO = [];
     this.errorMessage = '';
@@ -50,6 +52,8 @@ export class PriceticketUdComponent implements OnInit {
       this.editItem = cloneDeep(this.priceticketsDTO[data.idx]);
 
       const id: number = this.priceticketsDTO[data.idx]['id'];
+
+
 
       let characters = String(data.datefrom).split('.');
 
@@ -139,14 +143,21 @@ export class EditDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<EditDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
-
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,private toastr: ToastrService, private ngbDateParserFormatter: NgbDateParserFormatter) {}
   onCancelClick(): void {
     this.dialogRef.close('Cancel');
   }
 
   onSave() {
+
+    if (this.ngbDateParserFormatter.parse(this.data['datefrom']) == null) {
+      this.toastr.error('Date format is not correct!!!');
+      return;
+    }
+
+
     this.dialogRef.close(this.data);
   }
 
 }
+

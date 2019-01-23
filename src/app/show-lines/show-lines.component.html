@@ -11,7 +11,7 @@
                     <div class="col-xl-12">
                         <form class="form-inline">
                             <div class="form-group">
-                                <label for="id_transport">Transport:</label>
+                                <label for="id_transport_type">Transport:</label>
                                 <select id="id_transport_type" class="form-control custom-select" [(ngModel)]="transport" name="transport">
                                     <option [ngValue]="0">{{transports[0]}}</option>
                                     <option [ngValue]="1">{{transports[1]}}</option>
@@ -41,7 +41,7 @@
 
   <div class="col-sm-9 col-md-6 col-lg-8 col-xl-7">
     <agm-map [latitude]="center.lat" [longitude]="center.lng">
-            <app-directions-map></app-directions-map>
+            <app-directions-map [neverShowPositionOfVehicles]="neverShowPositionOfVehicles" [postionsOfVehiclesChecked]="postionsOfVehiclesChecked"></app-directions-map>
     </agm-map>
   </div>
 </div>

@@ -85,7 +85,7 @@ export class ShowScheduleComponent implements OnInit, OnChanges {
         }
 
       },
-      () =>  this.toastr.error('There are no schedule, for checked line, at the moment!')
+      err =>  this.toastr.error('There are no schedule, for checked line, at the moment!')
     );
 
     return retValue;

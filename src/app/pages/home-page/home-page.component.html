@@ -19,7 +19,7 @@
             </nav>
             <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-show-lines" role="tabpanel" aria-labelledby="nav-show-lines-tab">
-                    <app-show-lines [zones]="zones"> </app-show-lines>
+                    <app-show-lines [neverShowPositionOfVehicles]="neverShowPositionOfVehicles" [postionsOfVehiclesChecked]="postionsOfVehiclesChecked" [zones]="zones"> </app-show-lines>
                 </div>
                 <div class="tab-pane fade" id="nav-show-schedule" role="tabpanel" aria-labelledby="nav-show-schedule-tab">
                     <app-show-schedule [zones]="zones"></app-show-schedule>

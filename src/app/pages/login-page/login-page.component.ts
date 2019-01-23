@@ -21,7 +21,7 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit() {
     if (this.authenticationService.isLoggedIn()) {
-        const currentUser: any = this.authenticationService.getCurrentUser();
+        const currentUser:any = this.authenticationService.getCurrentUser();
         this.goToPageOfLoggedUser(currentUser);
     }
   }
@@ -31,7 +31,7 @@ export class LoginPageComponent implements OnInit {
     .subscribe((loggedIn: boolean) => {
       console.log(loggedIn);
       if (loggedIn) {
-        const currentUser: any = this.authenticationService.getCurrentUser();
+        const currentUser:any = this.authenticationService.getCurrentUser();
         this.toastr.success('Successfully logged in as ' + currentUser.username);
         this.goToPageOfLoggedUser(currentUser);
       }
@@ -62,9 +62,11 @@ export class LoginPageComponent implements OnInit {
       else if (role === 'CONTROLLOR') {
         this.router.navigate(['/checkticket']);
       }
+      else if (role === 'TRANSPORT_ADMINISTRATOR') {
+        this.router.navigate(['/priceticket']);
+      }
       else {
-        this.toastr.error('Jos nije implementirano usmeravanje'
-        + ' na sve stranice korisnika. Za sada radi samo za PASSENGER, CONTROLLOR i USER_ADMINISTRATORA');
+        this.toastr.error('Unknown user type!');
       }
   }
 

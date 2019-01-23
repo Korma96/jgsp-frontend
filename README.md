@@ -1,3 +1,6 @@
+jgsp (backend application) github repository:&nbsp;<a target="_blank" href="http://github.com/jovosunjka/jgsp">http://github.com/jovosunjka/jgsp</a>
+<br/>
+
 # JgspFrontend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.2.

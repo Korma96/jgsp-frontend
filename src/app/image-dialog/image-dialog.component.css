@@ -1,0 +1,9 @@
+#div_image {
+    height: auto;
+    width: 740px;
+}
+
+#div_image img {
+    width: 100%;
+    height: auto;
+}

@@ -42,9 +42,20 @@
     </ngx-datatable-column>
 
     <ngx-datatable-column name="" prop="id">
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <a *ngIf="canActivate(row)" href="javascript:;" (click)="activate(value)">Activate</a>
+        </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="" prop="id">
         <ng-template let-value="value" ngx-datatable-cell-template>
             <a href="javascript:;" (click)="download(value)">Download</a>
         </ng-template>
     </ngx-datatable-column>
-  
+
+    <ngx-datatable-column name="" prop="id">
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <a *ngIf="canRemove(row)" href="javascript:;" (click)="remove(value)">Remove</a>
+        </ng-template>
+    </ngx-datatable-column>
 </ngx-datatable>

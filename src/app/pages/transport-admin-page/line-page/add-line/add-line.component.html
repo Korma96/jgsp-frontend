@@ -1,0 +1,32 @@
+<div>
+  <table>
+    <tr>
+      <td style="width: 165px" align="right">
+        <label for="new_line_name" class="right_margin">Line name:</label>
+      </td>
+      <td>
+        <input id="new_line_name" type="text"
+               [(ngModel)]="newLineName" style="width:100px"/>
+      </td>
+      <td>
+        <button (click)="confirmLineName()">Add</button>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 165px" align="right">
+        <label for="new_line_directiona" class="right_margin">Direction A:</label>
+      </td>
+      <td colspan="2">
+        <input id="new_line_directiona" type="text" [value]="newLineName + 'A'" style="width:100px" disabled/>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 165px" align="right">
+        <label for="new_line_directionb" class="right_margin">Direction B:</label>
+      </td>
+      <td colspan="2">
+        <input id="new_line_directionb" type="text" [value]="newLineName + 'B'" style="width:100px" disabled/>
+      </td>
+    </tr>
+  </table>
+</div>

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ZoneWithLines } from './model/zone-with-lines';
 import { GenericService } from './services/generic/generic.service';
 import { ToastrService } from 'ngx-toastr';
 import { ForwardingZonesService } from './services/forwarding-zones/forwarding-zones.service';
+import { AuthenticationService } from './services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -17,13 +18,26 @@ export class AppComponent implements OnInit {
   
 
   constructor(private lineService: GenericService, private toastr: ToastrService,
-              private forwardingZonesService: ForwardingZonesService) {
+              private forwardingZonesService: ForwardingZonesService,
+              private authenticationService: AuthenticationService) {
     this.relativeUrl = '/zone/all-with-line';
   }
 
   ngOnInit() {
     this.getZones();
   }
+
+
+  @HostListener('window:unload', [ '$event' ])
+  unloadHandler(event) {
+    this.authenticationService.logout();
+  }
+
+  /*@HostListener('window:beforeunload', [ '$event' ])
+  beforeUnloadHander(event) {
+    alert('window:beforeunload');
+  }*/
+
 
   getZones() {
     this.lineService.getAll<ZoneWithLines>(this.relativeUrl) .subscribe(
@@ -35,7 +49,7 @@ export class AppComponent implements OnInit {
               zone => this.setDistinctLines(zone)
             );
             this.forwardingZonesService.sendZones(this.zones);
-            this.toastr.success('Zones are successfully loaded!');
+            //this.toastr.success('Zones are successfully loaded!');
           }
           else {
             this.toastr.warning('There are no zones at the moment!');
@@ -45,7 +59,7 @@ export class AppComponent implements OnInit {
           this.toastr.error('Problem with loading zones!');
         }
       },
-      error => console.log('Error: ' + JSON.stringify(error))
+      err => this.toastr.error('Error: ' + JSON.stringify(err))
     );
   }
 
