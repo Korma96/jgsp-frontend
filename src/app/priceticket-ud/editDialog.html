@@ -1,0 +1,25 @@
+
+<div mat-dialog-content> 
+  <label>Price of line: &nbsp; </label>
+  <mat-form-field>
+    <input matInput [(ngModel)]="this.data.priceline">
+  </mat-form-field>
+  <br/>
+
+  <label>Price of zone: &nbsp;</label>
+  <mat-form-field>
+    <input type="text" matInput [(ngModel)]="this.data.pricezone">
+  </mat-form-field>
+  <br/>
+
+  <label>Date from: &nbsp;</label>
+  <mat-form-field>
+    <input type="text" matInput [(ngModel)]="this.data.datefrom">
+  </mat-form-field>
+
+
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onSave()" value="Save">Save</button>
+    <button mat-button (click)="onCancelClick()" value="Cancel">Cancel</button>
+</div>

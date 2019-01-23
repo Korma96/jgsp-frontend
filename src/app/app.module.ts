@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
@@ -52,6 +52,48 @@ import { DownloadFileService } from './services/download-file/download-file.serv
 import { BuyTicketComponent } from './buy-ticket/buy-ticket.component';
 import { ShowTicketsComponent } from './show-tickets/show-tickets.component';
 import { AddAdminComponent } from './add-admin/add-admin.component';
+import { AddPriceTicketComponent } from './add-price-ticket/add-price-ticket.component';
+import { PriceticketUdComponent, EditDialogComponent } from './priceticket-ud/priceticket-ud.component';
+import {MatButtonModule, MatCheckboxModule, MatDialogModule,
+  MatAutocompleteModule,
+  MatBadgeModule,
+  MatBottomSheetModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatChipsModule,
+  MatDatepickerModule,
+  MatDividerModule,
+  MatExpansionModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
+  MatNativeDateModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatRippleModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatSortModule,
+  MatStepperModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule,
+  MatTreeModule,
+
+
+
+} from '@angular/material';
+import { MenuPriceticketComponent } from './pages/menu-priceticket/menu-priceticket.component';
+import { CanActivateUserGuard } from './services/guard/can-activate-user.guard';
+//import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 
 
 const appRoutes: Routes = [
@@ -68,9 +110,12 @@ const appRoutes: Routes = [
   },
   { path: 'login', component: LoginPageComponent},
   { path: 'register', component: RegisterPageComponent},
-  { path: 'checkticket', component: CheckTicketPageComponent},
-  { path: 'passenger', component: PassengerPageComponent},
-  { path: 'user-admin', component: UserAdminPageComponent},
+  { path: 'checkticket', component: CheckTicketPageComponent, canActivate: [CanActivateUserGuard]},
+  { path: 'passenger', component: PassengerPageComponent, canActivate: [CanActivateUserGuard]},
+  { path: 'user-admin', component: UserAdminPageComponent, canActivate: [CanActivateUserGuard]},
+  { path: 'add-price-ticket', component: AddPriceTicketComponent},
+  { path: 'pricetickets', component: PriceticketUdComponent},
+  { path: 'priceticket', component: MenuPriceticketComponent},
   // { path: 'entry/:index',      component: BlogEntryPageComponent },
   { path: '', // localhost:4200 redirect to localhost:4200/home-page
     redirectTo: '/home-page',
@@ -112,12 +157,51 @@ const appRoutes: Routes = [
     UserAdminPageComponent,
     AccountRequestsComponent,
     ReportsComponent,
-    AddAdminComponent
+    AddAdminComponent,
+    AddPriceTicketComponent,
+    PriceticketUdComponent,
+    EditDialogComponent,
+    MenuPriceticketComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatAutocompleteModule,
+    MatBadgeModule,
+    MatBottomSheetModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatChipsModule,
+    MatDatepickerModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatStepperModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatTreeModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
@@ -139,8 +223,10 @@ const appRoutes: Routes = [
     ZoneService,
     TimesService,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
-    DownloadFileService
+    DownloadFileService,
+    CanActivateUserGuard
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [EditDialogComponent]
 })
 export class AppModule { }

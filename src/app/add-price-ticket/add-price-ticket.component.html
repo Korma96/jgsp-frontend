@@ -1,0 +1,73 @@
+<div class="row">
+  <div class="col-xl-12">
+    <form (ngSubmit)="addPriceTicket()">
+
+      <div class="form-group">
+        <div class="input-group">
+          <label>Date from:</label>
+          <input class="form-control" placeholder="yyyy-mm-dd"
+                  name="datefrom" [(ngModel)]="df" ngbDatepicker #d1="ngbDatepicker" (focus)="d1.open()">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button"></button>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="form-group">
+          <label for="pt">Choose passenger type:</label>
+          <select class="form-control" id="pt" name="ptype" [(ngModel)]="this.priceticket.passengerType">
+              <option *ngFor="let item of this.passengerTypes; let i = index" [ngValue]="item">{{item}}</option>
+          </select>
+            
+      </div>
+
+              
+      <div class="form-group">
+          <label for="tt">Choose ticket type:</label>
+          <select class="form-control" id="tt" name="ttype" [(ngModel)]="this.priceticket.ticketType">
+              <option *ngFor="let item of this.ticketTypes; let i = index" [ngValue]="item">{{item}}</option>
+          </select>
+            
+      </div>
+
+      <div class="form-group">
+        <label for="zone">Choose zone:</label>
+        <select class="form-control" id="zone" name="zone" (change)="onSelectZone($event.target.value)">
+            <option *ngFor="let item of this.zones; let i = index" >{{item['name']}}</option>
+        </select>
+      
+      </div>
+
+        
+        <div class="form-group">
+          <label for="id_priceline">Price of line:</label>
+          <input type="text" class="form-control" id="id_priceline" [(ngModel)]="this.priceticket.priceLine" name="priceline"/>
+        </div>
+
+        <div class="form-group">
+          <label for="id_pricezone">Price of zone:</label>
+          <input type="text" class="form-control" id="id_pricezone" [(ngModel)]="this.priceticket.priceZone" name="pricezone"/>
+        </div>
+    
+        
+
+        <input class="btn btn-primary btn-lg" type="submit" value="Add"/>
+
+
+    </form>
+  </div>
+</div>
+
+{{this.s}}
+<!--
+{{this.df.day}}
+{{this.df.month}}
+{{this.df.year}}
+
+{{this.priceticket.passengerType}}
+{{this.priceticket.ticketType}}
+{{this.priceticket.id_zone}}
+{{this.priceticket.priceZone}}
+{{this.priceticket.priceLine}}
+-->

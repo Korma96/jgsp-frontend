@@ -20,6 +20,10 @@ export class LoginPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.authenticationService.isLoggedIn()) {
+        const currentUser: any = this.authenticationService.getCurrentUser();
+        this.goToPageOfLoggedUser(currentUser);
+    }
   }
 
   login(): void {
@@ -27,13 +31,15 @@ export class LoginPageComponent implements OnInit {
     .subscribe((loggedIn: boolean) => {
       console.log(loggedIn);
       if (loggedIn) {
-        this.toastr.success('Successfully login :)');
-        this.router.navigate(['/passenger']);
+        const currentUser: any = this.authenticationService.getCurrentUser();
+        this.toastr.success('Successfully logged in as ' + currentUser.username);
+        this.goToPageOfLoggedUser(currentUser);
       }
       else {
         this.toastr.error('Unsuccessfully login :(');
       }
-    }, (err: Error) => {
+    }, 
+    (err: Error) => {
       if (err.toString() === 'Ilegal login') {
         this.wrongUsernameOrPass = true;
         console.log(err);
@@ -43,4 +49,23 @@ export class LoginPageComponent implements OnInit {
       this.toastr.error(JSON.stringify(err));
     });
   }
+
+  goToPageOfLoggedUser(currentUser: any) {
+      const role = currentUser.roles[0];
+
+      if (role === 'PASSENGER') {
+        this.router.navigate(['/passenger']);
+      }
+      else if (role === 'USER_ADMINISTRATOR') {
+        this.router.navigate(['/user-admin']);
+      }
+      else if (role === 'CONTROLLOR') {
+        this.router.navigate(['/checkticket']);
+      }
+      else {
+        this.toastr.error('Jos nije implementirano usmeravanje'
+        + ' na sve stranice korisnika. Za sada radi samo za PASSENGER, CONTROLLOR i USER_ADMINISTRATORA');
+      }
+  }
+
 }
