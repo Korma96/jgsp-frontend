@@ -43,7 +43,7 @@ export class LinePageComponent implements OnInit {
   }
 
   delete(completeLineName: string) {
-    let index: number = this.completeLines.findIndex(x => x.name === completeLineName);
+    const index: number = this.completeLines.findIndex(x => x.name === completeLineName);
     const completeLine: CompleteLine = this.completeLines[index];
     this.genericService.delete('/line', completeLine.aLineId).subscribe(() => {
       this.genericService.delete('/line', completeLine.bLineId).subscribe(() => {
@@ -67,7 +67,7 @@ export class LinePageComponent implements OnInit {
   }
 
   updateLine(completeLineName: string) {
-    let index: number = this.completeLines.findIndex(x => x.name === completeLineName);
+    const index: number = this.completeLines.findIndex(x => x.name === completeLineName);
     this.selectedCompleteLine = this.completeLines[index];
     this.selectedLineA = this.lines.find(l => l.id === this.selectedCompleteLine.aLineId);
     this.selectedLineB = this.lines.find(l => l.id === this.selectedCompleteLine.bLineId);

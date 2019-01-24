@@ -62,6 +62,22 @@ export class DirectionsMapComponent implements OnInit, OnChanges, OnDestroy {
     scaledSize: new google.maps.Size(25, 25)*/
   };
 
+  tramImage: any = {
+    url: '/assets/icons/tram.png'/*,
+    size: new google.maps.Size(71, 71),
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(17, 34),
+    scaledSize: new google.maps.Size(25, 25)*/
+  };
+
+  metroImage: any = {
+    url: '/assets/icons/metro.png'/*,
+    size: new google.maps.Size(71, 71),
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(17, 34),
+    scaledSize: new google.maps.Size(25, 25)*/
+  };
+
   linesForShowing: LineForShowing[];
 
   map: any;
@@ -76,6 +92,7 @@ export class DirectionsMapComponent implements OnInit, OnChanges, OnDestroy {
 
   private serverSocketRelativeUrl = '/socket';
   private stompClient;
+  private successfullyConnected: boolean;
 
   relativeUrlForAddLineForShowPostions: string;
   relativeUrlForRemoveLineForShowPostions: string;
@@ -91,7 +108,7 @@ export class DirectionsMapComponent implements OnInit, OnChanges, OnDestroy {
     this.linesForShowing = [];
     this.colors = colors; // importovani colors
 
-    if(!this.neverShowPositionOfVehicles) { // 
+    if (!this.neverShowPositionOfVehicles) { // 
       this.initializeWebSocketConnection();
     }
 
@@ -100,10 +117,10 @@ export class DirectionsMapComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if(!this.neverShowPositionOfVehicles) {
+    if (!this.neverShowPositionOfVehicles) {
       const postionsOfVehiclesChecked: SimpleChange = changes.postionsOfVehiclesChecked;
 
-      if(!postionsOfVehiclesChecked.firstChange) {
+      if (!postionsOfVehiclesChecked.firstChange) {
         console.log('prev value: ', postionsOfVehiclesChecked.previousValue);
         console.log('got name: ', postionsOfVehiclesChecked.currentValue);
         this.postionsOfVehiclesChecked = postionsOfVehiclesChecked.currentValue;
@@ -121,20 +138,24 @@ export class DirectionsMapComponent implements OnInit, OnChanges, OnDestroy {
 
     this.checkSliderService.change.subscribe(
       (lineAndChecked: LineAndChecked) => {
-        this.showCheckedLine(lineAndChecked);
+        this.showOrHideLine(lineAndChecked);
       }
     );
   }
 
   ngOnDestroy() {
-    // uklanjamo sva vozila i unscribujemo se sa svih subscribovanih linija
-    this.postionsOfVehiclesChecked = false;
-    this.postionsOfVehiclesChanged();
+    if (!this.neverShowPositionOfVehicles) { 
+      // uklanjamo sva vozila i unscribujemo se sa svih subscribovanih linija
+      this.postionsOfVehiclesChecked = false;
+      this.postionsOfVehiclesChanged();
 
-    if(!this.neverShowPositionOfVehicles && this.stompClient) {
-      this.stompClient.disconnect(
-        () => this.toastr.info('The connection with the vehicles was interrupted!')
-      );
+      if (this.stompClient) {
+        if (this.successfullyConnected) {
+          this.stompClient.disconnect(
+            () => this.toastr.info('The connection with the vehicles was interrupted!')
+          );
+        }
+      }
     }
     
   }
@@ -144,7 +165,7 @@ export class DirectionsMapComponent implements OnInit, OnChanges, OnDestroy {
     .subscribe(
       () => {
         this.subscribe(id);
-        this.toastr.success('Successfuly added line for show postions of vehciles!')
+        this.toastr.success('Successfuly added line for show postions of vehciles!');
       },
       (err) => this.toastr.error('Unsuccessfuly added line for show postions of vehciles!')
     );
@@ -155,21 +176,22 @@ export class DirectionsMapComponent implements OnInit, OnChanges, OnDestroy {
     .subscribe(
       () => {
         this.unsubscribe(id);
-        this.toastr.success('Successfuly removed line for show postions of vehciles!')
+        this.toastr.success('Successfuly removed line for show postions of vehciles!');
       },
       (err) => {
         this.unsubscribe(id);
-        this.toastr.error('Unsuccessfuly removed line for show postions of vehciles!')
+        this.toastr.error('Unsuccessfuly removed line for show postions of vehciles!');
       }
     );
   }
 
-  initializeWebSocketConnection(){
-    let socket = new SockJS(this.baseUrl + this.serverSocketRelativeUrl);
+  initializeWebSocketConnection() {
+    const socket = new SockJS(this.baseUrl + this.serverSocketRelativeUrl);
     this.stompClient = Stomp.over(socket);
-
+    
+    this.successfullyConnected = false;
     // prva lambda funkcija je callback za uspesno konektovanje, a druga lambda fukcija za pucanje konekcije
-    this.stompClient.connect({}, (frame) => {}, () => {
+    this.stompClient.connect({}, (frame) => this.successfullyConnected = true, () => {
         // ukloni sva vozila usled pucanja konekcije
         this.postionsOfVehiclesChecked = false;
         this.postionsOfVehiclesChanged();
@@ -181,13 +203,13 @@ export class DirectionsMapComponent implements OnInit, OnChanges, OnDestroy {
   postionsOfVehiclesChanged() {
     let id; // tj. index
 
-    for (let lfs of this.linesForShowing) {
+    for (const lfs of this.linesForShowing) {
       if (lfs) {
         if (lfs.polyline) { // ako je ova linija trenutno aktivna
-          if(lfs.polyline.getMap()) {
+          if (lfs.polyline.getMap()) {
             id = this.linesForShowing.indexOf(lfs);
 
-            if(this.postionsOfVehiclesChecked) {
+            if (this.postionsOfVehiclesChecked) {
               this.addLineForShowPositonsOfVehicles(id);
             }
             else {
@@ -202,12 +224,14 @@ export class DirectionsMapComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   subscribe(id: number) {
-    if(this.postionsOfVehiclesChecked) {
+    if (this.postionsOfVehiclesChecked) {
       this.linesForShowing[id].subscription = this.stompClient.subscribe(`/topic/${id}`, (message) => {
-        if(message.body) {
+        if (message.body) {
           this.refreshPositionsOfVehicles(this.linesForShowing[id], message.body);
         }
-        else this.toastr.error('Empty body in a websocket message!');
+        else {
+          this.toastr.error('Empty body in a websocket message!');
+        }
       });
     }
 
@@ -217,18 +241,33 @@ export class DirectionsMapComponent implements OnInit, OnChanges, OnDestroy {
     lineForShowing.markersForVehicles.forEach(marker => marker.setMap(null));
 
     const positionsOfVehicles: Point[] = this.extractPositionsOfVehicles(message);
-    lineForShowing.markersForVehicles = []
+    lineForShowing.markersForVehicles = [];
 
-    for(let i = 0; i < positionsOfVehicles.length; i++){
-      let marker = this.addMarker(this.busImage, positionsOfVehicles[i], 
-        'line: ' + lineForShowing.name + ', bus_'+ (i+1));
+    let image;
+    if (lineForShowing.transport === 'bus') {
+        image = this.busImage;
+    }
+    else if (lineForShowing.transport === 'tram') {
+      image = this.tramImage;
+    }
+    else if (lineForShowing.transport === 'metro') {
+      image = this.metroImage;
+    }
+    else {
+      this.toastr.error('Unknown transport type!');
+      return;
+    }
+
+    for (let i = 0; i < positionsOfVehicles.length; i++) {
+      const marker = this.addMarker(image, positionsOfVehicles[i], 
+        'line: ' + lineForShowing.name + ', bus_' + (i + 1));
       marker.setMap(this.map);
       lineForShowing.markersForVehicles.push(marker);
     }
   }
 
   unsubscribe(id: number) {
-    if(this.linesForShowing[id].subscription) {
+    if (this.linesForShowing[id].subscription) {
       this.linesForShowing[id].subscription.unsubscribe(); // vise necemo slusati poruke za line sa ovim id,
                                                           // koje dobijamo preko websocket-a
     }
@@ -238,9 +277,9 @@ export class DirectionsMapComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   extractPositionsOfVehicles(message: string): Point[] {
-      const positionsOfVehicles: Point[] = []
+      const positionsOfVehicles: Point[] = [];
       
-      if(message) {
+      if (message) {
         const tokens: string[] = message.split(';');
         tokens.forEach(token => {
           const tokens2: string[] = token.split(',');
@@ -252,14 +291,15 @@ export class DirectionsMapComponent implements OnInit, OnChanges, OnDestroy {
       return positionsOfVehicles;
   }
 
-  public showCheckedLine(lineAndChecked: LineAndChecked) {
+  public showOrHideLine(lineAndChecked: LineAndChecked) {
     if (lineAndChecked.checked) {
-      if (this.linesForShowing[lineAndChecked.line.id]) {
+      if (this.linesForShowing[lineAndChecked.line.id]) { 
         this.show(this.linesForShowing[lineAndChecked.line.id]);
       }
       else {
         this.linesForShowing[lineAndChecked.line.id] = {
           name: lineAndChecked.line.name,
+          transport: lineAndChecked.line.transport,
           points: [],
           stops: [],
           polyline: null,
@@ -269,18 +309,27 @@ export class DirectionsMapComponent implements OnInit, OnChanges, OnDestroy {
           markersForVehicles: [],
           subscription: null
         };
-
+        
         this.getPointsAndStops(this.linesForShowing[lineAndChecked.line.id]);
       }
-    }
+      if (!this.neverShowPositionOfVehicles && this.postionsOfVehiclesChecked) {
+          this.addLineForShowPositonsOfVehicles(lineAndChecked.line.id);
+      }
+      
+    } 
     else {
-      if (this.linesForShowing[lineAndChecked.line.id]) {
-        this.hide(this.linesForShowing[lineAndChecked.line.id]);
-      }
-      else {
-        this.toastr.warning('The completeLine you need to remove can not be found in Google Maps');
-      }
+        if (this.linesForShowing[lineAndChecked.line.id]) {
+            this.hide(this.linesForShowing[lineAndChecked.line.id]);
+            if (!this.neverShowPositionOfVehicles && this.postionsOfVehiclesChecked) {
+                this.removeLineForShowPositonsOfVehicles(lineAndChecked.line.id);
+            }
+            
+        }
+        else {
+            this.toastr.warning('The completeLine you need to remove can not be found in Google Maps');
+        }
     }
+
   }
 
   getPointsAndStops(lineForShowing: LineForShowing) {
@@ -457,6 +506,16 @@ export class DirectionsMapComponent implements OnInit, OnChanges, OnDestroy {
       }
     }
   
+  }
+
+  public linesDisplayed() {
+    for (const l of this.linesForShowing) {
+      if (l && l.polyline && l.polyline.getMap()) {
+        return true;
+      }
+    }
+    
+    return false;
   }
 
 }

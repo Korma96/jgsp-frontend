@@ -18,8 +18,8 @@ export class AppComponent implements OnInit {
   
 
   constructor(private lineService: GenericService, private toastr: ToastrService,
-              private forwardingZonesService: ForwardingZonesService,
-              private authenticationService: AuthenticationService) {
+              private forwardingZonesService: ForwardingZonesService/*,
+              private authenticationService: AuthenticationService*/) {
     this.relativeUrl = '/zone/all-with-line';
   }
 
@@ -27,11 +27,11 @@ export class AppComponent implements OnInit {
     this.getZones();
   }
 
-
+  /*
   @HostListener('window:unload', [ '$event' ])
   unloadHandler(event) {
     this.authenticationService.logout();
-  }
+  }*/
 
   /*@HostListener('window:beforeunload', [ '$event' ])
   beforeUnloadHander(event) {
@@ -41,12 +41,15 @@ export class AppComponent implements OnInit {
 
   getZones() {
     this.lineService.getAll<ZoneWithLines>(this.relativeUrl) .subscribe(
-      zones => {
+      (zones: ZoneWithLines[]) => {
         this.zones = zones;
         if (this.zones) {
           if (this.zones.length > 0) {
             this.zones.forEach(
-              zone => this.setDistinctLines(zone)
+            zone => {
+                this.setDistinctLines(zone);
+                zone.lines.forEach(line => line.transport = zone.transport);
+              }
             );
             this.forwardingZonesService.sendZones(this.zones);
             //this.toastr.success('Zones are successfully loaded!');

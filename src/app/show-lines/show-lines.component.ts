@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Line } from '../model/line';
 import { colors } from '../resources/colors';
 import { ZoneWithLines } from '../model/zone-with-lines';
+import { DirectionsMapComponent } from '../directions-map/directions-map.component';
 
 @Component({
   selector: 'app-show-lines',
@@ -19,6 +20,8 @@ export class ShowLinesComponent implements OnInit {
 
   @Input()
   neverShowPositionOfVehicles: boolean;
+
+  @ViewChild(DirectionsMapComponent ) childDirectionsMap: DirectionsMapComponent ; 
 
   transports: string[] = ['all', 'bus', 'tram', 'metro'];
 
@@ -38,4 +41,7 @@ export class ShowLinesComponent implements OnInit {
   ngOnInit() {
   }
 
+  linesDisplayed() {
+    return this.childDirectionsMap.linesDisplayed();
+  }
 }

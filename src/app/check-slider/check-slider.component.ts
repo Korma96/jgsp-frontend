@@ -1,8 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { CheckSliderService } from '../services/check-slider/check-slider.service';
 import { Line } from '../model/line';
-import { LineAndChecked } from '../model/line-and-checked';
-import { LinePageComponent } from '../pages/transport-admin-page/line-page/line-page.component';
+
 
 @Component({
   selector: 'app-check-slider',

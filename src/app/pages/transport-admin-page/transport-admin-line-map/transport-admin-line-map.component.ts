@@ -91,7 +91,7 @@ export class TransportAdminLineMapComponent implements OnInit {
 
   public showCheckedLine(lineAndChecked: LineAndChecked, lineForShowing: LineForShowing) {
     if (lineAndChecked.checked) {
-      if (lineForShowing.relativeUrl !== "") {
+      if (lineForShowing.relativeUrl !== '') {
         this.showLine(lineForShowing);
         this.showLineStops(lineForShowing);
       }
@@ -120,7 +120,7 @@ export class TransportAdminLineMapComponent implements OnInit {
   removeLineStops(lineForShowing: LineForShowing) {
     if (lineForShowing.markers) {
       for (const marker of lineForShowing.markers) {
-        if(marker != null) {
+        if (marker != null) {
           marker.setMap(null);
         }
       }
@@ -173,7 +173,7 @@ export class TransportAdminLineMapComponent implements OnInit {
     for (let i = 0; i < lineForShowing.stops.length; i++) {
       if (lineForShowing.markers[i] == null) {
         let image = null;
-        if(i === 0) {
+        if (i === 0) {
           image = this.firstStopImage;
         } else if (i === lineForShowing.stops.length - 1) {
           image = this.lastStopImage;
@@ -183,7 +183,7 @@ export class TransportAdminLineMapComponent implements OnInit {
         lineForShowing.markers.push(this.getMarker(lineForShowing.stops[i], image));
       }
 
-      if(this.otherMarkers[lineForShowing.stops[i].id]) {
+      if (this.otherMarkers[lineForShowing.stops[i].id]) {
         // hide marker from other markers if line already contains that marker
         this.otherMarkers[lineForShowing.stops[i].id].setMap(null);
       }
@@ -221,7 +221,7 @@ export class TransportAdminLineMapComponent implements OnInit {
     return marker;
   }
 
-  getPointMarker(lat: number, lng: number, image: any): any{
+  getPointMarker(lat: number, lng: number, image: any): any {
     const that = this;
     const marker = new google.maps.Marker({
       position: {lat: lat, lng: lng},
@@ -246,7 +246,7 @@ export class TransportAdminLineMapComponent implements OnInit {
 
     for (const stop of this.stops) {
       if (this.alreadyShowedStopsIds) {
-        if(map) {
+        if (map) {
           if (this.alreadyShowedStopsIds.findIndex(id => stop.id === id) !== -1) {
             this.otherMarkers[stop.id].setMap(null);
             continue;

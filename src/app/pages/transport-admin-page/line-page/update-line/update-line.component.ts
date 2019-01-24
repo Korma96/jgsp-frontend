@@ -12,7 +12,6 @@ import {Stop} from '../../../../model/stop';
 import {GenericService} from '../../../../services/generic/generic.service';
 import {Point} from '../../../../model/point';
 import {Entity} from '../../helpers/enum/entity';
-import index from '@angular/cli/lib/cli';
 
 @Component({
   selector: 'app-update-line',
@@ -61,7 +60,7 @@ export class UpdateLineComponent implements OnInit {
       stops: [],
       polyline: null,
       markers: [],
-      relativeUrl: "",
+      relativeUrl: '',
       color: null,
       markersForVehicles: [],
       subscription: null
@@ -72,7 +71,7 @@ export class UpdateLineComponent implements OnInit {
       stops: [],
       polyline: null,
       markers: [],
-      relativeUrl: "",
+      relativeUrl: '',
       color: null,
       markersForVehicles: [],
       subscription: null

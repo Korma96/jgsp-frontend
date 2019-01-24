@@ -141,9 +141,10 @@ export class PriceticketUdComponent implements OnInit {
 export class EditDialogComponent {
 
 
-  constructor(
-    public dialogRef: MatDialogRef<EditDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,private toastr: ToastrService, private ngbDateParserFormatter: NgbDateParserFormatter) {}
+  constructor(public dialogRef: MatDialogRef<EditDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private toastr: ToastrService, 
+    private ngbDateParserFormatter: NgbDateParserFormatter) {}
+    
   onCancelClick(): void {
     this.dialogRef.close('Cancel');
   }
