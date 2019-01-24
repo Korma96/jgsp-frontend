@@ -5,6 +5,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import * as cloneDeep from 'lodash/cloneDeep';
 import { PriceticketDTOFrontend } from '../model/priceticket-dtoFrontend';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { DataService } from '../services/data.service';
 
 
 export interface DialogData {
@@ -28,15 +29,15 @@ export class PriceticketUdComponent implements OnInit {
   private priceticketsDTO: PriceticketDTOFrontend[];
   private editItem: any;
   private readonly priceTicketsFrontendDTOsUrl: string = '/priceticket/pricetickets';
-  public errorMessage: string;
 
 
   constructor(private service: GenericService, private toastr: ToastrService, 
-              public dialog: MatDialog, private ngbDateParserFormatter: NgbDateParserFormatter) {
+              public dialog: MatDialog, private ngbDateParserFormatter: NgbDateParserFormatter,
+              private data: DataService) {
     this.editItem = {id: 0, dateFrom: '', passengerType: '', ticketType: '', priceLine: 0, priceZone: 0, id_zone: 0};
     this.priceticketsDTO = [];
-    this.errorMessage = '';
     this.getPriceTickets();
+
    }
 
    getPriceTickets() {
@@ -46,6 +47,23 @@ export class PriceticketUdComponent implements OnInit {
       }
     );
   }
+
+  ngOnInit() {
+    this.data.currentValue.subscribe((added: boolean) => {
+      if (added) {
+        this.priceticketsDTO = [];
+        this.getPriceTickets();
+      }
+    });
+
+  }
+
+  /*updatePricetickets(added) {
+    if (added) {
+      this.priceticketsDTO = [];
+      this.getPriceTickets();
+    }
+  }*/
 
 
    editPriceticket(data) {
@@ -76,18 +94,16 @@ export class PriceticketUdComponent implements OnInit {
 
             this.priceticketsDTO[data.idx]['dateFrom'] = characters[2] + '.' + characters[1] + '.' + characters[0];
           } else {
-            this.errorMessage = res['message'];
             this.toastr.error(res['message']);
             
           }          
-      }, (err: any) => this.toastr.error('Adding a priceticket failed !!!')
+      } //(err: any) => this.toastr.error('Adding a priceticket failed !!!')
     );
 
     
     
   }
-  ngOnInit() {
-  }
+
 
 
 
@@ -141,9 +157,10 @@ export class PriceticketUdComponent implements OnInit {
 export class EditDialogComponent {
 
 
-  constructor(
-    public dialogRef: MatDialogRef<EditDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,private toastr: ToastrService, private ngbDateParserFormatter: NgbDateParserFormatter) {}
+  constructor(public dialogRef: MatDialogRef<EditDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private toastr: ToastrService, 
+    private ngbDateParserFormatter: NgbDateParserFormatter) {}
+    
   onCancelClick(): void {
     this.dialogRef.close('Cancel');
   }

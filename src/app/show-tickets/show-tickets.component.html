@@ -1,3 +1,65 @@
+<h4 *ngIf="!tickets || tickets.length === 0">&nbsp;&nbsp;There are currently no tickets.</h4>
+<div class="table-responsive" *ngIf="tickets && tickets.length > 0">
+    <table class="table table-dark table-hover table-bordered">
+        <tr>
+        <th>#</th>
+        <th>Start date and time</th>
+        <th>End date and time</th>
+        <th>Ticket type</th>
+        <th>Passenger type</th>
+        <th>Line/Zone</th>
+        <th>Price</th>
+        <th></th>
+        </tr>
+        <tr *ngFor="let ticket of tickets; let i = index">
+            <td>
+                {{i+1}}.
+            </td>
+            <td>
+                {{ticket.startDateAndTime}}
+            </td>
+            <td>
+                {{ticket.endDateAndTime}}
+            </td>
+            <td>
+                {{ticket.ticketType}}
+            </td>
+            <td>
+                {{ticket.passengerType}}
+            </td>
+            <td>
+                {{ticket.lineZone}}
+            </td>
+            <td>
+                {{ticket.price}}
+            </td>
+            <td>
+                <button *ngIf="canActivate(ticket)" type="button" class="btn btn-success" aria-label="Activate" (click)="activate(ticket.id)">
+                <span class="fa fa-check" aria-hidden="true"></span>
+                </button>
+                <button *ngIf="!canActivate(ticket)" type="button" class="btn btn-secondary" aria-label="Activate" 
+                    [disabled]="!canActivate(ticket)">
+                <span class="fa fa-check" aria-hidden="true"></span>
+                </button>
+
+                <button type="button" class="btn btn-primary" aria-label="Download" (click)="download(ticket.id)">
+                <span class="fa fa-download" aria-hidden="true"></span>
+                </button>
+
+                
+                <button *ngIf="canRemove(ticket)" type="button" class="btn btn-danger" aria-label="Remove" (click)="remove(ticket.id)"
+                    [disabled]="!canRemove(ticket)">
+                <span class="fa fa-remove" aria-hidden="true"></span>
+                </button>
+                <button *ngIf="!canRemove(ticket)" type="button" class="btn btn-secondary" aria-label="Remove" 
+                    [disabled]="!canRemove(ticket)">
+                <span class="fa fa-remove" aria-hidden="true"></span>
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>
+<!--
 <ngx-datatable class="dark" [loadingIndicator]="loadingIndicator" [reorderable]="reorderable" [rows]="tickets" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'"
      [count]="100" [offset]="0" [limit]="100" [externalPaging]="false">
      
@@ -59,3 +121,4 @@
         </ng-template>
     </ngx-datatable-column>
 </ngx-datatable>
+-->

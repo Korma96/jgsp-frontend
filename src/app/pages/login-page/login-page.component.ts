@@ -21,7 +21,7 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit() {
     if (this.authenticationService.isLoggedIn()) {
-        const currentUser:any = this.authenticationService.getCurrentUser();
+        const currentUser: any = this.authenticationService.getCurrentUser();
         this.goToPageOfLoggedUser(currentUser);
     }
   }
@@ -31,7 +31,7 @@ export class LoginPageComponent implements OnInit {
     .subscribe((loggedIn: boolean) => {
       console.log(loggedIn);
       if (loggedIn) {
-        const currentUser:any = this.authenticationService.getCurrentUser();
+        const currentUser: any = this.authenticationService.getCurrentUser();
         this.toastr.success('Successfully logged in as ' + currentUser.username);
         this.goToPageOfLoggedUser(currentUser);
       }
@@ -63,7 +63,7 @@ export class LoginPageComponent implements OnInit {
         this.router.navigate(['/checkticket']);
       }
       else if (role === 'TRANSPORT_ADMINISTRATOR') {
-        this.router.navigate(['/priceticket']);
+        this.router.navigate(['/transport']);
       }
       else {
         this.toastr.error('Unknown user type!');

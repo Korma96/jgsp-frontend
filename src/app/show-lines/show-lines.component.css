@@ -1,5 +1,9 @@
+select[disabled] {
+  background: gray;
+}
+
 agm-map {
-    height: 650px;
+    height: 732px;
   }
   
   .line-row {
@@ -17,6 +21,12 @@ agm-map {
 
   .div-height {
     height: 650px
+  }
+
+  label[for="id_transport"] {
+    border-style: solid;
+    border-width: 6px;
+    font-size: larger;
   }
 
 

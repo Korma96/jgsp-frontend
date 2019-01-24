@@ -1,6 +1,10 @@
 
 <form class="form" [formGroup]="form">
-    <label >&nbsp;&nbsp;Current passenger type:&nbsp;&nbsp;{{authenticationService.getCurrentUser().roles}}</label>
+    <div class="row">
+        <div class="col-xl-6 offset-xl-4"> 
+            <label id="id_current_passenger_type">&nbsp;&nbsp;Current passenger type:&nbsp;&nbsp;<b>{{authenticationService.getCurrentUser().roles.slice(-1)[0]}}</b>&nbsp;&nbsp;</label>
+        </div>
+    </div>
 
     <div class="form-group">
       <label for="id_passenger_type">&nbsp;&nbsp;New passenger type</label>
@@ -12,11 +16,18 @@
   
     <div class="form-group">
         <label for="id_confirmation">&nbsp;&nbsp;Confirmation</label>
-        <input id="id_confirmation" class="form-control" type="file" (change)="onFileChange($event)" accept="image/*" #fileInput/>
+        <div class="custom-file">
+          <input type="file" id="id_confirmation" class="form-control custom-file-input" (change)="onFileChange($event)" accept="image/*">
+          <label class="custom-file-label" for="id_confirmation">{{fileName}}</label>
+        </div>
+        <!--<input id="id_confirmation" class="form-control" type="file" (change)="onFileChange($event)" accept="image/*" #fileInput/>-->
     </div>
     
     <br/>
     <br/>
   
     <button class="btn btn-primary pull-right" (click)="send()">Send request for changing</button>
+    <br/>
+    <br/>
+
   </form>

@@ -1,3 +1,17 @@
+<div>
+  <table>
+    <tr>
+      <td><label for="transport_type_select">Choose transport type: </label></td>
+      <td>
+        <select id="transport_type_select" (change)="transportTypeChanged($event)">
+          <option value="0" selected>BUS</option>
+          <option value="1">TRAM</option>
+          <option value="2">METRO</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+</div>
 <div *ngIf="zones.length != 0">
   <table id="table_zones">
     <tr *ngFor="let zonesInRow of zonesView">

@@ -12,6 +12,7 @@ import {Router} from '@angular/router';
 export class AddZoneComponent implements OnInit {
   zone: Zone = { id: 0, name: '' };
   allZonesNames: string[];
+  type: number = 0;
 
   constructor(private genericService: GenericService,
               private router: Router,
@@ -21,6 +22,10 @@ export class AddZoneComponent implements OnInit {
       this.genericService.getAll<Zone>('/zone/all').subscribe(zones => {
         this.allZonesNames = zones.map(x => x.name);
       });
+  }
+
+  transportTypeChanged(event: any) {
+    this.type = event.target.value;
   }
 
   save() {
@@ -33,12 +38,12 @@ export class AddZoneComponent implements OnInit {
       return;
     }
 
-    this.genericService.post('/zone/add', {'name': this.zone.name}).subscribe(() => {
+    this.genericService.post('/zone/addZone',
+      {'name': this.zone.name, 'transportType': this.type}).subscribe(() => {
       this.toastr.success('Zone successfully added');
       this.router.navigate(['transport/zone']);
       }, error => {
-                console.log(JSON.stringify(error));
-                this.toastr.error(error.error.error);
+        this.toastr.error(error.error.error);
     });
   }
 

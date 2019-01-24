@@ -22,6 +22,12 @@
             <td></td>
           </tr>
           <tr>
+            <td><label for="minutes_input">Minutes required for whole route:</label></td>
+            <td><input id="minutes_input" type="number" [(ngModel)]="minutesRequiredForWholeRoute" style="width:100px"/></td>
+            <td><button (click)="updateMinutes()">Update</button></td>
+            <td></td>
+          </tr>
+          <tr>
             <td><label for="show_all_stops_input">Show all stops:</label></td>
             <td>
               <input id="show_all_stops_input" type="checkbox"
