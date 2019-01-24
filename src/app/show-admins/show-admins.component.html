@@ -1,32 +1,30 @@
-<ngx-datatable class="dark" [loadingIndicator]="loadingIndicator" [reorderable]="reorderable" [rows]="admins" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'"
-     [count]="100" [offset]="0" [limit]="100" [externalPaging]="false">
-     
-     <ngx-datatable-column name="Index">
-        <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
-            {{rowIndex+1}}
-        </ng-template>
-    </ngx-datatable-column>
-     <ngx-datatable-column name="Username" prop="username" [sortable]="true">
-        <ng-template let-value="value" ngx-datatable-cell-template>
-            {{value}}
-        </ng-template>
-    </ngx-datatable-column>
-    <ngx-datatable-column name="Admin type" prop="userType" [sortable]="true">
-        <ng-template let-value="value" ngx-datatable-cell-template>
-            {{value}}
-        </ng-template>
-    </ngx-datatable-column>
-
-    <ngx-datatable-column name="Admin status" prop="userStatus" [sortable]="true">
-        <ng-template let-value="value" ngx-datatable-cell-template>
-            {{value}}
-        </ng-template>
-      </ngx-datatable-column>
-
-    <ngx-datatable-column name="" prop="id">
-        <ng-template let-value="value" ngx-datatable-cell-template>
-            <a href="javascript:;" (click)="delete(value)">Delete</a>
-        </ng-template>
-    </ngx-datatable-column>
-  
-</ngx-datatable>
+<div>
+    <h3>Admins</h3>
+  </div>
+  <table class="table table-hover table-bordered">
+    <tr class="table-primary">
+        <th>#</th>
+      <th>Username</th>
+      <th>Admin type</th>
+      <th>Admin status</th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let admin of admins; let i = index" class="table-info">
+        <td>
+            {{i+1}}.
+        </td>
+      <td>
+        {{admin.username}}
+      </td>
+      <td>
+        {{admin.userType}}
+      </td>
+      <td>
+        {{admin.userStatus}}
+      </td>
+      <td>
+        <button type="button" class="btn btn-primary" aria-label="Delete" (click)="delete(admin.id)"> Delete</button>
+        <button type="button" class="btn btn-primary"  (click)="activate(admin)">{{admin.userStatus == "ACTIVATED" ? "Deactivate" : "Activate" }}</button>
+    </td>
+    </tr>
+  </table>

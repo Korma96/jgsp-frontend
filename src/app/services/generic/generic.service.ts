@@ -53,4 +53,7 @@ export class GenericService {
     return this.http.delete(this.baseUrl + relativeUrl + `/${id}` + '/delete');
   }
 
+
+
+
 }

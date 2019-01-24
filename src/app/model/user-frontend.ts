@@ -1,6 +1,6 @@
 export interface UserFrontend {
     id?: number;
     username: string;
-    userType: string;
+    userType?: string;
     userStatus?: string;
 }

@@ -23,7 +23,7 @@ export class AddAdminComponent implements OnInit {
 
   constructor(private genericService: GenericService, private toastr: ToastrService) {
     this.admin = {username: '', password: '', userType: this.userTypes[0]};
-    this.relativeUrl = '/userAdmin/add';
+    this.relativeUrl = '/userAdmin/add-admin';
   }
 
   ngOnInit() {

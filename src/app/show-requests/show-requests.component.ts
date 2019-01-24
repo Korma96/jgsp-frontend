@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { GenericService } from '../services/generic/generic.service';
 import { ToastrService } from 'ngx-toastr';
 import { Request } from '../model/request';
@@ -37,10 +37,15 @@ export class ShowRequestsComponent implements OnInit {
   }
 
 
-  acceptOrDecline(id: number, accepted: boolean) {
-      this.genericService.put<boolean>(this.relativeUrlForAcceptOrDecline + '/' + id, accepted).subscribe(
+  acceptOrDecline(accepted: boolean, request: Request) {
+      this.genericService.put<boolean>(this.relativeUrlForAcceptOrDecline + '/' + request.id, accepted).subscribe(
         (res: boolean) => {
           if (res) {
+            const index = this.requests.indexOf(request); 
+            if (index !== -1) {
+              this.requests.splice(index, 1);
+          
+            }        
             this.toastr.success('Successfully reviewed request!');
           }
           else {
@@ -55,7 +60,6 @@ export class ShowRequestsComponent implements OnInit {
     this.genericService.getAll<Request>(this.relativeUrlForRequests).subscribe(
       (requests: Request[]) => {
           this.requests = requests;
-
           if (this.requests) {
             if (this.requests.length > 0) {
               this.requests.forEach( r => this.getImage(r.id));

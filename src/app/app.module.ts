@@ -63,6 +63,8 @@ import { TransportAdminMapComponent } from './pages/transport-admin-page/transpo
 import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
 import { NgbDateCustomParserFormatter } from './buy-ticket/ngb-date-custom-parser-formatter/ngb-date-custom-parser-formatter';
 import { ImageDialogComponent } from './image-dialog/image-dialog.component';
+import { DatePipe } from '@angular/common';
+import { ActivatePassengersComponent } from './activate-passengers/activate-passengers.component';
 
 
 const appRoutes: Routes = [
@@ -131,7 +133,8 @@ const appRoutes: Routes = [
     ShowRequestsComponent,
     TransportAdminMapComponent,
     ModalDialogComponent,
-    ImageDialogComponent
+    ImageDialogComponent,
+    ActivatePassengersComponent
   ],
   imports: [
     BrowserModule,
@@ -162,6 +165,7 @@ const appRoutes: Routes = [
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
     DownloadFileService,
     PriceService,
+    DatePipe,
     ChangeAccountTypeService,
     {provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter}
   ],
