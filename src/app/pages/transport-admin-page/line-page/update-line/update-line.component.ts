@@ -40,6 +40,7 @@ export class UpdateLineComponent implements OnInit {
   selectedPoint: Point;
   possibleNewPoint: Point;
   newLineStopOrdinaryNumber: number;
+  minutesRequiredForWholeRoute: number;
   @ViewChild(TransportAdminLineMapComponent)
   mapComponent: TransportAdminLineMapComponent;
 
@@ -78,6 +79,7 @@ export class UpdateLineComponent implements OnInit {
     };
     this.changeAction(Action.ADD);
     this.changeEntity(Entity.STOP);
+    this.getMinutesRequiredForWholeRoute();
   }
 
   mapReady() {
@@ -304,6 +306,22 @@ export class UpdateLineComponent implements OnInit {
         }
         break;
     }
+  }
+
+  getMinutesRequiredForWholeRoute() {
+    this.genericService.get(`/line/${this.lineAndCheckedA.line.id}/minutes`).subscribe((minutesDTO: any) => {
+      this.minutesRequiredForWholeRoute = minutesDTO.minutes;
+    }, error => console.log(JSON.stringify(error)));
+  }
+
+  updateMinutes() {
+    this.genericService.post(`/line/${this.lineAndCheckedA.line.id}/minutes`,
+      {'minutes': this.minutesRequiredForWholeRoute}).subscribe(() => {
+      this.genericService.post(`/line/${this.lineAndCheckedB.line.id}/minutes`,
+        {'minutes': this.minutesRequiredForWholeRoute}).subscribe(() => {
+        this.toastr.success('Minutes required for whole\nroute successfully updated');
+      }, error => console.log(JSON.stringify(error)));
+    }, error => console.log(JSON.stringify(error)));
   }
 
   updateView() {

@@ -112,7 +112,7 @@ import { UpdateLineComponent } from './pages/transport-admin-page/line-page/upda
 
 const appRoutes: Routes = [
   { path: 'home-page', component: HomePageComponent },
-  { path: 'transport', component: TransportAdminPageComponent, 
+  { path: 'transport', component: TransportAdminPageComponent, canActivate: [CanActivateUserGuard],
     children: [
       { path: 'zone', component: ZonePageComponent},
       { path: 'add_zone', component: AddZoneComponent},
@@ -120,7 +120,8 @@ const appRoutes: Routes = [
       { path: 'line', component: LinePageComponent},
       { path: 'add_line', component: AddLineComponent},
       { path: 'stop', component: StopPageComponent},
-      { path: 'schedule', component: SchedulePageComponent}
+      { path: 'schedule', component: SchedulePageComponent},
+      { path: 'priceticket', component: MenuPriceticketComponent}
     ]
   },
   { path: 'login', component: LoginPageComponent},
@@ -128,7 +129,6 @@ const appRoutes: Routes = [
   { path: 'checkticket', component: CheckTicketPageComponent, canActivate: [CanActivateUserGuard]},
   { path: 'passenger', component: PassengerPageComponent, canActivate: [CanActivateUserGuard]},
   { path: 'user-admin', component: UserAdminPageComponent, canActivate: [CanActivateUserGuard]},
-  { path: 'priceticket', component: MenuPriceticketComponent, canActivate: [CanActivateUserGuard]},
   // { path: 'entry/:index',      component: BlogEntryPageComponent },
   { path: '', // localhost:4200 redirect to localhost:4200/home-page
     redirectTo: '/home-page',

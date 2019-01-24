@@ -14,7 +14,8 @@ export class CanActivateUserGuard implements CanActivate {
     'passenger': 'PASSENGER',
     'user-admin': 'USER_ADMINISTRATOR',
     'checkticket': 'CONTROLLOR',
-    'priceticket': 'TRANSPORT_ADMINISTRATOR'
+    'priceticket': 'TRANSPORT_ADMINISTRATOR',
+    'transport': 'TRANSPORT_ADMINISTRATOR'
   };
 
   constructor(private authenticationService: AuthenticationService, private router: Router,

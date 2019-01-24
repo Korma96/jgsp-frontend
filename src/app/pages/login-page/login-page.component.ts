@@ -63,7 +63,7 @@ export class LoginPageComponent implements OnInit {
         this.router.navigate(['/checkticket']);
       }
       else if (role === 'TRANSPORT_ADMINISTRATOR') {
-        this.router.navigate(['/priceticket']);
+        this.router.navigate(['/transport']);
       }
       else {
         this.toastr.error('Unknown user type!');
