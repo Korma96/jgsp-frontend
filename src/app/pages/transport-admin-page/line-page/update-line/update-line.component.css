@@ -1,0 +1,12 @@
+agm-map {
+  height: 480px;
+  width: 580px;
+}
+
+.active_button {
+  border: 3px solid dodgerblue;
+}
+
+.not_active_button {
+  border: 1px solid lightslategray;
+}

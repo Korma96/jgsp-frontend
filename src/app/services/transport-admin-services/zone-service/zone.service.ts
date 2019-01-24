@@ -10,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root'
 })
 export class ZoneService {
-  constructor(private http: HttpClient, @Inject('BASE_API_URL') private baseUrl: string, private toastr: ToastrService) {
+  constructor(private http: HttpClient, @Inject('BASE_API_URL') private baseUrl: string) {
   }
 
   getLines(id: any): Observable<Line[]> {

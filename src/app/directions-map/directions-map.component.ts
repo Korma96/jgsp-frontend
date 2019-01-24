@@ -82,7 +82,7 @@ export class DirectionsMapComponent implements OnInit, OnChanges, OnDestroy {
   
 
   constructor (@Inject('BASE_API_URL') private baseUrl: string,
-              private gmapsApi: GoogleMapsAPIWrapper, 
+               public gmapsApi: GoogleMapsAPIWrapper,
               private stopService: GenericService,
               private toastr: ToastrService,
               private checkSliderService: CheckSliderService,
@@ -115,50 +115,15 @@ export class DirectionsMapComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit() {
-      this.gmapsApi.getNativeMap().then(map => {
-          this.map = map;
-      });
+    this.gmapsApi.getNativeMap().then(map => {
+        this.map = map;
+    });
 
-      this.checkSliderService.change.subscribe(
-        (lineAndChecked: LineAndChecked) => {
-          if (lineAndChecked.checked) {
-              if (this.linesForShowing[lineAndChecked.line.id]) { 
-                this.show(this.linesForShowing[lineAndChecked.line.id]);
-              }
-              else {
-                this.linesForShowing[lineAndChecked.line.id] = {
-                  name: lineAndChecked.line.name,
-                  points: [],
-                  stops: [],
-                  polyline: null,
-                  markers: null,
-                  relativeUrl: `/line/${lineAndChecked.line.id}/points-and-stops`,
-                  color: this.colors[lineAndChecked.line.id % this.colors.length],
-                  markersForVehicles: [],
-                  subscription: null
-                };
-                
-                this.getPointsAndStops(this.linesForShowing[lineAndChecked.line.id]);
-              }
-              if(!this.neverShowPositionOfVehicles && this.postionsOfVehiclesChecked) {
-                  this.addLineForShowPositonsOfVehicles(lineAndChecked.line.id);
-              }
-              
-          } 
-          else {
-              if (this.linesForShowing[lineAndChecked.line.id]) {
-                  this.hide(this.linesForShowing[lineAndChecked.line.id]);
-                  if(!this.neverShowPositionOfVehicles && this.postionsOfVehiclesChecked) {
-                      this.removeLineForShowPositonsOfVehicles(lineAndChecked.line.id);
-                  }
-                  
-              }
-              else {
-                  this.toastr.warning('The completeLine you need to remove can not be found in Google Maps');
-              }
-          }
-        }
-      );
+    this.checkSliderService.change.subscribe(
+      (lineAndChecked: LineAndChecked) => {
+        this.showCheckedLine(lineAndChecked);
+      }
+    );
   }
 
   ngOnDestroy() {
@@ -287,6 +252,37 @@ export class DirectionsMapComponent implements OnInit, OnChanges, OnDestroy {
       return positionsOfVehicles;
   }
 
+  public showCheckedLine(lineAndChecked: LineAndChecked) {
+    if (lineAndChecked.checked) {
+      if (this.linesForShowing[lineAndChecked.line.id]) {
+        this.show(this.linesForShowing[lineAndChecked.line.id]);
+      }
+      else {
+        this.linesForShowing[lineAndChecked.line.id] = {
+          name: lineAndChecked.line.name,
+          points: [],
+          stops: [],
+          polyline: null,
+          markers: null,
+          relativeUrl: `/line/${lineAndChecked.line.id}/points-and-stops`,
+          color: this.colors[lineAndChecked.line.id % this.colors.length],
+          markersForVehicles: [],
+          subscription: null
+        };
+
+        this.getPointsAndStops(this.linesForShowing[lineAndChecked.line.id]);
+      }
+    }
+    else {
+      if (this.linesForShowing[lineAndChecked.line.id]) {
+        this.hide(this.linesForShowing[lineAndChecked.line.id]);
+      }
+      else {
+        this.toastr.warning('The completeLine you need to remove can not be found in Google Maps');
+      }
+    }
+  }
+
   getPointsAndStops(lineForShowing: LineForShowing) {
     this.stopService.get<PointsAndStops>(lineForShowing.relativeUrl) .subscribe(
       pointsAndStops => {
@@ -383,7 +379,7 @@ export class DirectionsMapComponent implements OnInit, OnChanges, OnDestroy {
       lineForShowing.polyline.setMap(null);
     }
   }
-  
+
   drawStops(lineForShowing: LineForShowing) {
     if (!lineForShowing.markers) {
       this.createMarkers(lineForShowing);
@@ -429,7 +425,7 @@ export class DirectionsMapComponent implements OnInit, OnChanges, OnDestroy {
                                lineForShowing.stops[i].name);
       lineForShowing.markers.push(marker);
     }
-  } 
+  }
 
   addMarker(image, latlng, title): any {
     const infowindow = new google.maps.InfoWindow({

@@ -49,7 +49,7 @@ export class AppComponent implements OnInit {
               zone => this.setDistinctLines(zone)
             );
             this.forwardingZonesService.sendZones(this.zones);
-            this.toastr.success('Zones are successfully loaded!');
+            //this.toastr.success('Zones are successfully loaded!');
           }
           else {
             this.toastr.warning('There are no zones at the moment!');
