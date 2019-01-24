@@ -3,6 +3,7 @@ import { Point } from './point';
 
 export interface LineForShowing {
     name: string;
+    transport?: string;
     stops: Stop[];
     points: Point[];
     polyline: any;

@@ -2,6 +2,8 @@
 
 /* bootsrtap-ove klase su "negativno" utiacle na toastr, zato smo ih ovde pregazili */
 
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 .toast {
     background-color: #030303;
     pointer-events: auto;

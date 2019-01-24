@@ -1,9 +1,21 @@
-<div>
-    Show postions of vehicles 
-    <span> 
-      <input type="checkbox" [checked]="postionsOfVehiclesChecked" 
-            (change)="postionsOfVehiclesChecked = !postionsOfVehiclesChecked" /> 
-    </span>
+<div class="row">
+    <div class="col-xl-4 offset-xl-4" id="id_show_positions_of_vehicles"> 
+        Show postions of vehicles
+        <!--<span> 
+            <input type="checkbox" [checked]="postionsOfVehiclesChecked" 
+                (change)="postionsOfVehiclesChecked = !postionsOfVehiclesChecked" /> 
+        </span>
+        -->
+        <span class="checkbox">
+            &nbsp;&nbsp;
+            <label id="id_label">
+                <input type="checkbox" [checked]="postionsOfVehiclesChecked" 
+                    (change)="postionsOfVehiclesChecked = !postionsOfVehiclesChecked" /> 
+                <span id="id_span" class="cr"><i class="cr-icon fa fa-check"></i></span>
+            </label>
+        </span>
+    </div>
 </div>
+<br/>
 
 <app-show-lines [neverShowPositionOfVehicles]="neverShowPositionOfVehicles" [postionsOfVehiclesChecked]="postionsOfVehiclesChecked" [zones]="zones"> </app-show-lines>

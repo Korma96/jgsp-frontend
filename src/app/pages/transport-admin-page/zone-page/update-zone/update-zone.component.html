@@ -1,12 +1,12 @@
 <div>
-  <table>
+  <table id="zone_lines_table">
     <tr>
       <td style="width: 165px" align="right">
         <label for="zone_name_input">Zone name: </label>
       </td>
       <td colspan="2">
         <input id="zone_name_input" type="text" [(ngModel)]="zone.name" />
-        <button (click)="save()" >Rename</button>
+        <button id="zone_rename_button" (click)="save()" >Rename</button>
       </td>
     </tr>
     <tr>
@@ -16,18 +16,18 @@
     </tr>
     <tr *ngFor="let linesInRow of zoneLinesView">
       <td *ngFor="let line of linesInRow">
-        <app-complete-line [buttonSign] = "removeButtonSign" [completeLine]="line"
-                           (completeLineNameEventHandler)="removeLineFromZone($event)"></app-complete-line>
+        <app-complete-line [buttonSign] = "removeButtonSign" [completeLine]="line" [isCompleteLineButtonDisabled]="true"
+                           (manipulateCompleteLineEventHandler)="removeLineFromZone($event)"></app-complete-line>
       </td>
     </tr>
   </table>
   <hr>
   <label>Remaining lines:</label>
-  <table>
+  <table id="remaining_lines_table">
     <tr *ngFor="let linesInRow of remainingLinesView">
       <td *ngFor="let line of linesInRow">
-        <app-complete-line [buttonSign] = "addButtonSign" [completeLine]="line"
-                           (completeLineNameEventHandler)="addLineToZone($event)"></app-complete-line>
+        <app-complete-line [buttonSign] = "addButtonSign" [completeLine]="line" [isCompleteLineButtonDisabled]="true"
+                           (manipulateCompleteLineEventHandler)="addLineToZone($event)"></app-complete-line>
       </td>
     </tr>
   </table>

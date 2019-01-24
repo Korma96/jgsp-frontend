@@ -115,19 +115,19 @@ export class BuyTicketComponent implements OnInit, OnChanges {
 
   stopIfNotAllRight(event) {
     let stopBuying: boolean = false;
-    let now = new Date();
-    now.setHours(0,0,0,0);
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
 
     if (this.ticket.ticketType === this.ticketTypes[1].toUpperCase()) {
         if (!this.date) {
           this.toastr.error('You did not select a date!');
           stopBuying = true;
         }
-        else if(new Date(this.date.year, this.date.month-1, this.date.day) < now) {
+        else if (new Date(this.date.year, this.date.month - 1, this.date.day) < now) {
           this.toastr.error('The selected date has already passed!');
           stopBuying = true;
         }
-        else if(this.date.day && this.date.month && this.date.year) {
+        else if (this.date.day && this.date.month && this.date.year) {
           this.ticket.dayInMonthOrMonthInYear = this.date.day;
         }
         else {
@@ -147,7 +147,7 @@ export class BuyTicketComponent implements OnInit, OnChanges {
     }
 
 
-    if(stopBuying) {
+    if (stopBuying) {
       event.stopPropagation(); // dialog se nece prikazati
     }
     else {

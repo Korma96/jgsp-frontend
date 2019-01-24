@@ -1,15 +1,94 @@
 
-<form>
-  <div class="form-group" (ngSubmit)="checkTicket()">
-    <label for="username">Username of passenger:&nbsp; </label>
-    <input type="text" id="username" name="username"  [(ngModel)]="this.passenger.username">
-  </div>
 
-  <label for="line">Choose line:&nbsp;</label>
-  <select id="line" name="line" (change)="onSelect($event.target.value)">
-      <option *ngFor="let item of this.data; let i = index">{{item['name']}}</option>
-  </select>
-
-  <button class="btn btn-primary btn-block" type="submit">Check</button>
-
+<form (ngSubmit)="checkTicket()">
+    <div class="form-group">
+        <label for="username">Username of passenger:&nbsp; </label>
+        <input type="text" class="form-control" id="username" name="username"  [(ngModel)]="username">
+      </div>
+      
+      <div class="form-group">
+        <label for="id_transport_type">&nbsp;&nbsp;Transport</label>
+        <select id="id_transport_type" class="form-control custom-select" [(ngModel)]="transport" name="transport" (change)="transportChanged()">
+          <option [ngValue]="0">{{transports[0]}}</option>
+          <option [ngValue]="1">{{transports[1]}}</option>
+          <option [ngValue]="2">{{transports[2]}}</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="id_zone">&nbsp;&nbsp;Zone</label>
+        <select class="form-control" id="id_zone" [(ngModel)]="selectedZone" name="zone">
+            <ng-template ngFor let-zone [ngForOf]="zones">
+                <option *ngIf="zone.transport == transports[transport]" [ngValue]="zone">{{zone.name}}</option>
+            </ng-template>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="id_line">&nbsp;&nbsp;Line</label>
+        <select class="form-control" id="id_line" [(ngModel)]="line" name="line">
+              <ng-template [ngIf]="selectedZone">
+                  <option *ngFor="let lineName of selectedZone.distinctLines" [ngValue]="lineName">{{lineName}}</option>
+              </ng-template>
+        </select>
+      </div>
+      
+      <input class="btn btn-primary btn-lg" type="submit" value="Check"/>
+  
 </form>
+
+
+
+
+
+<!--
+<div class="row">
+    <div class="col-xl-12">
+  
+        <form (ngSubmit)="checkTicket()">
+          <div class="form-group">
+            <label for="username">Username of passenger:&nbsp; </label>
+            <input type="text" class="form-control" id="username" name="username"  [(ngModel)]="this.passenger.username">
+          </div>
+        
+          
+        <div class="custom-control custom-radio">
+          <input type="radio" class="custom-control-input" (change)="lineCheck($event.target.id)" id="line" name="lineZone" checked mdbInputDirective>
+          <label class="custom-control-label" for="line">Line</label>
+        </div>
+        
+        
+        <div class="custom-control custom-radio">
+          <input type="radio" class="custom-control-input" (change)="lineCheck($event.target.id)" id="zone" name="lineZone"  mdbInputDirective>
+          <label class="custom-control-label" for="zone">Zone</label>
+        </div>
+        
+        <div *ngIf="this.lz === 'line'" class="form-group">
+          <label for="line">Choose line:</label>
+          <select class="form-control" id="line" name="line" (change)="onSelect($event.target.value)">
+              <option *ngFor="let item of this.lines; let i = index">{{item['name']}}</option>
+          </select>
+        
+        </div>
+        
+        
+        <div *ngIf="this.lz === 'zone'" class="form-group">
+          <label for="zone">Choose zone:</label>
+          <select class="form-control" id="zone" name="zone" (change)="onSelect($event.target.value)">
+              <option *ngFor="let item of this.zones; let i = index">{{item['name']}}</option>
+          </select>
+        
+        </div>
+        <br/>
+        <br/>          
+        <br/>
+        
+          <input class="btn btn-primary btn-lg" type="submit" value="Check"/>
+        </form>
+      </div>
+</div>
+-->
+
+
+
+

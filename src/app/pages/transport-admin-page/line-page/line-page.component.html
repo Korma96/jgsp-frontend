@@ -1,3 +1,21 @@
-<div *ngFor="let line of lines">
-  <div>{{line.name}}</div>
+<div *ngIf="!isCompleteLineSelected">
+  <div *ngIf="lines.length != 0">
+    <table>
+      <tr *ngFor="let linesInRow of completeLinesView">
+        <td *ngFor="let line of linesInRow">
+          <app-complete-line [completeLine] = "line" [buttonSign]="'x'"
+                    (manipulateCompleteLineEventHandler)="delete($event)"
+                    (completeLineClickEventHandler)="updateLine($event)">
+          </app-complete-line>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div *ngIf="isCompleteLineSelected">
+  <app-update-line [completeLine]="selectedCompleteLine"
+                   [directionA]="selectedLineA"
+                   [directionB]="selectedLineB"
+                   (renameLineEventHandler)="renameLine($event)">
+  </app-update-line>
 </div>

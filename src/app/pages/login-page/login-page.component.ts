@@ -20,6 +20,10 @@ export class LoginPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.authenticationService.isLoggedIn()) {
+        const currentUser: any = this.authenticationService.getCurrentUser();
+        this.goToPageOfLoggedUser(currentUser);
+    }
   }
 
   login(): void {
@@ -27,25 +31,15 @@ export class LoginPageComponent implements OnInit {
     .subscribe((loggedIn: boolean) => {
       console.log(loggedIn);
       if (loggedIn) {
-        const currentUser = this.authenticationService.getCurrentUser();
-        this.toastr.success('Successfully logged in as ' 
-                            + currentUser.username);
-        if (currentUser.roles == 'PASSENGER') {
-          this.router.navigate(['/passenger']);
-        }
-        else if (currentUser.roles == 'USER_ADMINISTRATOR') {
-          this.router.navigate(['/user-admin']);
-        }
-        else {
-          this.toastr.error('Jos nije implementirano usmeravanje'
-          +' na sve stranice korisnika. Za sada radi samo za PASSENGER i USER_ADMINISTRATORA');
-        }
-        
+        const currentUser: any = this.authenticationService.getCurrentUser();
+        this.toastr.success('Successfully logged in as ' + currentUser.username);
+        this.goToPageOfLoggedUser(currentUser);
       }
       else {
         this.toastr.error('Unsuccessfully login :(');
       }
-    }, (err: Error) => {
+    }, 
+    (err: Error) => {
       if (err.toString() === 'Ilegal login') {
         this.wrongUsernameOrPass = true;
         console.log(err);
@@ -55,4 +49,25 @@ export class LoginPageComponent implements OnInit {
       this.toastr.error(JSON.stringify(err));
     });
   }
+
+  goToPageOfLoggedUser(currentUser: any) {
+      const role = currentUser.roles[0];
+
+      if (role === 'PASSENGER') {
+        this.router.navigate(['/passenger']);
+      }
+      else if (role === 'USER_ADMINISTRATOR') {
+        this.router.navigate(['/user-admin']);
+      }
+      else if (role === 'CONTROLLOR') {
+        this.router.navigate(['/checkticket']);
+      }
+      else if (role === 'TRANSPORT_ADMINISTRATOR') {
+        this.router.navigate(['/priceticket']);
+      }
+      else {
+        this.toastr.error('Unknown user type!');
+      }
+  }
+
 }

@@ -1,0 +1,20 @@
+<section id="tabs">
+  <div class="row">
+      <div class="col-xl-12 ">
+          <nav>
+              <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                  <a class="nav-item nav-link active" id="nav-priceticket-ud-tab" data-toggle="tab" href="#nav-priceticket-ud" role="tab" aria-controls="nav-priceticket-ud" aria-selected="true">SHOW PRICETICKETS</a>
+                  <a class="nav-item nav-link" id="nav-add-price-ticket-tab" data-toggle="tab" href="#nav-add-price-ticket" role="tab" aria-controls="nav-add-price-ticket" aria-selected="false">ADD PRICETICKET</a>
+              </div>
+          </nav>
+          <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-priceticket-ud" role="tabpanel" aria-labelledby="nav-priceticket-ud-tab">
+                  <app-priceticket-ud> </app-priceticket-ud>
+              </div>
+              <div class="tab-pane fade" id="nav-add-price-ticket" role="tabpanel" aria-labelledby="nav-add-price-ticket-tab">
+                <app-add-price-ticket> </app-add-price-ticket>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>

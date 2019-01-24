@@ -41,15 +41,18 @@ export class AppComponent implements OnInit {
 
   getZones() {
     this.lineService.getAll<ZoneWithLines>(this.relativeUrl) .subscribe(
-      zones => {
+      (zones: ZoneWithLines[]) => {
         this.zones = zones;
         if (this.zones) {
           if (this.zones.length > 0) {
             this.zones.forEach(
-              zone => this.setDistinctLines(zone)
+            zone => {
+                this.setDistinctLines(zone);
+                zone.lines.forEach(line => line.transport = zone.transport);
+              }
             );
             this.forwardingZonesService.sendZones(this.zones);
-            this.toastr.success('Zones are successfully loaded!');
+            //this.toastr.success('Zones are successfully loaded!');
           }
           else {
             this.toastr.warning('There are no zones at the moment!');

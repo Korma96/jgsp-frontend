@@ -12,8 +12,10 @@ export class CanActivateUserGuard implements CanActivate {
 
   mapRelativeUrlToUserType: any = {
     'passenger': 'PASSENGER',
-    'user-admin': 'USER_ADMINISTRATOR'
-  }
+    'user-admin': 'USER_ADMINISTRATOR',
+    'checkticket': 'CONTROLLOR',
+    'priceticket': 'TRANSPORT_ADMINISTRATOR'
+  };
 
   constructor(private authenticationService: AuthenticationService, private router: Router,
               private toastr: ToastrService) { }
@@ -21,7 +23,7 @@ export class CanActivateUserGuard implements CanActivate {
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     //alert('next: ' + next.url + ', state: ' + state.url);
     if (this.authenticationService.isLoggedIn() && 
-        this.authenticationService.getCurrentUser().roles[0] == this.mapRelativeUrlToUserType[next.url.toString()]) {
+        this.authenticationService.getCurrentUser().roles[0] === this.mapRelativeUrlToUserType[next.url.toString()]) {
       return true;
     }
     else {

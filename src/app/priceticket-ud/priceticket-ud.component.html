@@ -1,0 +1,54 @@
+
+{{this.s}}
+  
+<table class="table table-bordered table-hover table-dark">
+  <thead>
+    <tr>
+      <th>#</th><th>date from</th><th>type of passenger</th><th>type of ticket</th><th>price of line</th><th>price of zone</th><th>id of zone</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+
+    
+    <tr *ngFor="let item of this.priceticketsDTO; let i = index">
+      <td>
+        {{i+1}}.
+      </td>
+      <td>
+        {{item.dateFrom}}
+      </td>
+      <td>
+        {{item.passengerType}}
+      </td>
+      <td>
+        {{item.ticketType}}
+      </td>
+      <td>
+        {{item.priceLine}}
+      </td>
+      <td>
+        {{item.priceZone}}
+      </td>
+      <td>
+        {{item.zone}}
+      </td>
+    
+      <div class="btn-group">
+          <button class="btn btn-primary" (click)="onEdit(i)">
+            <span class="fa fa-edit" aria-hidden="true"></span>
+          </button>
+          <button class="btn btn-danger"  (click)="onDelete(i)">
+            <span class="fa fa-remove" aria-hidden="true"></span>
+          </button>
+      </div>
+    </tr>
+  
+
+  </tbody>
+</table>
+
+
+
+
+

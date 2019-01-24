@@ -53,22 +53,22 @@ export class ChangeAccountTypeComponent implements OnInit {
   send() {
     let stopSending: boolean = false;
 
-    if(!this.form.get('image').value) {
-      this.toastr.error('you did not select the image!')
+    if (!this.form.get('image').value) {
+      this.toastr.error('you did not select the image!');
       stopSending = true;
     }
 
-    if(!this.newPassengerType || this.newPassengerType === '') {
+    if (!this.newPassengerType || this.newPassengerType === '') {
       this.toastr.error('Passenger type must not be empty!');
       stopSending = true;
     }
 
-    if(!this.passengerTypes.includes(this.newPassengerType)) {
+    if (!this.passengerTypes.includes(this.newPassengerType)) {
       this.toastr.error('Passenger type must be a student and a pensioner!');
       stopSending = true;
     }
    
-    if(stopSending) {
+    if (stopSending) {
       return;
     }
 

@@ -1,5 +1,5 @@
 <div class="containerr">
-  <button class="lineButton">
+  <button class="lineButton" (click)="completeLineClick()" [disabled]="isCompleteLineButtonDisabled">
     {{completeLine.name}}
   </button>
   <button class="manipulateButton" (click)="deleteCompleteLine()">

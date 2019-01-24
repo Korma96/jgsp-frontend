@@ -1,5 +1,9 @@
+select[disabled] {
+  background: gray;
+}
+
 agm-map {
-    height: 650px;
+    height: 732px;
   }
   
   .line-row {

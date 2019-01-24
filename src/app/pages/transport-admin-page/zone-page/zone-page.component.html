@@ -1,5 +1,5 @@
 <div *ngIf="zones.length != 0">
-  <table>
+  <table id="table_zones">
     <tr *ngFor="let zonesInRow of zonesView">
       <td *ngFor="let zone of zonesInRow">
         <app-zone [zone] = "zone" (deleteZoneEventHandler)="delete($event)"></app-zone>
