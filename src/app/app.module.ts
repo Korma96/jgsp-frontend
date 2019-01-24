@@ -108,6 +108,7 @@ import { ImageDialogComponent } from './image-dialog/image-dialog.component';
 import { TransportAdminLineMapComponent } from './pages/transport-admin-page/transport-admin-line-map/transport-admin-line-map.component';
 import { AddLineComponent } from './pages/transport-admin-page/line-page/add-line/add-line.component';
 import { UpdateLineComponent } from './pages/transport-admin-page/line-page/update-line/update-line.component';
+import { DataService } from './services/data.service';
 
 
 const appRoutes: Routes = [
@@ -221,6 +222,7 @@ const appRoutes: Routes = [
     CanActivateUserGuard,
     PriceService,
     ChangeAccountTypeService,
+    DataService,
     {provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter}
   ],
   bootstrap: [AppComponent],
