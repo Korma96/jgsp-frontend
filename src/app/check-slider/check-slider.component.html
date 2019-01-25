@@ -5,7 +5,7 @@
 </div>
 -->
 
-<div class="base_div" title="{{line.name}}">
+<div *ngIf="line.active" title="{{line.name}}">
         {{line.name.substring(0,5)}}
         <ng-template [ngIf]="5 - line.name.length + 1 > 0">
             <ng-template ngFor let-num [ngForOf]="[1,2,3,4,5].slice(0, 5 - line.name.substring(0,5).length)">
@@ -20,4 +20,21 @@
         </label>
     </span>
     
+</div>
+
+<div *ngIf="!line.active" class="line_not_active" title="{{'Line ' + line.name + ' is currently not active.'}}">
+    {{line.name.substring(0,5)}}
+    <ng-template [ngIf]="5 - line.name.length + 1 > 0">
+        <ng-template ngFor let-num [ngForOf]="[1,2,3,4,5].slice(0, 5 - line.name.substring(0,5).length)">
+            &nbsp;
+        </ng-template>            
+    </ng-template>
+
+<span>
+    <label class="switch">
+        <input type="checkbox" [checked]="isChecked" disabled>
+        <span class="slider"></span>
+    </label>
+</span>
+
 </div>

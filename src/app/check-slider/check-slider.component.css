@@ -1,3 +1,7 @@
+.line_not_active {
+  background: #404040;
+}
+
 
 
 .switch input { 
@@ -34,6 +38,14 @@
   border-radius:30px;
   transform:translateX(-30px);
   transition:.4s;
+}
+
+.line_not_active .slider {
+  box-shadow:0 0 0 2px #000000, 0 0 4px #000000 !important;
+}
+
+.line_not_active .slider:before {
+  background:#000000 !important;
 }
 
 input:checked + .slider:before {
