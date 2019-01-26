@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { GenericService } from '../services/generic/generic.service';
 import { ToastrService } from 'ngx-toastr';
 import { Request } from '../model/request';
@@ -37,10 +37,15 @@ export class ShowRequestsComponent implements OnInit {
   }
 
 
-  acceptOrDecline(id: number, accepted: boolean) {
-      this.genericService.put<boolean>(this.relativeUrlForAcceptOrDecline + '/' + id, accepted).subscribe(
+  acceptOrDecline(accepted: boolean, request: Request) {
+      this.genericService.put<boolean>(this.relativeUrlForAcceptOrDecline + '/' + request.id, accepted).subscribe(
         (res: boolean) => {
           if (res) {
+            const index = this.requests.indexOf(request); 
+            if (index !== -1) {
+              this.requests.splice(index, 1);
+          
+            }        
             this.toastr.success('Successfully reviewed request!');
           }
           else {
@@ -55,10 +60,9 @@ export class ShowRequestsComponent implements OnInit {
     this.genericService.getAll<Request>(this.relativeUrlForRequests).subscribe(
       (requests: Request[]) => {
           this.requests = requests;
-
           if (this.requests) {
             if (this.requests.length > 0) {
-              this.requests.forEach( r => this.getImage(r.id));
+              this.requests.forEach( r => this.getImage(r.id, r.idConfirmation));
       
               this.toastr.success('Requests are successfully loaded!');
             }
@@ -75,39 +79,39 @@ export class ShowRequestsComponent implements OnInit {
 
   }
 
-  getImage(id: number) {
-    this.downloadFileService.getImageFile(this.relativeUrlForImage, id).subscribe(
+  getImage(idPassenger: number, idImage: number) {
+    this.downloadFileService.getImageFile(this.relativeUrlForImage, idImage).subscribe(
       (bytes: any) => {
       const mediaType = 'image/jpeg';
       const blob = new Blob([bytes], {type: mediaType});
-      this.createImageFromBlob(id, blob);
-      this.setImageLoaded(id, true);
+      this.createImageFromBlob(idPassenger, blob);
+      this.setImageLoaded(idPassenger, true);
       },
-      err => this.setImageLoaded(id, false)
+      err => this.setImageLoaded(idPassenger, false)
     );
   }
 
-  setImageLoaded(id: number, imageLoaded: boolean) {
+  setImageLoaded(idPassenger: number, imageLoaded: boolean) {
     for (const req of this.requests) {
-      if (req.id === id) {
+      if (req.id === idPassenger) {
         req.imageLoaded = imageLoaded;
         return;
       }
     }
   }
 
-  setImage(id: number, image: any) {
+  setImage(idPassenger: number, image: any) {
     for (const req of this.requests) {
-      if (req.id === id) {
+      if (req.id === idPassenger) {
         req.image = image;
         return;
       }
     }
   }
 
-  setImageForShow(id: number) {
+  setImageForShow(idPassenger: number) {
     for (const req of this.requests) {
-      if (req.id === id) {
+      if (req.id === idPassenger) {
         this.imageForShow = req.image;
         this.imageForShowLoaded = req.imageLoaded;
         return;
@@ -115,10 +119,10 @@ export class ShowRequestsComponent implements OnInit {
     }
   }
 
-  createImageFromBlob(id: number, blob: Blob) {
+  createImageFromBlob(idPassenger: number, blob: Blob) {
     const reader = new FileReader();
     reader.addEventListener('load', () => {
-      this.setImage(id, reader.result);
+      this.setImage(idPassenger, reader.result);
     }, false);
   
     if (blob) {

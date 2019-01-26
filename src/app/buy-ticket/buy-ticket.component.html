@@ -1,8 +1,8 @@
 
 <form class="form">
   <div class="form-group">
-    <label for="id_transport_type">&nbsp;&nbsp;Transport</label>
-    <select id="id_transport_type" class="form-control custom-select" [(ngModel)]="transport" name="transport" (change)="transportChanged()">
+    <label for="id_transport_type_in_buy_ticket">&nbsp;&nbsp;Transport</label>
+    <select id="id_transport_type_in_buy_ticket" class="form-control custom-select" [(ngModel)]="transport" name="transport" (change)="transportChanged()">
       <option [ngValue]="0">{{transports[0]}}</option>
       <option [ngValue]="1">{{transports[1]}}</option>
       <option [ngValue]="2">{{transports[2]}}</option>
@@ -11,7 +11,7 @@
 
   <div class="form-group">
     <label for="id_zone">&nbsp;&nbsp;Zone</label>
-    <select class="form-control" id="id_zone" [(ngModel)]="selectedZone" name="zone" (change)="selectedZoneChanged()">
+    <select class="form-control" id="id_zone_in_buy_ticket" [(ngModel)]="selectedZone" name="zone" (change)="selectedZoneChanged()">
         <ng-template ngFor let-zone [ngForOf]="zones">
             <option *ngIf="zone.transport == transports[transport]" [ngValue]="zone">{{zone.name}}</option>
         </ng-template>
@@ -40,7 +40,7 @@
   
   <div class="form-group">
     <label for="id_line">&nbsp;&nbsp;Line</label>
-    <select class="form-control" id="id_line" [(ngModel)]="ticket.name" name="line" [disabled]="ticket.hasZoneNotLine">
+    <select class="form-control" id="id_line_in_buy_ticket" [(ngModel)]="ticket.name" name="line" [disabled]="ticket.hasZoneNotLine">
       <ng-template [ngIf]="!ticket.hasZoneNotLine && selectedZone"> 
           <option *ngFor="let lineName of selectedZone.distinctLines" [ngValue]="lineName">{{lineName}}</option>
       </ng-template>

@@ -6,6 +6,7 @@
                   <a class="nav-item nav-link active" id="nav-show-requests-tab" data-toggle="tab" href="#nav-show-requests" role="tab" aria-controls="nav-show-requests" aria-selected="true">ACCOUNT REQUESTS</a>
                   <a class="nav-item nav-link" id="nav-add-admin-tab" data-toggle="tab" href="#nav-add-admin" role="tab" aria-controls="nav-add-admin" aria-selected="false">ADD ADMIN</a>
                   <a class="nav-item nav-link" id="nav-work-with-admins-tab" data-toggle="tab" href="#nav-work-with-admins" role="tab" aria-controls="nav-work-with-admins" aria-selected="false">WORK WITH ADMINS</a>
+                  <a class="nav-item nav-link" id="nav-activate-passengers-tab" data-toggle="tab" href="#nav-activate-passengers" role="tab" aria-controls="nav-activate-passengers" aria-selected="false">ACTIVATE PASSENGERS</a>
                   <a class="nav-item nav-link" id="nav-reports-tab" data-toggle="tab" href="#nav-reports" role="tab" aria-controls="nav-reports" aria-selected="false">REPORTS</a>
               </div>
           </nav>
@@ -19,6 +20,9 @@
               <div class="tab-pane fade" id="nav-work-with-admins" role="tabpanel" aria-labelledby="nav-work-with-admins-tab">
                 <app-show-admins [admins]="admins" (adminDeleted)="getAdmins()"></app-show-admins>
               </div>
+              <div class="tab-pane fade" id="nav-activate-passengers" role="tabpanel" aria-labelledby="nav-activate-passengers-tab">
+                    <app-activate-passengers></app-activate-passengers>
+                </div>
               <div class="tab-pane fade" id="nav-reports" role="tabpanel" aria-labelledby="nav-reports-tab">
                   <app-reports></app-reports>
               </div>

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Injectable } from '@angular/core';
 import { GenericService } from '../services/generic/generic.service';
 import { ToastrService } from 'ngx-toastr';
 import { PriceticketDTO } from '../model/priceticket-dto';
 import { NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-add-price-ticket',
@@ -17,12 +18,15 @@ export class AddPriceTicketComponent implements OnInit {
   private readonly getZonesUrl: string = '/zone/all';
   private readonly addPriceTicketUrl: string = '/priceticket/add';
 
+  //@Output() addedPriceticketEvent = new EventEmitter();
+
   private zones: string[];
   private map: Object;
   private df: any;
   private idZone: number;
 
-  constructor(private service: GenericService, private toastr: ToastrService, private calendar: NgbCalendar) {
+  constructor(private service: GenericService, private toastr: ToastrService, private calendar: NgbCalendar,
+    private data: DataService) {
     this.passengerTypes  = ['STUDENT', 'PENSIONER', 'OTHER'];
     this.ticketTypes  = ['ONETIME', 'DAILY', 'MONTHLY', 'YEARLY'];
     this.priceticket = {id: 0, dateFrom: '', passengerType: '', ticketType: '', priceLine: 0, priceZone: 0, zone: ''};
@@ -78,9 +82,16 @@ export class AddPriceTicketComponent implements OnInit {
 
 
     return this.service.post(this.addPriceTicketUrl, this.priceticket).subscribe(
-      () => this.toastr.success('Priceticket successfully added :)'),
-      (err: any) => this.toastr.error('Priceticket is not added!!!')
-      
+      /*() => this.toastr.success('Priceticket successfully added :)'),
+      (err: any) => this.toastr.error('Priceticket is not added!!!')*/
+      (res: any) => {
+        if (res['added'] === 'true') {
+          this.data.changeValue(true);
+          this.toastr.success(res['message']);
+        } else {
+          this.toastr.error(res['message']);
+        }
+      }
     );
   }
 }

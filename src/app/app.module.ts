@@ -92,8 +92,6 @@ import {MatButtonModule, MatCheckboxModule, MatDialogModule,
   MatTooltipModule,
   MatTreeModule,
 
-
-
 } from '@angular/material';
 import { MenuPriceticketComponent } from './pages/menu-priceticket/menu-priceticket.component';
 import { CanActivateUserGuard } from './services/guard/can-activate-user.guard';
@@ -105,6 +103,7 @@ import { TransportAdminMapComponent } from './pages/transport-admin-page/transpo
 import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
 import { NgbDateCustomParserFormatter } from './buy-ticket/ngb-date-custom-parser-formatter/ngb-date-custom-parser-formatter';
 import { ImageDialogComponent } from './image-dialog/image-dialog.component';
+import { ActivatePassengersComponent } from './activate-passengers/activate-passengers.component';
 import { TransportAdminLineMapComponent } from './pages/transport-admin-page/transport-admin-line-map/transport-admin-line-map.component';
 import { AddLineComponent } from './pages/transport-admin-page/line-page/add-line/add-line.component';
 import { UpdateLineComponent } from './pages/transport-admin-page/line-page/update-line/update-line.component';
@@ -114,6 +113,7 @@ import { TimetableComponent } from './pages/transport-admin-page/schedule-page/t
 import { TimeComponent } from './pages/transport-admin-page/schedule-page/time/time.component';
 import { AddTimeComponent } from './pages/transport-admin-page/schedule-page/add-time/add-time.component';
 import { ScheduleService} from './services/schedule/schedule.service';
+import { DataService } from './services/data.service';
 
 
 const appRoutes: Routes = [
@@ -191,6 +191,7 @@ const appRoutes: Routes = [
     TransportAdminMapComponent,
     ModalDialogComponent,
     ImageDialogComponent,
+    ActivatePassengersComponent,
     TransportAdminMapComponent,
     TransportAdminLineMapComponent,
     AddLineComponent,
@@ -235,6 +236,7 @@ const appRoutes: Routes = [
     CanActivateUserGuard,
     PriceService,
     ChangeAccountTypeService,
+    DataService,
     {provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter}
   ],
   bootstrap: [AppComponent],

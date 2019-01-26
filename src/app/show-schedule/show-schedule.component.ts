@@ -18,6 +18,9 @@ export class ShowScheduleComponent implements OnInit, OnChanges {
   @Input()
   zones: ZoneWithLines[];
 
+  transports: string[] = ['bus', 'tram', 'metro'];
+  transport: number;
+
   selectedZone: ZoneWithLines;
 
   dates: string[];
@@ -33,6 +36,7 @@ export class ShowScheduleComponent implements OnInit, OnChanges {
 
   constructor(private scheduleService: GenericService, private timesService: TimesService,
              private toastr: ToastrService) { 
+    this.transport = 0;
     this.schedule = { date: null, day: 0, lines: [] };
     this.selectedZone = null;
     this.linesWithTimes = [];
@@ -46,7 +50,10 @@ export class ShowScheduleComponent implements OnInit, OnChanges {
 
     if (this.zones) {
         if (this.zones.length > 0) {
-            this.selectedZone = this.zones[0];
+          const filteredZones = this.zones.filter(z => z.transport === this.transports[this.transport]);
+          if (filteredZones.length > 0) {
+            this.selectedZone = filteredZones[0];
+          }
         }
     }
   }
@@ -58,10 +65,25 @@ export class ShowScheduleComponent implements OnInit, OnChanges {
       console.log('prev value: ', zones.previousValue);
       console.log('got name: ', zones.currentValue);
       if (zones.currentValue.length > 0) {
-        this.selectedZone = zones.currentValue[0];  // default-no podesavanje
+        const filteredZones = zones.currentValue.filter(z => z.transport === this.transports[this.transport]);
+        if (filteredZones.length > 0) {
+          this.selectedZone = filteredZones[0];
+        }
       }
     }
     
+  }
+
+  transportChanged() {
+    const filteredZones = this.zones.filter(zone => zone.transport === this.transports[this.transport]);
+    if (filteredZones.length > 0) {
+      this.selectedZone = filteredZones[0];
+    }
+    this.schedule.lines = [];
+  }
+
+  selectedZoneChanged() {
+    this.schedule.lines = [];
   }
   
   getTimes(): Observable<LineAndTimes[]> {
@@ -115,16 +137,18 @@ export class ShowScheduleComponent implements OnInit, OnChanges {
   }
 
 
-  click(el) {
-    /*const linesForSending: number[] = [] 
+  show(el) {
+      /*const linesForSending: number[] = [] 
 
-    this.schedule.lines.forEach(
-      lineId =>  {
-          if (!this.times[lineId]) {
-            linesForSending.push(lineId);
-          }
-      }
-    );*/
+      this.schedule.lines.forEach(
+        lineId =>  {
+            if (!this.times[lineId]) {
+              linesForSending.push(lineId);
+            }
+        }
+      );*/
+      this.linesWithTimes = [];
+
       if (this.schedule.lines.length > 0) {
           const observable = this.getTimes();
           observable.subscribe(
