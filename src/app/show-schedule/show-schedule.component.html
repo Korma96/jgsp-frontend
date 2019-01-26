@@ -9,15 +9,24 @@
           </div>
           
           <div class="form-group">
-              <label for="id_zone">&nbsp;&nbsp;Zone</label>
-              <select class="form-control" id="id_zone" [(ngModel)]="selectedZone" name="zone">
+            <label for="id_transport_type_in_show_schedule">&nbsp;&nbsp;Transport</label>
+            <select id="id_transport_type_in_show_schedule" class="form-control custom-select" [(ngModel)]="transport" name="transport" (change)="transportChanged()">
+              <option [ngValue]="0">{{transports[0]}}</option>
+              <option [ngValue]="1">{{transports[1]}}</option>
+              <option [ngValue]="2">{{transports[2]}}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+              <label for="id_zone_in_show_schedule">&nbsp;&nbsp;Zone</label>
+              <select class="form-control" id="id_zone_in_show_schedule" [(ngModel)]="selectedZone" name="zone" (change)="selectedZoneChanged()">
                   <option *ngFor="let zone of zones" [ngValue]="zone">{{zone.name}}</option>
               </select>
           </div>
           
           <div class="form-group">
-            <label for="id_line">&nbsp;&nbsp;Line</label>
-            <select multiple class="form-control" id="id_line" [(ngModel)]="schedule.lines" name="lines">
+            <label for="id_line_in_show_schedule">&nbsp;&nbsp;Line</label>
+            <select multiple class="form-control" id="id_line_in_show_schedule" [(ngModel)]="schedule.lines" name="lines">
                 <ng-template [ngIf]="selectedZone"> 
                     <option *ngFor="let lineName of selectedZone.distinctLines" [ngValue]="lineName">{{lineName}}</option>
                 </ng-template>
@@ -35,7 +44,7 @@
           
           <br/>
           <br/>
-          <button type="button" class="btn btn-primary btn-lg" (click)="click(target)">Show</button>
+          <button type="button" class="btn btn-primary btn-lg" (click)="show(target)">Show</button>
         </form>
   </div>
 </div>
