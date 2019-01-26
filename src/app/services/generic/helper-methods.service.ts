@@ -77,4 +77,11 @@ export class HelperMethodsService {
     return completeLines;
   }
 
+  sortTimes(times: string[]) {
+    return times.sort(this.myLocaleCompare);
+  }
+
+  myLocaleCompare(a: string, b: string) {
+    return a.localeCompare(b);
+  }
 }

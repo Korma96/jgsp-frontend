@@ -1,0 +1,29 @@
+<div>
+  <table>
+    <tr>
+      <td><label for="date_select" class="right_margin">Valid from:</label></td>
+      <td>
+        <select id="date_select" [(ngModel)]="selectedDate" (change)="showTimeTable()">
+          <option *ngFor="let date of dates" [value]="date">{{date}}</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td><label for="day_select" class="right_margin">Day type:</label></td>
+      <td>
+        <select id="day_select" [(ngModel)]="selectedDay" (change)="showTimeTable()">
+          <option value="0">Workday</option>
+          <option value="1">Saturday</option>
+          <option value="2">Sunday</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+</div>
+<div style="height:20px">
+</div>
+<div>
+  <app-timetable [selectedDate]="selectedDate" [dayType]="selectedDay"
+                 [completeLine]="completeLine" [lineWithTimes]="lineWithTimes"
+                 [contactServer]="true"></app-timetable>
+</div>

@@ -8,16 +8,20 @@ import {Line} from '../../../../model/line';
 })
 export class LineComponent implements OnInit {
   @Input() line: Line;
+  @Input() isManipulateButtonDisabled: boolean;
   @Input() buttonSign: string;
-  @Output() lineDeleteEventHandler: EventEmitter<number> = new EventEmitter<number>();
+  @Output() lineManipulateEventHandler: EventEmitter<number> = new EventEmitter<number>();
   @Output() lineButtonEventHandler: EventEmitter<number> = new EventEmitter<number>();
-  constructor() { }
+  constructor() {
+    this.isManipulateButtonDisabled = false;
+  }
 
   ngOnInit() {
+
   }
 
   deleteLine(lineId: number) {
-    this.lineDeleteEventHandler.next(lineId);
+    this.lineManipulateEventHandler.next(lineId);
   }
 
   lineClick(lineId: number) {

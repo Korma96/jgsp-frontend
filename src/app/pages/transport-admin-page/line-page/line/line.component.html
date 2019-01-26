@@ -2,7 +2,7 @@
   <button class="firstt" (click)="lineClick(line.id)">
     {{line.name}}
   </button>
-  <button class="secondd" (click)="deleteLine(line.id)">
+  <button class="secondd" (click)="deleteLine(line.id)" [disabled]="isManipulateButtonDisabled">
     {{buttonSign}}
   </button>
 </div>
