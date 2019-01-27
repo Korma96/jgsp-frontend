@@ -30,8 +30,8 @@ export class NgbDateCustomParserFormatter extends NgbDateParserFormatter {
     date.setFullYear(ngbDate.year, ngbDate.month - 1, ngbDate.day);
     // month - 1 since the month index is 0-based (0 = January)
   
-    if ((date.getFullYear() === ngbDate.year) && (date.getMonth() === ngbDate.month - 1)
-     && (date.getDate() === ngbDate.day)) {
+    if ( (date.getFullYear() === ngbDate.year) && (date.getMonth() === ngbDate.month - 1)
+     && (date.getDate() === ngbDate.day) ) {
       return true;
      }
   
@@ -41,7 +41,7 @@ export class NgbDateCustomParserFormatter extends NgbDateParserFormatter {
   format(date: NgbDateStruct): string {
     return date ?
         `${this.isInteger(date.day) ? this.padNumber(date.day) : ''}.${this.isInteger(date.month) 
-         ? this.padNumber(date.month) : ''}.${date.year}.` :
+          ? this.padNumber(date.month) : ''}.${date.year}.` :
         '';
   }
 
@@ -60,7 +60,8 @@ export class NgbDateCustomParserFormatter extends NgbDateParserFormatter {
   padNumber(value: number) {
     if (this.isInteger(value)) {
       return `0${value}`.slice(-2);
-    } else {
+    } 
+    else {
       return '';
     }
   }

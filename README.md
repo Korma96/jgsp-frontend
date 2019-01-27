@@ -1,5 +1,7 @@
 jgsp (backend application) github repository:&nbsp;<a target="_blank" href="http://github.com/jovosunjka/jgsp">http://github.com/jovosunjka/jgsp</a>
 <br/>
+jgsp-e2e github repository:&nbsp;<a target="_blank" href="https://github.com/jovosunjka/jgsp-e2e">https://github.com/jovosunjka/jgsp-e2e</a>
+<br/>
 
 # JgspFrontend
 

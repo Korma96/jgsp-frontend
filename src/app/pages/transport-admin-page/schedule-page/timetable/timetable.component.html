@@ -1,0 +1,33 @@
+<div>
+  <table>
+    <tr>
+      <th colspan="2" align="center">
+        Line: {{lineWithTimes.lineName}}
+      </th>
+    </tr>
+    <tr>
+      <td valign="top">
+        <table>
+          <tr>
+            <th>{{lineWithTimes.lineName}}A</th>
+          </tr>
+          <tr><app-add-time (addTimeEmitter)="addTimeToA($event)"></app-add-time></tr>
+          <tr *ngFor="let time of lineWithTimes.timesA">
+            <td><app-time [value]="time" (removeTimeEmitter)="removeTimeFromA($event)"></app-time></td>
+          </tr>
+        </table>
+      </td>
+      <td valign="top">
+        <table>
+          <tr>
+            <th>{{lineWithTimes.lineName}}B</th>
+          </tr>
+          <tr><app-add-time (addTimeEmitter)="addTimeToB($event)"></app-add-time></tr>
+          <tr *ngFor="let time of lineWithTimes.timesB">
+            <td><app-time [value]="time" (removeTimeEmitter)="removeTimeFromB($event)"></app-time></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</div>

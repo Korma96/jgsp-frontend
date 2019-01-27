@@ -58,41 +58,7 @@ import { ShowTicketsComponent } from './show-tickets/show-tickets.component';
 import { AddAdminComponent } from './add-admin/add-admin.component';
 import { AddPriceTicketComponent } from './add-price-ticket/add-price-ticket.component';
 import { PriceticketUdComponent, EditDialogComponent } from './priceticket-ud/priceticket-ud.component';
-import {MatButtonModule, MatCheckboxModule, MatDialogModule,
-  MatAutocompleteModule,
-  MatBadgeModule,
-  MatBottomSheetModule,
-  MatButtonToggleModule,
-  MatCardModule,
-  MatChipsModule,
-  MatDatepickerModule,
-  MatDividerModule,
-  MatExpansionModule,
-  MatGridListModule,
-  MatIconModule,
-  MatInputModule,
-  MatListModule,
-  MatMenuModule,
-  MatNativeDateModule,
-  MatPaginatorModule,
-  MatProgressBarModule,
-  MatProgressSpinnerModule,
-  MatRadioModule,
-  MatRippleModule,
-  MatSelectModule,
-  MatSidenavModule,
-  MatSliderModule,
-  MatSlideToggleModule,
-  MatSnackBarModule,
-  MatSortModule,
-  MatStepperModule,
-  MatTableModule,
-  MatTabsModule,
-  MatToolbarModule,
-  MatTooltipModule,
-  MatTreeModule,
-
-} from '@angular/material';
+import { MatDialogModule, MatInputModule} from '@angular/material';
 import { MenuPriceticketComponent } from './pages/menu-priceticket/menu-priceticket.component';
 import { CanActivateUserGuard } from './services/guard/can-activate-user.guard';
 //import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
@@ -106,6 +72,12 @@ import { ActivatePassengersComponent } from './activate-passengers/activate-pass
 import { TransportAdminLineMapComponent } from './pages/transport-admin-page/transport-admin-line-map/transport-admin-line-map.component';
 import { AddLineComponent } from './pages/transport-admin-page/line-page/add-line/add-line.component';
 import { UpdateLineComponent } from './pages/transport-admin-page/line-page/update-line/update-line.component';
+import { UpdateScheduleComponent } from './pages/transport-admin-page/schedule-page/update-schedule/update-schedule.component';
+import { AddScheduleComponent } from './pages/transport-admin-page/schedule-page/add-schedule/add-schedule.component';
+import { TimetableComponent } from './pages/transport-admin-page/schedule-page/timetable/timetable.component';
+import { TimeComponent } from './pages/transport-admin-page/schedule-page/time/time.component';
+import { AddTimeComponent } from './pages/transport-admin-page/schedule-page/add-time/add-time.component';
+import { ScheduleService} from './services/schedule/schedule.service';
 import { DataService } from './services/data.service';
 
 const appRoutes: Routes = [
@@ -119,6 +91,8 @@ const appRoutes: Routes = [
       { path: 'add_line', component: AddLineComponent},
       { path: 'stop', component: StopPageComponent},
       { path: 'schedule', component: SchedulePageComponent},
+      { path: 'update_schedule/:name', component: UpdateScheduleComponent},
+      { path: 'add_schedule/:name', component: AddScheduleComponent},
       { path: 'priceticket', component: MenuPriceticketComponent}
     ]
   },
@@ -184,7 +158,12 @@ const appRoutes: Routes = [
     TransportAdminMapComponent,
     TransportAdminLineMapComponent,
     AddLineComponent,
-    UpdateLineComponent
+    UpdateLineComponent,
+    UpdateScheduleComponent,
+    AddScheduleComponent,
+    TimetableComponent,
+    TimeComponent,
+    AddTimeComponent
   ],
   imports: [
     BrowserModule,
@@ -213,6 +192,7 @@ const appRoutes: Routes = [
     AuthenticationService,
     JwtUtilsService,
     ZoneService,
+    ScheduleService,
     TimesService,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
     DownloadFileService,

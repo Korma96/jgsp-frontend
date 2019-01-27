@@ -53,9 +53,18 @@ export class ChangeAccountTypeComponent implements OnInit {
   send() {
     let stopSending: boolean = false;
 
-    if (!this.form.get('image').value) {
-      this.toastr.error('you did not select the image!');
+    const file = this.form.get('image').value;
+    if (!file) {
+      this.toastr.error('You did not select the image!');
       stopSending = true;
+    }
+    else {
+      const fileSizeInMb: number = file.size / 1024 / 1024;
+      if (fileSizeInMb > 1) {
+        this.toastr.error('The maximum allowed file size is 1 Mb! The size of your file is '
+         + fileSizeInMb.toFixed(2) + ' Mb');
+         stopSending = true;
+      }
     }
 
     if (!this.newPassengerType || this.newPassengerType === '') {
@@ -65,7 +74,6 @@ export class ChangeAccountTypeComponent implements OnInit {
 
     if (!this.passengerTypes.includes(this.newPassengerType)) {
       this.toastr.error('Passenger type must be a student and a pensioner!');
-      stopSending = true;
     }
    
     if (stopSending) {
@@ -75,8 +83,8 @@ export class ChangeAccountTypeComponent implements OnInit {
     const formData: FormData = this.prepareSave();
 
     this.changeAccountTypeService.post(this.newPassengerType, formData).subscribe(
-      () => this.toastr.success('Successfully changed account type!'),
-      err => this.toastr.error('Unsuccessfully changed account type!')
+      () => this.toastr.success('Request to change the account type was successfully sent!'),
+      err => this.toastr.error('Request to change the account type was unsuccessfully sent!')
     );
   }
 }

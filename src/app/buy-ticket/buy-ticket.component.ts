@@ -73,11 +73,17 @@ export class BuyTicketComponent implements OnInit, OnChanges {
       console.log('prev value: ', zones.previousValue);
       console.log('got name: ', zones.currentValue);
       if (zones.currentValue.length > 0) {
-        this.selectedZone = zones.currentValue[0];  // default-no podesavanje
-        if (this.selectedZone.distinctLines) {
-            if (this.selectedZone.distinctLines.length > 0) {
-              this.ticket.name = this.selectedZone.distinctLines[0];
+        const filteredZones = zones.currentValue
+                            .filter(z => z.transport === this.transports[this.transport]);
+        if (filteredZones.length > 0) {
+          this.selectedZone = filteredZones[0];
+          if (this.selectedZone) {
+            if (this.selectedZone.distinctLines) {
+              if (this.selectedZone.distinctLines.length > 0) {
+                this.ticket.name = this.selectedZone.distinctLines[0];
+              }
             }
+          }
         }
         
       }
@@ -109,7 +115,10 @@ export class BuyTicketComponent implements OnInit, OnChanges {
   }
 
   transportChanged() {
-    this.selectedZone = this.zones.filter(zone => zone.transport === this.transports[this.transport])[0];
+    const filteredZones = this.zones.filter(zone => zone.transport === this.transports[this.transport]);
+    if (filteredZones.length > 0) {
+      this.selectedZone = filteredZones[0];
+    }
     this.selectedZoneChanged();
   }
 

@@ -1,0 +1,19 @@
+<div>
+  <table>
+    <tr>
+      <td><label for="date_input" class="right_margin">Valid from:</label></td>
+      <td><input id="date_input" type="date" [(ngModel)]="chosenDate" />
+      </td>
+    </tr>
+    <tr>
+      <td><label for="day_type" class="right_margin">Day type:</label></td>
+      <td><input id="day_type" [(ngModel)]="currentDay" style="width:100px" disabled></td>
+    </tr>
+  </table>
+</div>
+<div style="height:20px">
+</div>
+<div>
+  <app-timetable [completeLine]="completeLine" [lineWithTimes]="lineWithTimes" [contactServer]="false"></app-timetable>
+</div>
+<div><button (click)="nextClick()" style="background-color: cornflowerblue;color: white">{{nextButtonValue}}</button></div>

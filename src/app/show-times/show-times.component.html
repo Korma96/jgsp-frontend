@@ -8,43 +8,43 @@
             <br/>
         </div>
         <div class="row">
-            <div class="col-xl-10 offset-xl-2">
-                <div class="row">
-                    <div class="col-xl-12 table-bordered">
+            <div class="col-xl-10 offset-xl-{{lineAndTimes.timesA.length===0 || lineAndTimes.timesB.length===0 ? 1 : 2}}">
+                <div class="row line">
+                    <div class="col-xl-12"> <!--table-bordered-->
                         <h3 align="center">Line: {{lineAndTimes.lineName}}</h3>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xl-6 table-bordered">
-                      <div class="row table-bordered">
-                          <div class="col-xl-12 table-bordered">
+                    <div class="col-xl-6">  <!--table-bordered-->
+                      <div class="row direction"> <!--table-bordered-->
+                          <div class="col-xl-12"> <!--table-bordered-->
                               <h3 align="center">Direction A</h3>
                           </div>
                       </div>
-                      <div class="row table-bordered" *ngFor="let time of lineAndTimes.timesA">
-                        <div class="col-xl-12 table-bordered">
+                      <div class="row time" *ngFor="let time of lineAndTimes.timesA"> <!--table-bordered-->
+                        <div class="col-xl-12">  <!--table-bordered-->
                           <h4 align="center">{{time}}</h4>
                         </div>
                       </div>
-                      <div class="row" *ngIf="!lineAndTimes.timesA">
-                        <div class="col-xl-12 table-bordered">
+                      <div class="row time" *ngIf="!lineAndTimes.timesA || lineAndTimes.timesA.length===0">
+                        <div class="col-xl-12"> <!--table-bordered-->
                           <h3 align="center">Currently there is no departure time for direction A.</h3>
                         </div>
                       </div>
                     </div>
-                    <div class="col-xl-6 table-bordered">
-                        <div class="row table-bordered">
-                            <div class="col-xl-12 table-bordered">
+                    <div class="col-xl-6"> <!--table-bordered-->
+                        <div class="row direction"> <!--table-bordered-->
+                            <div class="col-xl-12"> <!--table-bordered-->
                                 <h3 align="center">Direction B</h3>
                             </div>
                         </div>
-                        <div class="row table-bordered" *ngFor="let time of lineAndTimes.timesB">
-                          <div class="col-xl-12 table-bordered">
+                        <div class="row time" *ngFor="let time of lineAndTimes.timesB"> <!--table-bordered-->
+                          <div class="col-xl-12"> <!--table-bordered-->
                             <h4 align="center">{{time}}</h4>
                           </div>
                         </div>
-                        <div class="row" *ngIf="!lineAndTimes.timesB">
-                          <div class="col-xl-12 table-bordered">
+                        <div class="row time" *ngIf="!lineAndTimes.timesB || lineAndTimes.timesB.length===0">
+                          <div class="col-xl-12"> <!--table-bordered-->
                             <h3 align="center">Currently there is no departure time for direction B.</h3>
                           </div>
                         </div>
