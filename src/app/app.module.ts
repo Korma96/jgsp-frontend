@@ -58,41 +58,7 @@ import { ShowTicketsComponent } from './show-tickets/show-tickets.component';
 import { AddAdminComponent } from './add-admin/add-admin.component';
 import { AddPriceTicketComponent } from './add-price-ticket/add-price-ticket.component';
 import { PriceticketUdComponent, EditDialogComponent } from './priceticket-ud/priceticket-ud.component';
-import {MatButtonModule, MatCheckboxModule, MatDialogModule,
-  MatAutocompleteModule,
-  MatBadgeModule,
-  MatBottomSheetModule,
-  MatButtonToggleModule,
-  MatCardModule,
-  MatChipsModule,
-  MatDatepickerModule,
-  MatDividerModule,
-  MatExpansionModule,
-  MatGridListModule,
-  MatIconModule,
-  MatInputModule,
-  MatListModule,
-  MatMenuModule,
-  MatNativeDateModule,
-  MatPaginatorModule,
-  MatProgressBarModule,
-  MatProgressSpinnerModule,
-  MatRadioModule,
-  MatRippleModule,
-  MatSelectModule,
-  MatSidenavModule,
-  MatSliderModule,
-  MatSlideToggleModule,
-  MatSnackBarModule,
-  MatSortModule,
-  MatStepperModule,
-  MatTableModule,
-  MatTabsModule,
-  MatToolbarModule,
-  MatTooltipModule,
-  MatTreeModule,
-
-} from '@angular/material';
+import { MatDialogModule, MatInputModule} from '@angular/material';
 import { MenuPriceticketComponent } from './pages/menu-priceticket/menu-priceticket.component';
 import { CanActivateUserGuard } from './services/guard/can-activate-user.guard';
 //import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
