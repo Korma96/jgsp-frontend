@@ -5,5 +5,5 @@ export interface Report {
     yearly: number;
     profit: number;
     date: string;
-    lineZone? : string;
+    lineZone?: string;
 }

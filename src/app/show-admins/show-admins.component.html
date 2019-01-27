@@ -1,5 +1,9 @@
-<div>
-    <h3>Admins</h3>
+<ng-template [ngIf]="!admins || admins.length===0"> 
+     <h4>&nbsp;&nbsp;There are currently no adminstrators.</h4>
+</ng-template>
+<ng-template [ngIf]="admins">
+  <div>
+      <h3>Admins</h3>
   </div>
   <table class="table table-hover table-bordered">
     <tr class="table-primary">
@@ -28,3 +32,4 @@
     </td>
     </tr>
   </table>
+</ng-template>

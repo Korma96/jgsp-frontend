@@ -9,11 +9,12 @@ export class NgbDateCustomParserFormatter extends NgbDateParserFormatter {
     parse(value: string): NgbDateStruct {
     if (value) {
       const dateParts = value.trim().split('.');
-      if ((dateParts.length === 3 || (dateParts.length === 4 && dateParts[3] === '')) && this.isNumber(dateParts[0]) && this.isNumber(dateParts[1]) && this.isNumber(dateParts[2])) {
+      if ((dateParts.length === 3 || (dateParts.length === 4 && dateParts[3] === ''))
+       && this.isNumber(dateParts[0]) && this.isNumber(dateParts[1]) && this.isNumber(dateParts[2])) {
 
-        let date = {day: this.toInteger(dateParts[0]), month: this.toInteger(dateParts[1]), year: this.toInteger(dateParts[2])};
+        const date = {day: this.toInteger(dateParts[0]), month: this.toInteger(dateParts[1]), year: this.toInteger(dateParts[2])};
 
-        if(this.isValidDate(date)) { // proveravamo da li je datum validan
+        if (this.isValidDate(date)) { // proveravamo da li je datum validan
             return date;
         }
       }
@@ -25,19 +26,22 @@ export class NgbDateCustomParserFormatter extends NgbDateParserFormatter {
             date.year === checkDate.getFullYear() && date.year > 0 && date.month > 0 && date.day > 0 */
 
   isValidDate(ngbDate: NgbDateStruct) {
-    let date = new Date();
+    const date = new Date();
     date.setFullYear(ngbDate.year, ngbDate.month - 1, ngbDate.day);
     // month - 1 since the month index is 0-based (0 = January)
   
-    if ( (date.getFullYear() == ngbDate.year) && (date.getMonth() == ngbDate.month -1) && (date.getDate() == ngbDate.day) )
+    if ((date.getFullYear() === ngbDate.year) && (date.getMonth() === ngbDate.month - 1)
+     && (date.getDate() === ngbDate.day)) {
       return true;
+     }
   
     return false;
   }
 
   format(date: NgbDateStruct): string {
     return date ?
-        `${this.isInteger(date.day) ? this.padNumber(date.day) : ''}.${this.isInteger(date.month) ? this.padNumber(date.month) : ''}.${date.year}.` :
+        `${this.isInteger(date.day) ? this.padNumber(date.day) : ''}.${this.isInteger(date.month) 
+         ? this.padNumber(date.month) : ''}.${date.year}.` :
         '';
   }
 

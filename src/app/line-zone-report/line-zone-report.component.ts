@@ -1,32 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { Report } from '../model/report';
-import { GenericService } from '../services/generic/generic.service';
-import { ToastrService } from 'ngx-toastr';
+import { ZoneWithLines } from '../model/zone-with-lines';
 import { ReportService } from '../services/report.service';
-import { DatePipe } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { ForwardingZonesService } from '../services/forwarding-zones/forwarding-zones.service';
-import { ZoneWithLines } from '../model/zone-with-lines';
 
 @Component({
-  selector: 'app-general-report',
-  templateUrl: './general-report.component.html',
-  styleUrls: ['./general-report.component.css']
+  selector: 'app-line-zone-report',
+  templateUrl: './line-zone-report.component.html',
+  styleUrls: ['./line-zone-report.component.css']
 })
-export class GeneralReportComponent implements OnInit {
+export class LineZoneReportComponent implements OnInit {
 
   date1: any;
   date2: any;
   reports: Report[];
-  relativeUrlDaily: string;
   relativeUrlGeneral: string;
+  relativeUrlDaily: string;
   zones: ZoneWithLines[];
 
   constructor(private reportService: ReportService, private toastr: ToastrService, 
               private ngbDateParserFormatter: NgbDateParserFormatter,
               private forwardingZonesService: ForwardingZonesService) {
-    this.relativeUrlGeneral = '/userAdmin/general-report';
-    this.relativeUrlDaily = '/userAdmin/daily-general-report';
+    this.relativeUrlGeneral = '/userAdmin/line-zone-report';
+    this.relativeUrlDaily = '/userAdmin//line_zone_daily_report';
     this.reports = [];
    }
 
@@ -131,3 +129,4 @@ export class GeneralReportComponent implements OnInit {
       return report1.date === report2.date;
    }
 }
+

@@ -1,5 +1,4 @@
-<ng-template [ngIf]="!requests">
-    <h4>&nbsp;&nbsp;There are currently no requests.</h4>
+<ng-template [ngIf]="!requests || requests.length===0">    <h4>&nbsp;&nbsp;There are currently no requests.</h4>
 </ng-template>
 <ng-template [ngIf]="requests">
     <div *ngFor="let request of requests" class="row">

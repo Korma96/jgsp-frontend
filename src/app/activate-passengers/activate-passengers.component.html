@@ -1,41 +1,46 @@
 <div>
     <h3>DEACTIVATED PASSENGERS</h3>
   </div>
-  <table class="table table-hover table-bordered">
-    <tr class="table-primary">
-      <th>#</th>
-      <th>Name</th>
-      <th>Surname</th>
-      <th>Username</th>
-      <th>Mail</th>
-      <th>Passenger type</th>
-      <th>Status</th>
-      <th></th>
-    </tr>
-    <tr *ngFor="let passenger of passengers; let i = index" class="table-info">
-        <td>
-          {{i+1}}.
-        </td>
-        <td>
-          {{passenger.firstName}}
-        </td>
-        <td>
-          {{passenger.lastName}}
-        </td>
-        <td>
-          {{passenger.username}}
-        </td>
-        <td>
-          {{passenger.mail}}
+  <ng-template [ngIf]="!passengers || passengers.length===0">
+        <h4>&nbsp;&nbsp;There are currently no deactivated passengers.</h4>
+  </ng-template>
+  <ng-template [ngIf]="passengers">
+    <table class="table table-hover table-bordered">
+      <tr class="table-primary">
+        <th>#</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Username</th>
+        <th>Mail</th>
+        <th>Passenger type</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+      <tr *ngFor="let passenger of passengers; let i = index" class="table-info">
+          <td>
+            {{i+1}}.
+          </td>
+          <td>
+            {{passenger.firstName}}
+          </td>
+          <td>
+            {{passenger.lastName}}
+          </td>
+          <td>
+            {{passenger.username}}
+          </td>
+          <td>
+            {{passenger.email}}
+            </td>
+          <td>
+            {{passenger.passengerType}}
+          </td>
+          <td>
+            {{passenger.userStatus}}
           </td>
         <td>
-          {{passenger.passengerType}}
-        </td>
-        <td>
-          {{passenger.userStatus}}
-        </td>
-      <td>
-        <button type="button" class="btn btn-primary"  (click)="activatePassenger(passenger)">Activate</button>
-    </td>
-    </tr>
-  </table>
+          <button type="button" class="btn btn-primary"  (click)="activatePassenger(passenger)">Activate</button>
+      </td>
+      </tr>
+    </table>
+</ng-template>
