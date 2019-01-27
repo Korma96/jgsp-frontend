@@ -1,3 +1,12 @@
-<p>
-  schedule-page works!
-</p>
+<div *ngIf="lines">
+  <table>
+    <tr *ngFor="let linesInRow of completeLinesView">
+      <td *ngFor="let line of linesInRow">
+        <app-complete-line [completeLine]="line" [buttonSign]="'+'"
+                  (completeLineClickEventHandler)="lineClicked($event)"
+                  (manipulateCompleteLineEventHandler)="addScheduleClicked($event)">
+        </app-complete-line>
+      </td>
+    </tr>
+  </table>
+</div>
