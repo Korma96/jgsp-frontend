@@ -79,6 +79,7 @@ import { TimeComponent } from './pages/transport-admin-page/schedule-page/time/t
 import { AddTimeComponent } from './pages/transport-admin-page/schedule-page/add-time/add-time.component';
 import { ScheduleService} from './services/schedule/schedule.service';
 import { DataService } from './services/data.service';
+import { LineZoneReportComponent} from './line-zone-report/line-zone-report.component';
 
 const appRoutes: Routes = [
   { path: 'home-page', component: HomePageComponent },
@@ -163,7 +164,8 @@ const appRoutes: Routes = [
     AddScheduleComponent,
     TimetableComponent,
     TimeComponent,
-    AddTimeComponent
+    AddTimeComponent,
+    LineZoneReportComponent
   ],
   imports: [
     BrowserModule,

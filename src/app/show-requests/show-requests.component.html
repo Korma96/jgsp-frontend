@@ -1,6 +1,5 @@
-<ng-template [ngIf]="!requests || requests.length===0">    <h4>&nbsp;&nbsp;There are currently no requests.</h4>
-</ng-template>
-<ng-template [ngIf]="requests">
+<h4 *ngIf="!requests || requests.length===0">&nbsp;&nbsp;There are currently no requests.</h4>
+<div class="table-responsive" *ngIf="requests && requests.length > 0">
     <div *ngFor="let request of requests" class="row">
         <div class="col-xl-12 table-bordered">
             <div class="row"> 
@@ -43,6 +42,7 @@
             </div>
         </div>
     </div>
+</div>
 
-    <app-image-dialog [image]="imageForShow" [imageLoaded]="imageForShowLoaded"> </app-image-dialog>
-</ng-template>
+<app-image-dialog [image]="imageForShow" [imageLoaded]="imageForShowLoaded"> </app-image-dialog>
+

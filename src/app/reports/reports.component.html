@@ -4,12 +4,16 @@
           <nav>
               <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                   <a class="nav-item nav-link active" id="nav-general-report-tab" data-toggle="tab" href="#nav-general-report" role="tab" aria-controls="nav-general-report" aria-selected="true">GENERAL REPORT</a>
-              </div>
+                  <a class="nav-item nav-link" id="nav-line-zone-report-tab" data-toggle="tab" href="#nav-line-zone-report" role="tab" aria-controls="nav-line-zone-report" aria-selected="true">LINE REPORT</a>
+                </div>
           </nav>
           <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
               <div class="tab-pane fade show active" id="nav-general-report" role="tabpanel" aria-labelledby="nav-general-report-tab">
                   <app-general-report></app-general-report>
               </div>
+              <div class="tab-pane fade" id="nav-line-zone-report" role="tabpanel" aria-labelledby="nav-line-zone-report-tab">
+                <app-line-zone-report></app-line-zone-report>
+            </div>
           </div>
       </div>
   </div>

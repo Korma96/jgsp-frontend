@@ -38,22 +38,22 @@ export class ShowAdminsComponent implements OnInit {
       () => this.toastr.error('Delete was not successful')
     );
   }
-  activate(admin: UserFrontend){
-    this.genericService.put(this.relativeUrl + "/activation/" + admin.id, true).subscribe(
+  activate(admin: UserFrontend) {
+    this.genericService.put(this.relativeUrl + '/activation/' + admin.id, true).subscribe(
       (res: boolean) => {
         if (res) {
           this.adminDeleted.emit();
-          if (admin.userStatus === "ACTIVATED") {
+          if (admin.userStatus === 'ACTIVATED') {
             this.toastr.success('Successfully deactivated admin!');
-            admin.userStatus = "DEACTIVATED";
+            admin.userStatus = 'DEACTIVATED';
           }
-          else if (admin.userStatus === "DEACTIVATED") {
-            admin.userStatus = "ACTIVATED";
+          else if (admin.userStatus === 'DEACTIVATED') {
+            admin.userStatus = 'ACTIVATED';
             this.toastr.success('Successfully activated admin!');
           }
         }
         else {
-          this.toastr.error('De/Activation was not successful')
+          this.toastr.error('De/Activation was not successful');
           }
         },
         () => this.toastr.error('Delete was not successful')
@@ -61,3 +61,4 @@ export class ShowAdminsComponent implements OnInit {
   }
 
 }
+

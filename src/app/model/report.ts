@@ -5,5 +5,9 @@ export interface Report {
     yearly: number;
     profit: number;
     date: string;
-    lineZone?: string;
+    lineName?: string;
+    dailyProfit: number;
+    monthlyProfit: number;
+    yearlyProfit: number;
+    onetimeProfit: number;
 }

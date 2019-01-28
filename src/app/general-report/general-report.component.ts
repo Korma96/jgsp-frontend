@@ -7,6 +7,7 @@ import { DatePipe } from '@angular/common';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { ForwardingZonesService } from '../services/forwarding-zones/forwarding-zones.service';
 import { ZoneWithLines } from '../model/zone-with-lines';
+import {Chart} from 'chart.js';
 
 @Component({
   selector: 'app-general-report',
@@ -20,7 +21,8 @@ export class GeneralReportComponent implements OnInit {
   reports: Report[];
   relativeUrlDaily: string;
   relativeUrlGeneral: string;
-  zones: ZoneWithLines[];
+  chart: any;
+  chartData: number[];
 
   constructor(private reportService: ReportService, private toastr: ToastrService, 
               private ngbDateParserFormatter: NgbDateParserFormatter,
@@ -31,9 +33,6 @@ export class GeneralReportComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.forwardingZonesService.replaySubject.subscribe(
-      (receivedZones: ZoneWithLines[]) => this.zones = receivedZones
-    );
   }
 
   showReports() {
@@ -53,6 +52,15 @@ export class GeneralReportComponent implements OnInit {
               
               if (!this.exists(report)) {
                 this.reports.push(report);
+                /*
+                this.chartData.push(report.onetimeProfit);
+                this.chartData.push(report.dailyProfit);
+                this.chartData.push(report.monthlyProfit);
+                this.chartData.push(report.yearlyProfit);
+                */
+              }
+              else {
+                this.toastr.error('Report already exists!');
               }
               if (this.reports.length > 10) {
                 this.reports.splice(0, 1);
@@ -72,6 +80,9 @@ export class GeneralReportComponent implements OnInit {
 
               if (!this.exists(report)) {
                 this.reports.push(report);
+              }
+              else {
+                this.toastr.error('Report already exists!');
               }
               if (this.reports.length > 10) {
                 this.reports.splice(0, 1);
@@ -130,4 +141,30 @@ export class GeneralReportComponent implements OnInit {
    equals(report1: Report, report2: Report) {
       return report1.date === report2.date;
    }
+
+   removeReport(report: Report) {
+    const index = this.reports.indexOf(report); 
+    if (index !== -1) {
+      this.reports.splice(index, 1);
+    }
+   }
+
+   showChart(dataSet: number[]) {
+    this.chart = new Chart ('canvas', {
+    type: 'doughnut',
+    data: {
+      datasets: [{
+
+        data: this.chartData
+
+    }],
+      labels: [
+          'Red',
+          'Yellow',
+          'Blue',
+          'Pink'
+      ]
+    },
+  });
+}
 }

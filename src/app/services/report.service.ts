@@ -20,16 +20,16 @@ export class ReportService {
     params = params.set('requestedDate', selectedDate);
     return this.http.get<T>(this.baseUrl + relativeUrl, { params: params});
   }
-  getLineZoneReport<T>(relativeUrl: string, line_zone_name: string, startDate: string, endDate: string): Observable<T> {
+  getLineZoneReport<T>(relativeUrl: string, lineZoneName: string, startDate: string, endDate: string): Observable<T> {
     let params = new HttpParams();
-    params = params.set('line_zone_name', line_zone_name);
+    params = params.set('lineZoneName', lineZoneName);
     params = params.set('startDate', startDate);
     params = params.set('endDate', endDate);
     return this.http.get<T>(this.baseUrl + relativeUrl, { params: params});
   }
-  getDailyLineZoneReport<T>(relativeUrl: string, line_zone_name: string, selectedDate: string): Observable<T> {
+  getDailyLineZoneReport<T>(relativeUrl: string, lineZoneName: string, selectedDate: string): Observable<T> {
     let params = new HttpParams();
-    params = params.set('line_zone_name', line_zone_name);
+    params = params.set('lineZoneName', lineZoneName);
     params = params.set('requestedDate', selectedDate);
     return this.http.get<T>(this.baseUrl + relativeUrl, { params: params});
   }

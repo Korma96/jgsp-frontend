@@ -1,10 +1,5 @@
-<ng-template [ngIf]="!admins || admins.length===0"> 
-     <h4>&nbsp;&nbsp;There are currently no adminstrators.</h4>
-</ng-template>
-<ng-template [ngIf]="admins">
-  <div>
-      <h3>Admins</h3>
-  </div>
+<h4 *ngIf="!admins || admins.length===0"> &nbsp;&nbsp;There are currently no deactivated administrators.</h4>
+<div class="table-responsive" *ngIf="admins && admins.length > 0">
   <table class="table table-hover table-bordered">
     <tr class="table-primary">
         <th>#</th>
@@ -27,9 +22,9 @@
         {{admin.userStatus}}
       </td>
       <td>
-        <button type="button" class="btn btn-primary" aria-label="Delete" (click)="delete(admin.id)"> Delete</button>
+        <button type="button" class="btn btn-danger" aria-label="Delete" (click)="delete(admin.id)"> Delete</button>
         <button type="button" class="btn btn-primary"  (click)="activate(admin)">{{admin.userStatus == "ACTIVATED" ? "Deactivate" : "Activate" }}</button>
     </td>
     </tr>
   </table>
-</ng-template>
+</div>
