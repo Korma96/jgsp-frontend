@@ -152,7 +152,10 @@ export class ShowScheduleComponent implements OnInit, OnChanges {
       if (this.schedule.lines.length > 0) {
           const observable = this.getTimes();
           observable.subscribe(
-            res => el.scrollIntoView() // kad pristignu podaci skroluj na njih  
+            res => {
+              //el.scrollIntoView() // kad pristignu podaci skroluj na njih  
+              el.scrollIntoView(true); 
+            }
           );
       }
       else {

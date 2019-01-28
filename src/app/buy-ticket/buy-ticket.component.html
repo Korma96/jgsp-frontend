@@ -83,7 +83,7 @@
 
   <app-modal-dialog [transport]="transports[transport]" [zone]="selectedZone" 
     [hasZoneNotLine]="ticket.hasZoneNotLine" [line]="ticket.name" [ticketType]="ticket.ticketType"
-    [date]="ngbDateParserFormatter.format(date)" [month]="months[selectedMonth]" [price]="price"
+    [date]="getFormattedDate()" [month]="months[selectedMonth]" [price]="price"
     (confirmedPurchase)="buyTicket()">
   </app-modal-dialog>
 </form>
