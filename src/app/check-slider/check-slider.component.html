@@ -14,7 +14,7 @@
         </ng-template>
 
     <span>
-        <label class="switch">
+        <label id="line_{{line.name}}" class="switch">
             <input type="checkbox" [checked]="isChecked" (change)="changedState()">
             <span class="slider"></span>
         </label>
@@ -31,7 +31,7 @@
     </ng-template>
 
 <span>
-    <label class="switch">
+    <label id="line_{{line.name}}" class="switch">
         <input type="checkbox" [checked]="isChecked" disabled>
         <span class="slider"></span>
     </label>

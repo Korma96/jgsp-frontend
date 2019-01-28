@@ -47,7 +47,8 @@ export class BuyTicketComponent implements OnInit, OnChanges {
   constructor(private genericService: GenericService, private toastr: ToastrService,
               private priceService: PriceService,
               private calendar: NgbCalendar,
-              private ngbDateParserFormatter: NgbDateParserFormatter) {
+              private ngbDateParserFormatter: NgbDateParserFormatter
+              ) {
     this.transport = 0;
     this.selectedMonth = this.currentMonth + 1; // +1 posto indeksi za currentMonth krecu od nule
     this.ticket = { hasZoneNotLine: true, name: null, dayInMonthOrMonthInYear: -1, 
@@ -173,8 +174,6 @@ export class BuyTicketComponent implements OnInit, OnChanges {
     this.genericService.save(this.relativeUrlForBuyTicket, this.ticket).subscribe(
       (receivedTicket: Ticket) => {
         this.boughtTicketEvent.emit(receivedTicket);
-        
-        this.toastr.success('You have successfully bought a ticket!');
       },
       err => this.toastr.error('You have unsuccessfully bought a ticket!')
     );
@@ -193,6 +192,10 @@ export class BuyTicketComponent implements OnInit, OnChanges {
         this.toastr.error('The price has not been successfully delivered!');
       }
     );
+  }
+
+  getFormattedDate() {
+    return this.ngbDateParserFormatter.format(this.date);
   }
 
 }

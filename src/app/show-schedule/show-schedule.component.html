@@ -20,7 +20,9 @@
           <div class="form-group">
               <label for="id_zone_in_show_schedule">&nbsp;&nbsp;Zone</label>
               <select class="form-control" id="id_zone_in_show_schedule" [(ngModel)]="selectedZone" name="zone" (change)="selectedZoneChanged()">
-                  <option *ngFor="let zone of zones" [ngValue]="zone">{{zone.name}}</option>
+                  <ng-template ngFor let-zone [ngForOf]="zones">
+                    <option *ngIf="zone.transport == transports[transport]" [ngValue]="zone">{{zone.name}}</option>
+                </ng-template>
               </select>
           </div>
           

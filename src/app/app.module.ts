@@ -182,7 +182,7 @@ const appRoutes: Routes = [
       apiKey: 'AIzaSyCncyqJ42IAu6XewfdwvXyVmCOUyr30gWI'
     }),
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot(), // ToastrModule added
+    ToastrModule.forRoot({preventDuplicates: true}), // ToastrModule added
     NgbModule,
     NgxDatatableModule,
     ReactiveFormsModule
