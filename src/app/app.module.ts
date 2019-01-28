@@ -63,7 +63,6 @@ import { MenuPriceticketComponent } from './pages/menu-priceticket/menu-pricetic
 import { CanActivateUserGuard } from './services/guard/can-activate-user.guard';
 //import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 import { GeneralReportComponent } from './general-report/general-report.component';
-import { DailyGeneralReportComponent } from './daily-general-report/daily-general-report.component';
 import { ShowRequestsComponent } from './show-requests/show-requests.component';
 import { TransportAdminMapComponent } from './pages/transport-admin-page/transport-admin-map/transport-admin-map.component';
 import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
@@ -80,7 +79,7 @@ import { TimeComponent } from './pages/transport-admin-page/schedule-page/time/t
 import { AddTimeComponent } from './pages/transport-admin-page/schedule-page/add-time/add-time.component';
 import { ScheduleService} from './services/schedule/schedule.service';
 import { DataService } from './services/data.service';
-
+import { LineZoneReportComponent} from './line-zone-report/line-zone-report.component';
 
 const appRoutes: Routes = [
   { path: 'home-page', component: HomePageComponent },
@@ -152,7 +151,6 @@ const appRoutes: Routes = [
     EditDialogComponent,
     MenuPriceticketComponent,
     GeneralReportComponent,
-    DailyGeneralReportComponent,
     ShowRequestsComponent,
     TransportAdminMapComponent,
     ModalDialogComponent,
@@ -166,7 +164,8 @@ const appRoutes: Routes = [
     AddScheduleComponent,
     TimetableComponent,
     TimeComponent,
-    AddTimeComponent
+    AddTimeComponent,
+    LineZoneReportComponent
   ],
   imports: [
     BrowserModule,

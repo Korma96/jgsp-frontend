@@ -1,0 +1,105 @@
+<form class="form">
+    <div class="form-group">
+      <label for="id_date1">&nbsp;&nbsp;Start date</label>
+      <div class="input-group">
+        <input class="form-control" id = "id_date1" placeholder="yyyy-mm-dd"
+                name="dp" [(ngModel)]="date1" ngbDatepicker #d1="ngbDatepicker" (focus)="d1.open()">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button"></button>
+        </div>
+      </div>
+    </div>
+  
+    <div class="form-group">
+      <label for="id_date2">&nbsp;&nbsp;End date</label>
+      <div class="input-group">
+        <input class="form-control" id = "id_date2" placeholder="yyyy-mm-dd"
+                name="dp" [(ngModel)]="date2" ngbDatepicker #d2="ngbDatepicker" (focus)="d2.open()">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"></button>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+        <label for="id_transport_type_report">&nbsp;&nbsp;Transport type</label>
+        <select id="id_transport_type_report" class="form-control custom-select" [(ngModel)]="transport" name="transport" (change)="transportChanged()">
+            <option [ngValue]="0">{{transports[0]}}</option>
+            <option [ngValue]="1">{{transports[1]}}</option>
+            <option [ngValue]="2">{{transports[2]}}</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="id_zone_in_report">&nbsp;&nbsp;Zone</label>
+        <select class="form-control" id="id_zone_in_sreport" [(ngModel)]="selectedZone" name="zone" (change)="selectedZoneChanged()">
+            <option *ngFor="let zone of zones" [ngValue]="zone">{{zone.name}}</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label for="id_line_in_report">&nbsp;&nbsp;Line</label>
+        <select multiple class="form-control" id="id_line_in_report" [(ngModel)]="lineName" name="lineName">
+        <ng-template [ngIf]="selectedZone"> 
+            <option *ngFor="let line of selectedZone.distinctLines" [ngValue]="line">{{line}}</option>
+        </ng-template>
+    </select>
+    </div>
+    <button class="btn btn-primary pull-right" (click)="showReports()">show</button>
+</form>
+<div class="table-responsive" *ngIf="reports && reports.length > 0">
+    <table class="table table-hover table-bordered">
+        <tr class="table-primary">
+                <th>#</th>
+                <th>Onetime</th>
+                <th>Onetime profit</th>
+                <th>Daily</th>
+                <th>Daily profit</th>
+                <th>Monthly</th>
+                <th>Monthly profit</th>
+                <th>Yearly</th>
+                <th>Yearly profit</th>
+                <th>Profit</th>
+                <th>Date</th>
+                <th></th>
+            </tr>
+            <tr *ngFor="let report of reports; let i = index" class="table-info">
+                <td>
+                    {{i+1}}.
+                </td>
+                <td>
+                    {{report.onetime}}
+                </td>
+                <td>
+                    {{report.onetimeProfit}}
+                </td>
+                <td>
+                    {{report.daily}}
+                </td>
+                <td>
+                     {{report.dailyProfit}}
+                </td>
+                <td>
+                    {{report.monthly}}
+                </td>
+                <td>
+                     {{report.monthlyProfit}}
+                </td>
+                <td>
+                    {{report.yearly}}
+                </td>
+                <td>
+                    {{report.yearlyProfit}}
+                </td>
+                <td>
+                    {{report.profit}}
+                </td>
+                <td>
+                    {{report.date}}
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger" aria-label="Remove" (click)="removeReport(report)"> Remove</button>
+                </td>
+        </tr>
+    </table>
+</div>
+
