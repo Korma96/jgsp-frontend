@@ -21,6 +21,7 @@ export class AddScheduleComponent implements OnInit {
   chosenDate: string;
   lineWithTimes: LineAndTimes;
   schedule: any;
+  allLineDatesFrom: string[];
   constructor(private genericService: GenericService,
               private scheduleService: ScheduleService,
               private route: ActivatedRoute,
@@ -45,6 +46,9 @@ export class AddScheduleComponent implements OnInit {
         return;
       }
       this.lineWithTimes.lineName = this.completeLine.name;
+      this.genericService.getAll<string>(`/schedule/${this.completeLine.aLineId}/dates`).subscribe((dates) => {
+        this.allLineDatesFrom = dates;
+      }, error => { console.log(JSON.stringify(error)) });
     }, error => { console.log(JSON.stringify(error)) });
   }
 
@@ -57,10 +61,12 @@ export class AddScheduleComponent implements OnInit {
     switch (this.currentDay) {
       case DayType.WORKDAY:
         this.currentDay = DayType.SATURDAY;
+		this.lineWithTimes = this.getEmptyLineWithTimes(this.completeLine.name);
         break;
       case DayType.SATURDAY:
         this.nextButtonValue = "Finish";
         this.currentDay = DayType.SUNDAY;
+		this.lineWithTimes = this.getEmptyLineWithTimes(this.completeLine.name);
         break;
       case DayType.SUNDAY:
         this.scheduleService.saveSchedule({'lineId': this.completeLine.aLineId, 'dateFrom': this.chosenDate,
@@ -79,8 +85,6 @@ export class AddScheduleComponent implements OnInit {
         });
         break;
     }
-
-    this.lineWithTimes = this.getEmptyLineWithTimes(this.completeLine.name);
   }
 
   getEmptyLineWithTimes(lineName: string = '') : LineAndTimes{
@@ -90,6 +94,10 @@ export class AddScheduleComponent implements OnInit {
   canContinue(): boolean {
     if(this.chosenDate.trim() === ""){
       this.toastr.warning('Valid from can`t be empty!');
+      return false;
+    }
+    if(this.allLineDatesFrom.findIndex(x => x === this.chosenDate.trim()) !== -1){
+      this.toastr.warning('Schedule valid from date \nfor line already exists!');
       return false;
     }
     if(this.lineWithTimes.timesA.length === 0){

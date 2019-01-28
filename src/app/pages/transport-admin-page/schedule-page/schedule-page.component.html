@@ -1,5 +1,5 @@
 <div *ngIf="lines">
-  <table>
+  <table id="schedule_lines_table">
     <tr *ngFor="let linesInRow of completeLinesView">
       <td *ngFor="let line of linesInRow">
         <app-complete-line [completeLine]="line" [buttonSign]="'+'"
