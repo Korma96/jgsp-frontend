@@ -56,7 +56,7 @@ export class ShowAdminsComponent implements OnInit {
           this.toastr.error('De/Activation was not successful');
           }
         },
-        () => this.toastr.error('Delete was not successful')
+        () => this.toastr.error('De/Activation was not successful')
     );
   }
 
