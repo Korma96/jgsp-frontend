@@ -23,10 +23,15 @@ export class TimetableComponent implements OnInit {
   @Input()
   contactServer: boolean;
 
-  constructor(private genericService: GenericService,
-              private scheduleService: ScheduleService,
+  constructor(private scheduleService: ScheduleService,
               private helperMethods: HelperMethodsService,
-              private toastr: ToastrService) { }
+              private toastr: ToastrService) {
+    this.lineWithTimes = {'lineName': '', 'timesA': [], 'timesB': []};
+    this.completeLine = {'name': '', 'aLineId': NaN, 'bLineId': NaN};
+    this.selectedDate = '';
+    this.dayType = 0;
+    this.contactServer = false;
+  }
 
   ngOnInit() {
   }

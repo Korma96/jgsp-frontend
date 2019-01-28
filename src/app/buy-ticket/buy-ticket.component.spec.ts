@@ -99,3 +99,4 @@ describe('BuyTicketComponent', () => {
     //expect(oldNumOfTickets + 1).toBe(currentNumOfTickets);
   }));
 });
+

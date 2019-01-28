@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {ZoneService} from '../../../services/transport-admin-services/zone-service/zone.service';
 import {Zone} from '../../../model/zone';
 import {GenericService} from '../../../services/generic/generic.service';
 import {HelperMethodsService} from '../../../services/generic/helper-methods.service';
@@ -15,7 +14,7 @@ export class ZonePageComponent implements OnInit {
   zones: Zone[] = [];
   zonesView: Zone[][] = [];
 
-  constructor(private zoneService: ZoneService, private genericService: GenericService,
+  constructor(private genericService: GenericService,
               private helperMethodService: HelperMethodsService,
               private toastr: ToastrService) { }
 

@@ -61,7 +61,7 @@ export class AddAdminComponent implements OnInit {
           this.toastr.success('You have successfully added admin!');
         }
         else {
-          this.toastr.error('You have unsuccessfully added admin!');
+          this.toastr.error('Username already exists, try again!');
         }
       },
       () => this.toastr.error('You have unsuccessfully added admin!')
