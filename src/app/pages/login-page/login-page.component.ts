@@ -51,12 +51,10 @@ export class LoginPageComponent implements OnInit {
   }
 
   goToPageOfLoggedUser(currentUser: any) {
-      const role = currentUser.roles[0];
+      const roles: any[] = currentUser.roles;
+      const role = roles[0];
 
-      if (role === 'PASSENGER') {
-        this.router.navigate(['/passenger']);
-      }
-      else if (role === 'USER_ADMINISTRATOR') {
+      if (role === 'USER_ADMINISTRATOR') {
         this.router.navigate(['/user-admin']);
       }
       else if (role === 'CONTROLLOR') {
@@ -64,6 +62,14 @@ export class LoginPageComponent implements OnInit {
       }
       else if (role === 'TRANSPORT_ADMINISTRATOR') {
         this.router.navigate(['/transport']);
+      }
+      else if (roles.length === 2) {
+        if (roles[0] === 'PASSENGER' || roles[1] === 'PASSENGER') {
+          this.router.navigate(['/passenger']);
+        }
+        else {
+          this.toastr.error('Unknown user type!');
+        }
       }
       else {
         this.toastr.error('Unknown user type!');

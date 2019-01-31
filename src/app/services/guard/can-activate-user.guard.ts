@@ -23,14 +23,26 @@ export class CanActivateUserGuard implements CanActivate {
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     //alert('next: ' + next.url + ', state: ' + state.url);
-    if (this.authenticationService.isLoggedIn() && 
-        this.authenticationService.getCurrentUser().roles[0] === this.mapRelativeUrlToUserType[next.url.toString()]) {
-      return true;
+    if (this.authenticationService.isLoggedIn()) {
+      const roles: any[] = this.authenticationService.getCurrentUser().roles;
+
+      if (roles && (roles.length === 1 || roles.length === 2)) {
+        const userType = this.mapRelativeUrlToUserType[next.url.toString()];
+        if (roles.length === 1) {
+          if (roles[0] === userType) {
+            return true;
+          }
+        }
+        else if (roles.length === 2) {
+          if (roles[0] === userType || roles[1] === userType) {
+            return true;
+          }
+        }
+      }
     }
-    else {
-      this.router.navigate(['/login']);
-      this.toastr.info('Please log in.');
-      return false;
-    }
+
+    this.router.navigate(['/login']);
+    this.toastr.info('Please log in.');
+    return false;
   }
 }

@@ -2,7 +2,7 @@
 <form class="form" [formGroup]="form">
     <div class="row">
         <div class="col-xl-6 offset-xl-4"> 
-            <label id="id_current_passenger_type">&nbsp;&nbsp;Current passenger type:&nbsp;&nbsp;<b>{{authenticationService.getCurrentUser().roles.slice(-1)[0]}}</b>&nbsp;&nbsp;</label>
+            <label id="id_current_passenger_type">&nbsp;&nbsp;Current passenger type:&nbsp;&nbsp;<b>{{getCurrentPassengerType()}}</b>&nbsp;&nbsp;</label>
         </div>
     </div>
 

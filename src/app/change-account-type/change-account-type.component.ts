@@ -21,7 +21,7 @@ export class ChangeAccountTypeComponent implements OnInit {
   
 
   constructor(private changeAccountTypeService: ChangeAccountTypeService, private toastr: ToastrService,
-              private fb: FormBuilder, public authenticationService: AuthenticationService) { 
+              private fb: FormBuilder, private authenticationService: AuthenticationService) { 
     this.newPassengerType = this.passengerTypes[0];
     this.fileName = 'Choose file';
   }
@@ -87,4 +87,24 @@ export class ChangeAccountTypeComponent implements OnInit {
       err => this.toastr.error('Request to change the account type was unsuccessfully sent!')
     );
   }
+
+  getCurrentPassengerType() {
+    const roles: any[] = this.authenticationService.getCurrentUser().roles;
+    if (roles.length === 2) {
+        if (roles[0] !== 'PASSENGER') {
+          return roles[0];
+        }
+        else if (roles[1] !== 'PASSENGER') {
+          return roles[1];
+        }
+        else {
+          this.toastr.error('Unknown passenger type!');
+          return 'UNKNOWN';
+        }
+    }
+    else {
+      this.toastr.error('This user does not have the correct number of roles!');
+    }
+  }
+
 }
